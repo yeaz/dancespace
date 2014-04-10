@@ -1,4 +1,4 @@
-Studio::Application.routes.draw do
+DanceSpace::Application.routes.draw do
   
   root 'home#index'
   

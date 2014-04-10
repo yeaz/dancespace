@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Studio::Application.load_tasks
+DanceSpace::Application.load_tasks
