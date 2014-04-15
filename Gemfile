@@ -3,8 +3,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
-# Use mysql as the database for Active Record
-gem 'mysql2'
+group :development do
+  gem 'mysql2'
+end
+
+group :production do
+  gem 'pg'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -41,8 +46,9 @@ gem 'devise'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+#gem 'capistrano'
+#gem 'capistrano-ext'
+
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
