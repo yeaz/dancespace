@@ -41,8 +41,9 @@ gem 'devise'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+#gem 'capistrano'
+#gem 'capistrano-ext'
+
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
