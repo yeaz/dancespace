@@ -46,3 +46,8 @@ gem 'devise'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Use twitter bootstrap 
+gem 'therubyracer'
+gem 'less-rails-bootstrap'
+gem 'twitter-bootstrap-rails'

@@ -7,8 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<!-- Nav Bar! -->
+<div id="header">
+<h1>DanceSpace</h1>
+<nav>
+<ul class="fancyNav">
+<li id="home"><a href="#home" class="homeIcon">Home</a></li>
+<li id="news"><a href="#news">News</a></li>
+<li id="about"><a href="#about">About us</a></li>
+<li id="services"><a href="#services">Services</a></li>
+<li id="contact"><a href="#contact">Contact us</a></li>
+</ul>
+</nav>
+</div>
 
+<div id="content">
 <%= yield %>
+</div>
+
+<div id="sidebar"></div>
+<p>Hey this is the sidebar content</p>
+<!-- TODO: insert sidebar stuff here -->
+</div>
+
 
 </body>
 </html>
