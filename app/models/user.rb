@@ -6,6 +6,6 @@ class User < ActiveRecord::Base
   validates :username, :email, :password, :password_confirmation, :first_name, :last_name, :presence => true
   validates :username, :email, :uniqueness => true
   validates :password, :confirmation => true
-
+  validates_length_of :password, :within => Devise.password_length
   
 end
