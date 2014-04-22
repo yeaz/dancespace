@@ -7,9 +7,9 @@ group :development do
   gem 'mysql2'
 end
 
-group :production do
-  gem 'pg'
-end
+#group :production do
+#  gem 'pg'
+#end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -57,3 +57,6 @@ gem 'devise'
 gem 'therubyracer'
 gem 'less-rails-bootstrap'
 gem 'twitter-bootstrap-rails'
+
+# bootstrap forms
+gem 'bootstrap_form'
