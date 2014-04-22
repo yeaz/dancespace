@@ -9,6 +9,8 @@ DanceSpace::Application.routes.draw do
     delete 'logout', to: 'devise/sessions#destroy'
     get 'signup', to: 'devise/registrations#new'
   end
+  
+  resources :videos
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

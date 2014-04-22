@@ -1,5 +1,21 @@
 <% if user_signed_in? %>
   <%= link_to 'Logout', logout_path, method: 'delete' %>
+  <% for video in @videos %>
+    <div>
+      <div>
+        <%= video.title %>
+      </div>
+      <div>
+        <%= video.description %>
+      </div>
+      <div>
+        <%= video.youtube_id %>
+      </div>
+      <% if video.owned_by?(current_user) %>
+        <%= button_to 'Delete Video', video_path(video), method: :delete %>
+      <% end %>
+    </div>
+  <% end %>
 <% else %>
   <%= link_to 'Login', login_path %>
   <%= link_to 'Signup', signup_path %>
