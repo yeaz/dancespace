@@ -17,7 +17,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button> -->
-	      <a class="navbar-brand" href="<%= root_path %>" style="color:white">DanceSpace AYYYYYY</a>
+	      <a class="navbar-brand" href="<%= root_path %>" style="color:white">DanceSpace</a>
 	    </div>
 	    <div class="navbar-collapse collapse">
 	 	  <form class="navbar-form navbar-right">
@@ -28,7 +28,7 @@
 	</div>
 
 <!-- Side bar! -->
-<div class="container-fluid" style="padding-top:100px;">
+<div class="container-fluid" style="padding-top:75px; padding-left:40px;">
   <div class="row">
     <div id="sidebar" class="col-md-3">
 	<h1>Browse</h1> <!-- TODO make this a dynamic link based on page. -->
@@ -40,12 +40,12 @@
 	<% else %>
 	  <h2>Want to get down?</h2>
 	  <p>Create a profile and add your preferences.</p>
+	  <a type="a" class="btn btn-default" href="<%= signup_path %>">Sign up</a>
 	  <a type="button" class="btn btn-default" href="<%= login_path %>">Login</a>
-	  <a type="a" class="btn btn-default" href="<%= signup_path %>">Signup</a>
 	<% end %>
 	</div>
 <!-- Page Content -->
-<div id="content" class="col-md-9">
+<div id="content" class="col-md-8">
     <div class="starter-template">
     <%= yield %>
   	</div>

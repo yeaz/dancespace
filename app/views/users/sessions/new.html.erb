@@ -1,17 +1,24 @@
-<h2>Sign in BASIC FORM</h2>
+<h1>Welcome back!</h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <!-- <div><%= f.label :email %><br /> -->
-  <%= f.email_field :email, autofocus: true, :placeholder => "Email address" %></div>
+<%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<!-- TODO: ERROR CHECKING TO BE ADDED -->
+  <!--   <%= devise_error_messages! %> 
+   <%= f.alert_message "Please fix the errors below." %>
+-->
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+  <%= f.email_field :email, autofocus: true, hide_label: true, :placeholder => "Email address" %></div>
+
+  <div>
+    <%= f.password_field :password, autocomplete: "off", hide_label: true, :placeholder => "Password" %></div>
 
   <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <div><%= f.check_box :remember_me %> </div>
   <% end -%>
 
-  <div><%= f.submit "Sign in" %></div>
+  <div>
+  	<%= f.submit "Login", class: "btn btn-lg btn-primary btn-block" %>
+  </div>
+
 <% end %>
 
-<%= render "users/shared/links" %>
+<!-- TODO: remove (old links) <%= render "users/shared/links" %> -->
