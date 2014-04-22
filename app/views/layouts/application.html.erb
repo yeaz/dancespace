@@ -7,8 +7,49 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<!-- Nav Bar! -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background:#732C7C"> <!-- #9b59b6 -->
+	  <div class="container">
+	    <div class="navbar-header">
+	    	<!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> -->
+	      <a class="navbar-brand" href="#" style="color:white">DanceSpace</a>
+	    </div>
+	    <div class="navbar-collapse collapse">
+	 	  <form class="navbar-form navbar-right">
+      	  <input type="text" class="form-control" placeholder="Search...">
+      	  </form>
+        </div>
+	  </div>
+	</div>
 
-<%= yield %>
-
+<!-- Side bar! -->
+<div class="container-fluid" style="padding-top:100px;">
+  <div class="row">
+    <div id="sidebar" class="col-md-3">
+	<h1>Browse</h1> <!-- TODO make this a dynamic link based on page. -->
+	<p class="lead">Discover new music</p>
+	<% if user_signed_in? %>
+	  <h2>User</h2>
+	  <p>You're signed in as <strong><%=current_user.email %></strong><br>Very clutch.</p>
+	  <button type="button" class="btn btn-default"><%= link_to 'Logout', logout_path, method: 'delete' %></button>
+	<% else %>
+	  <h2>Want to get down?</h2>
+	  <p>Create a profile and add your preferences.</p>
+	  <button type="button" class="btn btn-default"><%= link_to 'Login', login_path %></button>
+	  <button type="button" class="btn btn-default"><%= link_to 'Signup', signup_path %></button>
+	<% end %>
+	</div>
+<!-- Page Content -->
+<div id="content" class="col-md-9">
+    <div class="starter-template">
+    <%= yield %>
+  	</div>
+	</div>
+</div>
 </body>
 </html>
