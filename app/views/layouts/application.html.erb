@@ -37,6 +37,7 @@
 	  <h2>User</h2>
 	  <p>You're signed in as <strong><%=current_user.email %></strong><br>Very clutch.</p>
 	  <a type="button" class="btn btn-default" href="<%= logout_path %>">Logout</a>
+	  <a type="button" class="btn btn-warning" href="<%= new_video_path %>">Share a video</a>
 	<% else %>
 	  <h2>Want to get down?</h2>
 	  <p>Create a profile and add your preferences.</p>
