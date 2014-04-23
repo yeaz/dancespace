@@ -7,9 +7,10 @@ group :development do
   gem 'mysql2'
 end
 
-#group :production do
-#  gem 'pg'
-#end
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -54,7 +55,7 @@ gem 'devise'
 # gem 'debugger', group: [:development, :test]
 
 # Use twitter bootstrap 
-gem 'therubyracer'
+gem 'therubyracer', '~> 0.12.0'
 gem 'less-rails-bootstrap'
 gem 'twitter-bootstrap-rails'
 
