@@ -26,31 +26,11 @@
         </div>
 	  </div>
 	</div>
-
-<!-- Side bar! -->
-<div class="container-fluid" style="padding-top:75px; padding-left:40px;">
-  <div class="row">
-    <div id="sidebar" class="col-md-3">
-	<h1>Browse</h1> <!-- TODO make this a dynamic link based on page. -->
-	<p class="lead">Discover new music</p>
-	<% if user_signed_in? %>
-	  <h2>User</h2>
-	  <p>You're signed in as <strong><%=current_user.email %></strong><br>Very clutch.</p>
-	  <a type="button" class="btn btn-default" href="<%= logout_path %>">Logout</a>
-	  <a type="button" class="btn btn-warning" href="<%= new_video_path %>">Share a video</a>
-	<% else %>
-	  <h2>Want to get down?</h2>
-	  <p>Create a profile and add your preferences.</p>
-	  <a type="a" class="btn btn-default" href="<%= signup_path %>">Sign up</a>
-	  <a type="button" class="btn btn-default" href="<%= login_path %>">Login</a>
-	<% end %>
-	</div>
-<!-- Page Content -->
-<div id="content" class="col-md-8">
-    <div class="starter-template">
-    <%= yield %>
-  	</div>
-	</div>
+<div id="pagecontent" style="padding-top:75px; padding-left:40px; padding-right: 40px; padding-bottom:40px">
+	<%= yield %>
+</div>
+<div class="footer">
+	INSERT FOOTER
 </div>
 </body>
 </html>

@@ -1,11 +1,8 @@
 <h1>Welcome back!</h1>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-<!-- TODO: ERROR CHECKING TO BE ADDED -->
-  <!--   <%= devise_error_messages! %> 
-   <%= f.alert_message "Please fix the errors below." %>
--->
 
+  <div>
   <%= f.email_field :email, autofocus: true, hide_label: true, :placeholder => "Email address" %></div>
 
   <div>
@@ -20,5 +17,3 @@
   </div>
 
 <% end %>
-
-<!-- TODO: remove (old links) <%= render "users/shared/links" %> -->

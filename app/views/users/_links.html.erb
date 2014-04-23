@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+   <a type="button" class="btn btn-warning" href="<%= new_video_path %>">Share a video</a>
+  <h2>User</h2>
+  <p>You're signed in as <strong><%=current_user.email %></strong><br>Very clutch.</p>
+  <a type="button" class="btn btn-default" href="<%= logout_path %>">Logout</a>
+<% else %>
+  <h2>Want to get down?</h2>
+  <p>Create a profile and add your preferences.</p>
+  <a type="a" class="btn btn-default" href="<%= signup_path %>">Sign up</a>
+  <a type="button" class="btn btn-default" href="<%= login_path %>">Login</a>
+<% end %>
