@@ -1,4 +1,6 @@
-<%= form_for @video do |f| %>
+<div style="max-width: 330px; padding: 15px; margin: 0 auto">
+<h1>Video Edit</h1>
+<%= bootstrap_form_for @video do |f| %>
   <div>
     <%= f.text_field :title, placeholder: 'Title' %>
   </div>
@@ -12,3 +14,4 @@
     <%= f.submit 'Update Video' %>
   </div>
 <% end %>
+</div>
