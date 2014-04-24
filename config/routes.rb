@@ -2,6 +2,8 @@ DanceSpace::Application.routes.draw do
   
   root 'home#index'
   
+  get '/about' => 'home#about'
+
   devise_for :users,
   :controllers => {
     :registrations => 'users/registrations'
