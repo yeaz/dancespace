@@ -8,29 +8,31 @@
 </head>
 <body>
 <!-- Nav Bar! -->
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background:#732C7C"> <!-- #9b59b6 -->
-	  <div class="container">
-	    <div class="navbar-header">
-	    	<!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button> -->
-	      <a class="navbar-brand" href="<%= root_path %>" style="color:white">DanceSpace</a>
-	    </div>
-	    <div class="navbar-collapse collapse">
-	 	  <form class="navbar-form navbar-right">
-      	  <input type="text" class="form-control" placeholder="Search...">
-      	  </form>
-        </div>
-	  </div>
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="background:#732C7C"> 
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="<%= root_path %>" style="color:white;">DanceSpace</a>
+		</div>
+		<form class="navbar-form navbar-right" role="search">
+		  <div class="form-group">
+		    <input type="text" class="form-control" placeholder="Search">
+		  </div>
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>
+
 	</div>
-<div id="pagecontent" style="padding-top:75px; padding-left:40px; padding-right: 40px; padding-bottom:40px">
-	<%= yield %>
-</div>
-<div class="footer">
-	INSERT FOOTER
+</nav>
+
+	<div id="pagecontent" class="container">
+		<%= yield %>
+	</div>
+
+<div class="footer center">
+	<p>
+    We are DanceSpace!<br/>
+	<%= link_to 'About', about_path, class: "spec" %><br/>
+	<%= link_to 'Home', root_path, class: "spec" %><br />
+	<small> created 2014 </small>
 </div>
 </body>
 </html>

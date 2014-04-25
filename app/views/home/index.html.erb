@@ -2,16 +2,25 @@
 <div class="container-fluid">
   <div class="row">
     <div id="sidebar" class="col-md-3">
-	<h1>Browse</h1> <!-- TODO make this a dynamic link based on page. -->
+	<h1>Home</h1> <!-- TODO make this a dynamic link based on page. -->
+	<h2>Browse</h2>
 	<p class="lead">Discover new music</p>
-	<%= render "users/links" %>
+	<% if user_signed_in? %>
+		<p><a type="button" class="btn btn-sm btn-warning disabled" href="<%= root_path %>">Enter your preferences! <small>(coming soon)</small></a></p>
+		<h2>Share</h2>
+		<p class="lead">Show us your moves
+	    <p><a type="button" class="btn btn-warning" href="<%= new_video_path %>">Share a Video</a></p>
+    <% end %>
+
+	<%= render "users/shared/userinfo" %>
 	</div>
 
 <!-- Page Content -->
 <div id="content" class="col-md-8">
     <div class="starter-template">
-	<p style="font-size: 125px; color: #bbb; font-family: 'courier'">[][][]<br>[][][]<br>[][][]</p>
+	<p style="font-size: 125px; color: #bbb; font-family: 'courier'">[] [] []<br>[] [] []<br>[] [] []</p>
   	</div>
 	</div>
+</div>
 </div>
 
