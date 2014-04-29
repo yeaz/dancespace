@@ -12,6 +12,11 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -33,13 +38,11 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
 # Use Thin as the app webserver
 gem 'thin'
+
+# Use CanCan for user role distinction and authorization Read more: https://github.com/ryanb/cancan
+gem 'cancan'
 
 # Use devise as the authentication framework
 gem 'devise'
