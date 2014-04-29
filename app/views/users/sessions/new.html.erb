@@ -1,7 +1,10 @@
 <h2>Sign in BASIC FORM</h2>
-
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <!-- <div><%= f.label :email %><br /> -->
+  <% if flash[:alert].present? %>
+   <%= content_tag :section, flash[:alert], :id => "flash_alert", :class => "flash" %>
+  <% end %>
+
+  <div><%= f.label :email %><br />
   <%= f.email_field :email, autofocus: true, :placeholder => "Email address" %></div>
 
   <div><%= f.label :password %><br />

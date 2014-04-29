@@ -1,3 +1,15 @@
+<div> All vids </div>
+  <% videos = Video.all %>
+     <% videos.each do |video| %>
+      <div>Video name: <%= video.title %></div>
+       Tags:
+       <% video.tag_list.each do |tag| %>
+          <div><%= tag %></div>
+       <% end %>
+    <% end %>
+
+
+
 <%= form_for @video do |f| %>
   <div>
     <%= f.text_field :title, placeholder: 'Title' %>
@@ -7,6 +19,9 @@
   </div>
   <div>
     <%= f.text_area :description, placeholder: 'Add a description' %>
+  </div>
+  <div>
+   <%= f.text_area :tag_list, placeholder: 'Comma separated tags'%>
   </div>
   <div>
     <%= f.submit 'Share Video' %>
