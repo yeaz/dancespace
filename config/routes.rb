@@ -15,9 +15,9 @@ DanceSpace::Application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
   
-  resources :videos
-  
   resources :users
+  resources :videos
+  resources :studios
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

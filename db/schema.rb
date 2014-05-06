@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140428032154) do
+=======
+ActiveRecord::Schema.define(version: 20140506025518) do
+>>>>>>> master
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -20,11 +24,41 @@ ActiveRecord::Schema.define(version: 20140428032154) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "memberships", force: true do |t|
+    t.integer  "member_id"
+    t.integer  "studio_id"
+    t.boolean  "is_admin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+>>>>>>> master
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+<<<<<<< HEAD
+=======
+
+  create_table "studios", force: true do |t|
+    t.string   "name",            null: false
+    t.text     "description",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "fb_url"
+    t.string   "twtr_url"
+    t.string   "yt_url"
+    t.string   "ig_url"
+    t.string   "website_url"
+    t.string   "email"
+    t.string   "phone_area_code"
+    t.string   "phone_1"
+    t.string   "phone_2"
+  end
+>>>>>>> master
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -39,9 +73,17 @@ ActiveRecord::Schema.define(version: 20140428032154) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "username"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.string   "fb_url"
+    t.string   "twtr_url"
+    t.string   "yt_url"
+    t.string   "ig_url"
+    t.string   "website_url"
+    t.string   "phone_area_code"
+    t.string   "phone_1"
+    t.string   "phone_2"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

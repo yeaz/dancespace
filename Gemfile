@@ -7,9 +7,29 @@ group :development do
   gem 'mysql2'
 end
 
-#group :production do
-#  gem 'pg'
-#end
+#See more at: http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html#sthash.FNQMfuOF.dpuf
+group :test do 
+  # Generates names, email addresses, and other placeholders for factories.
+  gem 'faker' 
+  # Makes it easy to programatically simulate your users’ interactions with your application.
+  gem 'capybara' 
+  # Watches your application and tests and runs specs for you automatically when it detects changes.
+  gem 'guard-rspec' 
+  # opens your default web browser upon failed integration specs to show you what your application is rendering.
+  gem 'launchy' 
+end 
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
+group :development, :test do
+  # Includes RSpec itself in a wrapper to make it play nicely with Rails 3.
+  gem 'rspec-rails' 
+  # Replaces Rails’ default fixtures for feeding test data to the test suite with much more preferable factories.
+  gem 'factory_girl_rails'
+end 
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -57,7 +77,7 @@ gem 'devise'
 # gem 'debugger', group: [:development, :test]
 
 # Use twitter bootstrap 
-gem 'therubyracer'
+gem 'therubyracer', '~> 0.12.0'
 gem 'less-rails-bootstrap'
 gem 'twitter-bootstrap-rails'
 
