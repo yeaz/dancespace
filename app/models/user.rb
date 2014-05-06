@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
-  validates :username, :email, :password, :password_confirmation, :first_name, :last_name, :presence => true
-  validates :username, :email, :uniqueness => true
-  validates :password, :confirmation => true
-  validates_length_of :password, :within => Devise.password_length
+  validates :username, :email, :password, :password_confirmation, :first_name, :last_name, :presence => true, on: :create
+  validates :username, :email, :uniqueness => true, on: :create
+  validates :password, :confirmation => true, on: :create
+  validates_length_of :password, :within => Devise.password_length, on: :create
   
 end
