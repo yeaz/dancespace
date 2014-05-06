@@ -1,14 +1,18 @@
-<%= form_for @video do |f| %>
+<%= render "home/navbar" %>
+<div class="container spec submitter">
+<h1>Video Share</h1>
+<%= bootstrap_form_for @video do |f| %>
   <div>
     <%= f.text_field :title, placeholder: 'Title' %>
   </div>
   <div>
-    <%= f.text_field :youtube_id, placeholder: 'Youtube ID' %>
+    <%= f.text_field :youtube_id, placeholder: 'YouTube ID', help: "(Insert help text for description of the ID)" %>
   </div>
   <div>
     <%= f.text_area :description, placeholder: 'Add a description' %>
   </div>
   <div>
-    <%= f.submit 'Share Video' %>
+    <%= f.submit 'Share Video', class: "btn btn-lg btn-warning btn-block" %>
   </div>
 <% end %>
+</div>

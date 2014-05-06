@@ -1,2 +1,45 @@
-<%= render "home/grid" %>
+<% if user_signed_in? %>
+	<%= render "home/navbar" %>
+	<div class="container spec">
+		<div class="row">
+			<!-- Side bar with actions -->
+	        <div class="col-md-3">
+	        <h2>Events Feed</h2>
+	            <p class="lead">Check out upcoming events.</p>
+		   	 	<p><a type="button" class="btn btn-warning btn-lg" href="#">See Events</a></p>
+	        <h2>Studio Finder</h2>
+	            <p class="lead">Find a studio in your area.</p>
+		   	 	<p><a type="button" class="btn btn-default btn-lg" href="#">Find a Studio</a></p>
+	        <h2>GetIt Button</h2>
+	            <p class="lead">Get relevant artists right away.</p>
+	         	<p><a type="button" class="btn btn-lg btn-warning" href="#">Roll the Dice</a></p>
 
+	        </div>
+			<!-- Page Content TODO: javascript it up-->
+	    	<div class="col-md-9" style="background:#eee">
+	    		<h2>Events Feed</h2>
+	    		<p><span class="lead">Find local happenings to join!</span></p>
+	    		<ul>
+	    			<li>Event 1. Actually meggings lo-fi normcore, biodiesel bitters ennui fingerstache Helvetica locavore farm-to-table Godard dreamcatcher sustainable.</li>
+	    			<li>Event 2. Slow-carb kitsch DIY, raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.</li>
+	    			<li>... Slow-carb kitsch DIY, raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.raw denim skateboard locavore tousled craft beer Shoreditch sriracha banjo. Forage vinyl cray, PBR&amp;B PBR biodiesel authentic lo-fi VHS asymmetrical.</li>
+	    			<li>...</li>
+	    			<li>...</li>
+	    			<li>...</li>
+	    			<li>...</li>
+	    		</ul>
+	    	</div>
+		</div>
+	</div>
+<% else %>
+	<div class="ds-docs-header" id="content">
+  	<div class="container headercopy">
+    <h1>DanceSpace</h1>
+    <p>An online community for dancers.</p>
+    <p style="margin-top:10px;">
+    <a type="button" class="btn btn-warning btn-lg" href="<%= signup_path %>">Sign up</a>
+    <a type="button" class="btn btn-default btn-lg" href="<%= login_path %>">Login</a>
+    </p>
+	</div>
+	</div>
+<% end %>

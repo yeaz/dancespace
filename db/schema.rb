@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20140428032154) do
+=======
 ActiveRecord::Schema.define(version: 20140506025518) do
+>>>>>>> master
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -20,6 +24,8 @@ ActiveRecord::Schema.define(version: 20140506025518) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
+=======
   create_table "memberships", force: true do |t|
     t.integer  "member_id"
     t.integer  "studio_id"
@@ -28,11 +34,14 @@ ActiveRecord::Schema.define(version: 20140506025518) do
     t.datetime "updated_at"
   end
 
+>>>>>>> master
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+<<<<<<< HEAD
+=======
 
   create_table "studios", force: true do |t|
     t.string   "name",            null: false
@@ -49,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140506025518) do
     t.string   "phone_1"
     t.string   "phone_2"
   end
+>>>>>>> master
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -86,6 +96,7 @@ ActiveRecord::Schema.define(version: 20140506025518) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "youtube_url"
   end
 
 end
