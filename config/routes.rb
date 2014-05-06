@@ -12,7 +12,6 @@ DanceSpace::Application.routes.draw do
     get 'logout', to: 'devise/sessions#destroy'
     get 'signup', to: 'devise/registrations#new'
     get 'user_settings', to: 'users#edit_profile'
-    post 'edit_user_profile', to: 'users#save_user_data'
   end
   
   resources :videos
