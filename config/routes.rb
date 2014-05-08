@@ -2,6 +2,8 @@ DanceSpace::Application.routes.draw do
   
   root 'home#index'
   
+  get '/about' => 'home#about'
+
   devise_for :users,
   :controllers => {
     :registrations => 'users/registrations'
@@ -14,9 +16,9 @@ DanceSpace::Application.routes.draw do
     get 'user_settings', to: 'users#edit_profile'
   end
   
-  resources :videos
-  
   resources :users
+  resources :videos
+  resources :studios
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

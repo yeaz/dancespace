@@ -1,21 +1,12 @@
-<div> All vids </div>
-  <% videos = Video.all %>
-     <% videos.each do |video| %>
-      <div>Video name: <%= video.title %></div>
-       Tags:
-       <% video.tag_list.each do |tag| %>
-          <div><%= tag %></div>
-       <% end %>
-    <% end %>
-
-
-
-<%= form_for @video do |f| %>
+<%= render "home/navbar" %>
+<div class="container spec submitter">
+<h1>Video Share</h1>
+<%= bootstrap_form_for @video do |f| %>
   <div>
     <%= f.text_field :title, placeholder: 'Title' %>
   </div>
   <div>
-    <%= f.text_field :youtube_id, placeholder: 'Youtube ID' %>
+    <%= f.text_field :youtube_id, placeholder: 'YouTube ID', help: "(Insert help text for description of the ID)" %>
   </div>
   <div>
     <%= f.text_area :description, placeholder: 'Add a description' %>
@@ -24,6 +15,7 @@
    <%= f.text_area :tag_list, placeholder: 'Comma separated tags'%>
   </div>
   <div>
-    <%= f.submit 'Share Video' %>
+    <%= f.submit 'Share Video', class: "btn btn-lg btn-warning btn-block" %>
   </div>
 <% end %>
+</div>

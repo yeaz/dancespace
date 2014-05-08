@@ -1,0 +1,34 @@
+<%= form_for @studio do |f| %>
+<div>
+  <%= f.text_field :name, placeholder: 'Name' %>
+</div>
+<div>
+  <%= f.text_area :description, placeholder: 'Briefly introduce your studio' %>
+</div>
+<div>
+  <%= f.text_field :fb_url, placeholder: 'Facebook URL' %>
+</div>
+<div>
+  <%= f.text_field :twtr_url, placeholder: 'Twitter URL' %>
+</div>
+<div>
+  <%= f.text_field :yt_url, placeholder: 'Youtube URL' %>
+</div>
+<div>
+  <%= f.text_field :ig_url, placeholder: 'Instagram URL' %>
+</div>
+<div>
+  <%= f.text_field :website_url, placeholder: 'Website URL' %>
+</div>
+<div>
+  <%= f.email_field :email, placeholder: 'Email' %>
+</div>
+<div>
+  <%= f.text_field :phone_area_code %> -
+  <%= f.text_field :phone_1 %> -
+  <%= f.text_field :phone_2 %>
+</div>
+<div>
+  <%= f.submit 'Create Studio' %>
+</div>
+<% end %>

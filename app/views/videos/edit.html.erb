@@ -1,9 +1,12 @@
-<%= form_for @video do |f| %>
+<%= render "home/navbar" %>
+<div class="container spec submitter">
+<h1>Video Edit</h1>
+<%= bootstrap_form_for @video do |f| %>
   <div>
     <%= f.text_field :title, placeholder: 'Title' %>
   </div>
   <div>
-    <%= f.text_field :youtube_id, placeholder: 'Youtube ID' %>
+    <%= f.text_field :youtube_url, placeholder: 'Youtube URL'
   </div>
   <div>
     <%= f.text_area :description, placeholder: 'Add a description' %>
@@ -12,3 +15,4 @@
     <%= f.submit 'Update Video' %>
   </div>
 <% end %>
+</div>

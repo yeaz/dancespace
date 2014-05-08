@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -7,12 +8,35 @@ group :development do
   gem 'mysql2'
 end
 
+#See more at: http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html#sthash.FNQMfuOF.dpuf
+group :test do 
+  # Generates names, email addresses, and other placeholders for factories.
+  gem 'faker' 
+  # Makes it easy to programatically simulate your users’ interactions with your application.
+  gem 'capybara' 
+  # Watches your application and tests and runs specs for you automatically when it detects changes.
+  gem 'guard-rspec' 
+  # opens your default web browser upon failed integration specs to show you what your application is rendering.
+  gem 'launchy' 
+end 
+
 group :production do
-  gem 'pg'
+#  gem 'pg'
   gem 'rails_12factor'
 end
 
 gem 'acts-as-taggable-on'
+group :development, :test do
+  # Includes RSpec itself in a wrapper to make it play nicely with Rails 3.
+  gem 'rspec-rails' 
+  # Replaces Rails’ default fixtures for feeding test data to the test suite with much more preferable factories.
+  gem 'factory_girl_rails'
+end 
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -35,13 +59,11 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
 # Use Thin as the app webserver
 gem 'thin'
+
+# Use CanCan for user role distinction and authorization Read more: https://github.com/ryanb/cancan
+gem 'cancan'
 
 # Use devise as the authentication framework
 gem 'devise'

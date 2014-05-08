@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505205114) do
+ActiveRecord::Schema.define(version: 20140506025518) do
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -31,6 +31,42 @@ ActiveRecord::Schema.define(version: 20140505205114) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  create_table "assignments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "memberships", force: true do |t|
+    t.integer  "member_id"
+    t.integer  "studio_id"
+    t.boolean  "is_admin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "studios", force: true do |t|
+    t.string   "name",            null: false
+    t.text     "description",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "fb_url"
+    t.string   "twtr_url"
+    t.string   "yt_url"
+    t.string   "ig_url"
+    t.string   "website_url"
+    t.string   "email"
+    t.string   "phone_area_code"
+    t.string   "phone_1"
+    t.string   "phone_2"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -48,6 +84,14 @@ ActiveRecord::Schema.define(version: 20140505205114) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "username"
+    t.string   "fb_url"
+    t.string   "twtr_url"
+    t.string   "yt_url"
+    t.string   "ig_url"
+    t.string   "website_url"
+    t.string   "phone_area_code"
+    t.string   "phone_1"
+    t.string   "phone_2"
     t.string   "blurb"
     t.string   "city"
     t.string   "state"
@@ -64,6 +108,7 @@ ActiveRecord::Schema.define(version: 20140505205114) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "youtube_url"
   end
 
 end
