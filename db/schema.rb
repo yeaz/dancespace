@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508020229) do
+ActiveRecord::Schema.define(version: 20140512214752) do
+
+  create_table "experience_links", force: true do |t|
+    t.integer  "collab_id"
+    t.string   "collab_type"
+    t.integer  "experience_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "experiences", force: true do |t|
     t.string   "content",    default: "", null: false

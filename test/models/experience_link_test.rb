@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExperiencesControllerTest < ActionController::TestCase
+class ExperienceLinkTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

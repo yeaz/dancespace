@@ -16,3 +16,8 @@ edit your profile:
   <%= user_form.submit 'Edit profile' %>
 <% end %>
 
+<div>
+  <% @user.experiences.each do |exp| %>
+    <div>content: <%= exp.content %></div>
+  <% end %>
+</div>

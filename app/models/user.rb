@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   acts_as_taggable_on :styles
   has_many :experiences
   accepts_nested_attributes_for :experiences
+  has_many :experience_links, as: :collab
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable
