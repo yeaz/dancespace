@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def new
+    @user = User.new
+    @user.experiences.build
+  end
   
   def create
     @user = User.create(user_params)
@@ -12,6 +16,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    @user.experiences.build
     @user.update!(user_params)
     redirect_to root_path
   end
@@ -26,13 +31,12 @@ class UsersController < ApplicationController
     if @users_videos.nil?
       @users_videos = []
     end
-    puts 'USERS_VIDEOS = ', @users_videos
   end
   
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :title, :blurb, :city, :state, :style_list)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :title, :blurb, :city, :state, :style_list, :experiences_attributes => [:id, :content])
   end
   
 end
