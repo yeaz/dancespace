@@ -1,0 +1,18 @@
+edit your profile:
+<%= form_for @user do |user_form| %>
+  <div><%= user_form.text_field :title, placeholder: 'Current title / 1 line summary' %>
+  </div>
+  <div><%= user_form.text_area :blurb, placeholder: 'Blurb' %>
+  </div>
+  <div><%= user_form.text_field :city, placeholder: 'City' %>
+  </div>
+  <div><%= user_form.text_field :state, placeholder: 'State' %>
+  </div>
+  <div><%= user_form.text_field :style_list, placeholder: 'comma separated dance styles' %>
+  </div>
+  <%= user_form.fields_for :experiences do |experience_fields| %>
+    <%= experience_fields.text_field :content, placeholder: 'Content' %>
+    <% end %>
+  <%= user_form.submit 'Edit profile' %>
+<% end %>
+
