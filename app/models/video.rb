@@ -1,6 +1,6 @@
 class Video < ActiveRecord::Base
 
-  # *** ASSOCIATION *** #
+  # *** ASSOCIATIONS *** #
   belongs_to :user
   acts_as_taggable_on :tags
   
