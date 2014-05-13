@@ -9,17 +9,9 @@ class VideosController < ApplicationController
   
   def create
     @video = Video.new(video_params)
-    parsed_id = get_youtube_id(@video.youtube_url)
-    # TO-DO NEED TO DRY THIS CODE BY MOVING TO VIDEO MODEL
-    if parsed_id == -1
-      @video.errors[:base] << "Youtube URL doesn't have proper video_id"
-    else
-      @video.youtube_id = parsed_id
-    end
+    @video.set_youtube_id
     @video.user = current_user
-    
-    p @video
-    
+        
     if @video.save
       redirect_to root_path
     else
@@ -29,14 +21,7 @@ class VideosController < ApplicationController
     
   def update
     @video.update_attributes(video_params)
-    parsed_id = get_youtube_id(@video.youtube_url)
-    # TO-DO NEED TO DRY THIS CODE BY MOVING TO VIDEO MODEL
-    if parsed_id == -1
-      @video.errors[:base] << "Youtube URL doesn't have proper video_id"
-    else
-      @video.youtube_id = parsed_id
-    end
-    
+    @video.set_youtube_id    
     if @video.save
       redirect_to root_path
     else
@@ -63,23 +48,7 @@ class VideosController < ApplicationController
     end
     
     def video_params 
-      params.require(:video).permit(:title, :description, :youtube_id, :tag_list)
-    end
-    
-    # TO-DO NEED TO DRY THIS CODE BY MOVING TO VIDEO MODEL
-    def get_youtube_id(url)
-      if url.blank?
-        p url
-        -1
-      else
-        regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
-        match = url.match(regExp)
-        if match&&match[2].length==11
-          match[2]
-        else
-          -1
-        end
-      end 
+      params.require(:video).permit(:title, :description, :youtube_id, :youtube_url, :tag_list)
     end
 
 end
