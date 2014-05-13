@@ -12,11 +12,11 @@ class UsersController < ApplicationController
 
   def edit_profile
     @user = current_user
+    @user.experiences.build
   end
 
   def update
     @user = current_user
-    @user.experiences.build
     @user.update!(user_params)
     redirect_to root_path
   end

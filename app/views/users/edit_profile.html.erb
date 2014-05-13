@@ -11,13 +11,9 @@ edit your profile:
   <div><%= user_form.text_field :style_list, placeholder: 'comma separated dance styles' %>
   </div>
   <%= user_form.fields_for :experiences do |experience_fields| %>
-    <%= experience_fields.text_field :content, placeholder: 'Content' %>
-    <% end %>
+      <div>Experience<%= experience_fields.text_field :content, placeholder: 'Content' %>
+
+      </div>
+  <% end %>
   <%= user_form.submit 'Edit profile' %>
 <% end %>
-
-<div>
-  <% @user.experiences.each do |exp| %>
-    <div>content: <%= exp.content %></div>
-  <% end %>
-</div>
