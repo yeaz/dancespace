@@ -1,0 +1,14 @@
+.submitter.custom-form {
+	text-align: left;
+	max-width: 500px;
+	margin-left: 50px;
+	border: solid 1px #EDEDED;
+	padding-bottom: 10px;
+}
+
+.form-control{
+	margin-left: 10px;
+	margin-bottom: 5px;
+	display: inline-block;
+	float: right;
+}
