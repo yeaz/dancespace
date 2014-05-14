@@ -1,8 +1,7 @@
 class CreateExperiencelinks < ActiveRecord::Migration
   def change
     create_table :experiencelinks do |t|
-      t.integer :user_id
-      t.string :collab_type
+      t.references :collab, polymorphic: true
       t.references :experience
       t.timestamps
     end

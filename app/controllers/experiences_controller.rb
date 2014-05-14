@@ -17,6 +17,6 @@ class ExperiencesController < ApplicationController
 
   def experience_params
     params.require(:experience).permit(:content, :experiencelinks_attributes =>
-                                       [:id, :user_id, :collab_type])
+                                       [:id, :collab_id, :collab_type])
   end
 end

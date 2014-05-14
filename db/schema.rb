@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20140514002144) do
 
   create_table "experiencelinks", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "collab_id"
     t.string   "collab_type"
     t.integer  "experience_id"
     t.datetime "created_at"

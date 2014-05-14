@@ -10,11 +10,6 @@ edit your profile:
   </div>
   <div><%= user_form.text_field :style_list, placeholder: 'comma separated dance styles' %>
   </div>
-  <%= user_form.fields_for :experiences do |experience_fields| %>
-      <div>Experience<%= experience_fields.text_field :content, placeholder: 'Content' %>
-
-      </div>
-  <% end %>
   <%= user_form.submit 'Edit profile' %>
 <% end %>
 
@@ -26,7 +21,7 @@ edit your profile:
   %>
     <div>Collab type<%= link_form.text_field :collab_type,
   placeholder: 'Collab type' %></div>
-    <div>Id<%= link_form.text_field :user_id, placeholder: 'User id' %></div>
+    <div>Id<%= link_form.text_field :collab_id, placeholder: 'User id' %></div>
   <% end %>
   <div><%= experience_form.submit 'Add experience' %></div>
   
