@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   has_many :videos
   acts_as_taggable_on :styles
   has_many :experiences
+
+  # :collab means that the model can be a collaborator for an
+  # experiencelink
   has_many :experience_links, as: :collab
   
   # Include default devise modules. Others available are:

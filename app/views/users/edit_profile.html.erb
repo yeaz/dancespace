@@ -12,30 +12,31 @@ edit your profile:
   </div>
   <%= user_form.submit 'Edit profile' %>
 <% end %>
-
+<br><br>
 <div>ADDING AN EXPERIENCE
 <%= form_for @experience do |experience_form| %>
   <div><%= experience_form.text_field :content, placeholder: 'Content'
   %></div>
   <%= experience_form.fields_for :experiencelinks do |link_form|
   %>
+    <div>Adding an experience link</div>
     <div>Collab type<%= link_form.select :collab_type,
   options_for_select(["dancer", "studio", "company"]),
   placeholder: 'Collab type' %></div>
-    <div>Id<%= link_form.text_field :collab_id, placeholder: 'User id' %></div>
+    <div><%= link_form.text_field :collab_id, placeholder: 'Collab id' %></div>
   <% end %>
   <div><%= experience_form.submit 'Add experience' %></div>
   
 <% end %>
 </div>
 
+<!-- DEBUGGING CODE -->
+<br><br>
 <div>ALL EXPERIENCES
   <% @user.experiences.each do |exp| %>
     <div>Content: <%= exp.content %></div>
     <% exp.experiencelinks.each do |link| %>
       <a href="<%= get_url(link) %>"><%= get_title(link) %></a>
-   
-      <div>ID: <%= link.collab_type %></div>
     <% end %>
   <% end %>
 <div>

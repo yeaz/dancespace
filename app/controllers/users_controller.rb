@@ -15,8 +15,6 @@ class UsersController < ApplicationController
     @user.experiences.build
     @experience = Experience.new
     @experience.experiencelinks.build
-    puts 'EDIT_PROFILE'
-    puts @experience.experiencelinks
   end
 
   def update
