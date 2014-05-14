@@ -23,6 +23,7 @@ DanceSpace::Application.routes.draw do
   resources :experiences
   resources :studios do
     resources :events
+  end
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
