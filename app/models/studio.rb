@@ -9,6 +9,8 @@ class Studio < ActiveRecord::Base
   # experiencelink
   has_many :experiencelinks, as: :collab
   
+  has_many :events, dependent: :destroy
+  
   # *** VALIDATIONS *** #
   validates :name, presence: { message: 'Please provide a name' }
   validates :description, presence: { message: 'Please provide a description' }
