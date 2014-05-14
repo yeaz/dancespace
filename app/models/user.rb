@@ -8,6 +8,14 @@ class User < ActiveRecord::Base
   has_many :assignments, dependent: :destroy 
   
   has_many :roles, through: :assignments
+
+  # Relationship model between User and Experience
+  has_many :experiences
+
+  # Relationship between User and Experiencelink
+  # :collab means that the model can be a collaborator for an
+  # experiencelink
+  has_many :experience_links, as: :collab
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable
