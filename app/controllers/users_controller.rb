@@ -13,6 +13,10 @@ class UsersController < ApplicationController
   def edit_profile
     @user = current_user
     @user.experiences.build
+    @experience = Experience.new
+    @experience.experiencelinks.build
+    puts 'EDIT_PROFILE'
+    puts @experience.experiencelinks
   end
 
   def update

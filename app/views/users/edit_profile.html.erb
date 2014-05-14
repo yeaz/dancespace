@@ -17,3 +17,24 @@ edit your profile:
   <% end %>
   <%= user_form.submit 'Edit profile' %>
 <% end %>
+
+<div>ADDING AN EXPERIENCE
+<%= form_for @experience do |experience_form| %>
+  <div><%= experience_form.text_field :content, placeholder: 'Content'
+  %></div>
+  <%= experience_form.fields_for :experiencelinks do |link_form|
+  %>
+    <div>Collab type<%= link_form.text_field :collab_type,
+  placeholder: 'Collab type' %></div>
+    <div>Id<%= link_form.text_field :user_id, placeholder: 'User id' %></div>
+  <% end %>
+  <div><%= experience_form.submit 'Add experience' %></div>
+  
+<% end %>
+</div>
+
+<div>
+  <% @user.experiences.each do |exp| %>
+    <div>Content: <%= exp.content %></div>
+  <% end %>
+<div>

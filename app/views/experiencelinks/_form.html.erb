@@ -1,0 +1,17 @@
+<%= form_for(@experiencelink) do |f| %>
+  <% if @experiencelink.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@experiencelink.errors.count, "error") %> prohibited this experiencelink from being saved:</h2>
+
+      <ul>
+      <% @experiencelink.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
