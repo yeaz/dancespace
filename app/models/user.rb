@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   # Relationship between User and Experiencelink
   # :collab means that the model can be a collaborator for an
   # experiencelink
-  has_many :experience_links, as: :collab
+  has_many :experiencelinks, as: :collab
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable

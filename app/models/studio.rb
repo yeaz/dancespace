@@ -3,6 +3,11 @@ class Studio < ActiveRecord::Base
   # *** ASSOCIATIONS *** #
   has_many :members, class_name: 'User', through: :studio_membership
   has_many :memberships, dependent: :destroy
+
+  # Relationship between Studio and Experiencelink
+  # :collab means that the model can be a collaborator for an
+  # experiencelink
+  has_many :experiencelinks, as: :collab
   
   # *** VALIDATIONS *** #
   validates :name, presence: { message: 'Please provide a name' }
