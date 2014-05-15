@@ -16,7 +16,8 @@
 		<!-- User Profile Info -->
 		<ul class="nav navbar-nav navbar-right">
 		<% if user_signed_in? %>
- 			<a href="#" class="btn btn-primary navbar-btn"><strong><%=current_user.username %></strong></a>
+ 			<a href=<%= current_user.get_profile_url
+ 			%> class="btn btn-primary navbar-btn"><strong><%=current_user.username %></strong></a>
 	        <a href="<%= new_video_path %>" class="btn btn-warning navbar-btn">Share a Video</a>
 	        <a href="#" class="btn btn-primary navbar-btn">Random Dancer!</a>
 	        <a href="<%= logout_path %>" class="btn btn-warning navbar-btn">Logout</a>

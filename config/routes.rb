@@ -1,5 +1,7 @@
 DanceSpace::Application.routes.draw do
   
+  resources :experiencelinks
+
   root 'home#index'
   
   get '/about' => 'home#about'
@@ -18,7 +20,10 @@ DanceSpace::Application.routes.draw do
   
   resources :users
   resources :videos
-  resources :studios
+  resources :experiences
+  resources :studios do
+    resources :events
+  end
   
   resources :studios, only: [:show] do 
     resources :events, only: [:index, :new, :create]

@@ -8,6 +8,14 @@ class User < ActiveRecord::Base
   has_many :assignments, dependent: :destroy 
   
   has_many :roles, through: :assignments
+
+  # Relationship model between User and Experience
+  has_many :experiences
+
+  # Relationship between User and Experiencelink
+  # :collab means that the model can be a collaborator for an
+  # experiencelink
+  has_many :experiencelinks, as: :collab
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable
@@ -17,8 +25,7 @@ class User < ActiveRecord::Base
   validates :username, :email, :uniqueness => true, on: :create
   validates :password, :confirmation => true, on: :create
   validates_length_of :password, :within => Devise.password_length, on: :create
-  
-  
+
   # *** METHODS *** #
   
   # Determines if the user has the role indicated by the given input.
@@ -34,6 +41,14 @@ class User < ActiveRecord::Base
   # @see https://github.com/ryanb/cancan/wiki/Separate-Role-Model
   def has_role?(role_sym)
     roles.any? { |r| r.name.underscore.to_sym == role_sym }
+  end
+
+  def get_full_name
+    return first_name + " " + last_name
+  end
+
+  def get_profile_url
+    return '/users/' + user.id.to_s
   end
   
 end

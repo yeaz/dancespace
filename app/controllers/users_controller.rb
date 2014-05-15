@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def new
+    @user = User.new
+    @user.experiences.build
+  end
   
   def create
     @user = User.create(user_params)
@@ -8,6 +12,9 @@ class UsersController < ApplicationController
 
   def edit_profile
     @user = current_user
+    @user.experiences.build
+    @experience = Experience.new
+    @experience.experiencelinks.build
   end
 
   def update
@@ -17,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
     get_users_videos(@user.id)
   end
 
@@ -26,13 +33,15 @@ class UsersController < ApplicationController
     if @users_videos.nil?
       @users_videos = []
     end
-    puts 'USERS_VIDEOS = ', @users_videos
   end
   
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :title, :blurb, :city, :state, :style_list)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation,
+                                 :title, :blurb, :city, :state, :style_list,
+                                 :experiences_attributes => [:id, :content,
+                                                             :experience_links_attributes => [:id, :collab_type, :collab_id]])
   end
   
 end

@@ -11,29 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506025518) do
+ActiveRecord::Schema.define(version: 20140513035452) do
 
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
+  create_table "experiencelinks", force: true do |t|
+    t.integer  "collab_id"
+    t.string   "collab_type"
+    t.integer  "experience_id"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-
-  create_table "tags", force: true do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
+  create_table "experiences", force: true do |t|
+    t.string   "content",    default: "", null: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "name",        null: false
+    t.text     "description", null: false
+    t.integer  "studio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -67,6 +72,25 @@ ActiveRecord::Schema.define(version: 20140506025518) do
     t.string   "phone_1"
     t.string   "phone_2"
   end
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
