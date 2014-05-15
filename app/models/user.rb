@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def get_profile_url
-    return '/users/' + user.id.to_s
+    return '/users/' + id.to_s
   end
   
 end
