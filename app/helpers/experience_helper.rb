@@ -13,13 +13,9 @@ module ExperienceHelper
 
   def get_user_title(link)
     user = User.find(link.collab_id)
-    get_user_full_name(user)
+    return user.get_full_name
   end
 
-  def get_user_full_name(user)
-    user.first_name + " " + user.last_name
-  end
-  
   def get_user_url(link)
     "/users/" + link.collab_id.to_s
   end
