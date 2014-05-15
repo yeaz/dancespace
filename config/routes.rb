@@ -20,6 +20,12 @@ DanceSpace::Application.routes.draw do
   resources :videos
   resources :studios
   
+  resources :studios, only: [:show] do 
+    resources :events, only: [:index, :new, :create]
+  end
+  
+  resources :events, only: [:show, :edit, :update, :destroy]
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
