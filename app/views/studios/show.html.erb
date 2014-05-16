@@ -24,6 +24,10 @@
 	<div class="blurb">
 		<p><%=@studio.description%></p>
 	</div>
+    
+    <div>
+      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
+    </div>
 </div>
 
 
