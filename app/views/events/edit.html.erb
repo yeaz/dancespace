@@ -1,0 +1,11 @@
+<%= form_for @event do |f| %>
+  <div>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.submit 'Edit Event' %>
+  </div>
+<% end %>
