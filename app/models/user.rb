@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
   validates :password, :confirmation => true, on: :create
   validates_length_of :password, :within => Devise.password_length, on: :create
 
+  validates_length_of :blurb, maximum: 2000, message: "Your blurb needs to be 2000 characters or less"
+  validates_length_of :title, maximum: 500, message: "Your title needs to be 500 characters or less" 
+
   # *** METHODS *** #
   
   # Determines if the user has the role indicated by the given input.
