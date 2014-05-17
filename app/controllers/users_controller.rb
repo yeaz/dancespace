@@ -21,8 +21,9 @@ class UsersController < ApplicationController
     @user = current_user
     @user.update(user_params)
     if @user.errors.any?
+      flash[:user_errors] = {}
       @user.errors.each do |attribute, error |
-        flash[attribute] = error
+        flash[:user_errors][attribute] = error
       end
     end
     redirect_to '/user_settings'
