@@ -1,4 +1,15 @@
 edit your profile:
+<!-- printing errors -->
+
+<% if flash.key?(:user_errors) and flash[:user_errors].any? %>
+   <div>ERRORS</div>
+   <% flash[:user_errors].each do |k, v| %>
+     <div>Attribute: <%= k %></div>
+     <div>Error msg: <%= v %></div>
+   <% end %>
+<% end %>
+
+<!-- errors themselves -->
 <%= form_for @user do |user_form| %>
   <div><%= user_form.text_field :title, placeholder: 'Current title / 1 line summary' %>
   </div>
@@ -7,6 +18,7 @@ edit your profile:
   <div><%= user_form.text_field :city, placeholder: 'City' %>
   </div>
   <div><%= user_form.text_field :state, placeholder: 'State' %>
+  <!-- State should be a dropdown -->
   </div>
   <div><%= user_form.text_field :style_list, placeholder: 'comma separated dance styles' %>
   </div>
@@ -14,6 +26,17 @@ edit your profile:
 <% end %>
 <br><br>
 <div>ADDING AN EXPERIENCE
+<!-- printing errors -->
+
+<% if flash.key?(:experience_errors) and flash[:experience_errors].any? %>
+   <div>ERRORS</div>
+   <% flash[:experience_errors].each do |k, v| %>
+     <div>Attribute: <%= k %></div>
+     <div>Error msg: <%= v %></div>
+   <% end %>
+<% end %>
+
+<!-- form itself -->
 <%= form_for @experience do |experience_form| %>
   <div><%= experience_form.text_field :content, placeholder: 'Content'
   %></div>
@@ -21,7 +44,7 @@ edit your profile:
   %>
     <div>Adding an experience link</div>
     <div>Collab type<%= link_form.select :collab_type,
-  options_for_select(["dancer", "studio", "company"]),
+  options_for_select(["Select one", "dancer", "studio", "company"],"Select one"),
   placeholder: 'Collab type' %></div>
     <div><%= link_form.text_field :collab_id, placeholder: 'Collab id' %></div>
   <% end %>

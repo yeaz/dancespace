@@ -19,8 +19,14 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update!(user_params)
-    redirect_to root_path
+    @user.update(user_params)
+    if @user.errors.any?
+      flash[:user_errors] = {}
+      @user.errors.each do |attribute, error |
+        flash[:user_errors][attribute] = error
+      end
+    end
+    redirect_to '/user_settings'
   end
 
   def show
