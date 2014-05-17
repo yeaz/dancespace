@@ -1,10 +1,23 @@
 <%= form_for [@studio, @event] do |f| %>
   <div>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, placeholder: 'name' %>
   </div>
   <div>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, placeholder: 'description' %>
   </div>
+  <div>
+    <%= f.text_field :address_line1, placeholder: 'address line 1' %>
+  </div>
+  <div>
+    <%= f.text_field :address_line2, placeholder: 'address line 2' %>
+  <div>
+    <%= f.text_field :city, placeholder: 'city' %>
+  </div>
+  <div>
+    <%= f.text_field :state, placeholder: 'state' %>
+  </div>
+  <div>
+    <%= f.datetime_select(:event_date_time) %>
   <div>
     <%= f.submit 'Create Event' %>
   </div>

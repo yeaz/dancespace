@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514002144) do
+ActiveRecord::Schema.define(version: 20140517181311) do
+
+  create_table "assignments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "name",            null: false
+    t.text     "description",     null: false
+    t.integer  "studio_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "event_date_time", null: false
+    t.text     "address_line1",   null: false
+    t.text     "address_line2"
+    t.text     "city",            null: false
+    t.text     "state",           null: false
+  end
 
   create_table "experiencelinks", force: true do |t|
     t.integer  "collab_id"
@@ -24,21 +44,6 @@ ActiveRecord::Schema.define(version: 20140514002144) do
   create_table "experiences", force: true do |t|
     t.string   "content",    default: "", null: false
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "assignments", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "events", force: true do |t|
-    t.string   "name",        null: false
-    t.text     "description", null: false
-    t.integer  "studio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,6 +113,10 @@ ActiveRecord::Schema.define(version: 20140514002144) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "username"
+    t.string   "blurb"
+    t.string   "city"
+    t.string   "state"
+    t.string   "title"
     t.string   "fb_url"
     t.string   "twtr_url"
     t.string   "yt_url"
@@ -116,10 +125,6 @@ ActiveRecord::Schema.define(version: 20140514002144) do
     t.string   "phone_area_code"
     t.string   "phone_1"
     t.string   "phone_2"
-    t.string   "blurb"
-    t.string   "city"
-    t.string   "state"
-    t.string   "title"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
