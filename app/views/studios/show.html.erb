@@ -29,5 +29,11 @@
       <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
     </div>
 </div>
-
-
+<br><br>
+<h2> This Studio's Event List (from upcoming to far in the
+  future) </h2>
+<% @events.each do |e| %>
+  <a href=<%= event_path(e) %>><%= e.name %></a>
+  <div><%= e.event_date_time %></div>
+<% end %>
+  

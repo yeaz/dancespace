@@ -29,7 +29,11 @@ class StudiosController < ApplicationController
   
   def destroy
   end
-  
+
+  def show
+    @events = Event.where("studio_id = ?",  params[:id])
+  end
+
   # *** HELPER METHODS *** #
   private
   

@@ -29,7 +29,12 @@ class EventsController < ApplicationController
       render 'edit'
     end
   end
-   
+
+
+  def index
+  end
+
+  
   def destroy
   end
   
