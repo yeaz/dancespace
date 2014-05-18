@@ -21,7 +21,9 @@ class EventsController < ApplicationController
   end
   
   def update
-    if @event.update_attributes(event_params)
+    e_params = event_params
+    update_date_time(e_params)
+    if @event.update_attributes(e_params)
       redirect_to event_path(@event)
     else
       render 'edit'
