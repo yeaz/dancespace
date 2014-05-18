@@ -1,3 +1,9 @@
+<% flash.each do |k, v| %>
+  <div>Attribute: <%= k %></div>
+  <div>Error msg: <%= v %></div>
+<% end %>
+
+
 <%= form_for [@studio, @event] do |f| %>
   <div>
     <%= f.text_field :name, placeholder: 'name' %>

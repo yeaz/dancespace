@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
 
   # VALIDATIONS
   validates :name, :description, :address_line1, :city, :state, :presence => true
-  validate :event_date_cannot_be_in_past
+  validate :event_date_cannot_be_in_past, on: :create
 
   def event_date_cannot_be_in_past
     pst = 'Pacific Time (US & Canada)'
