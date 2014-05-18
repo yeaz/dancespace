@@ -44,8 +44,9 @@ class EventsController < ApplicationController
   private
 
   def add_errors_to_flash
+    flash[:event_errors] = {}
     @event.errors.each do |k, v|
-      flash[k] = v
+      flash[:event_errors][k] = v
     end
   end
 

@@ -1,7 +1,11 @@
-<% flash.each do |k, v| %>
-  <div>Attribute: <%= k %></div>
-  <div>Error msg: <%= v %></div>
+<% if flash.key?(:event_errors) %>
+  <% flash[:event_errors].each do |k, v| %>
+    <div>Attribute: <%= k %></div>
+    <div>Error msg: <%= v %></div>
+  <% end %>
+  <% flash.delete(:event_errors) %>
 <% end %>
+
 
 <%= form_for [@event] do |f| %>
   <div>
