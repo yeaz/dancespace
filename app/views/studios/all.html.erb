@@ -1,0 +1,5 @@
+<h3>All studios (starting with the first one created)</h3>
+
+<% Studio.find_each do |s| %>
+  <a href=<%= studio_path(s) %>><%= s.name %></a>
+<% end %>
