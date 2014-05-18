@@ -9,7 +9,9 @@ class EventsController < ApplicationController
   end
   
   def create
-    @event = Event.new(event_params)
+    e_params = event_params
+    update_date_time(e_params)
+    @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
       redirect_to event_path(@event)
@@ -31,6 +33,18 @@ class EventsController < ApplicationController
   
   # *** HELPER METHODS *** #
   private
+
+    def update_date_time(e_params)
+      convert_datetimes_to_pst('event_date_time', e_params)
+    end
+
+    def convert_datetimes_to_pst(field, e_params)
+      datetime = (1..5).collect {|num| e_params.delete "#{field}(#{num}i)" }
+      if datetime[0] and datetime[1] and datetime[2] # only if a date has been set
+        e_params[field] = Time.find_zone!("Pacific Time (US & Canada)").local(*datetime.map(&:to_i))
+      end
+    end
+
   
     def get_events
       if params[:event_id].blank? && params[:id].blank?
