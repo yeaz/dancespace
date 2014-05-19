@@ -26,14 +26,24 @@
 		</div>
 	</div>
 <% else %>
+
 	<div class="ds-docs-header" id="content">
-  	<div class="container headercopy">
-    <h1>DanceSpace</h1>
-    <p class="spec">An online community for dancers.</p>
-    <p style="margin-top:10px;">
-    <a type="button" class="btn btn-warning btn-lg" href="<%= signup_path %>">Sign up</a>
-    <a type="button" class="btn btn-default btn-lg" href="<%= login_path %>">Login</a>
-    </p>
+	  	<div class="container headercopy">
+		    <h1>DanceSpace</h1>
+		    <p class="spec">An online community for dancers.</p>
+		    <p style="margin-top:10px;">
+		    <a type="button" class="btn btn-info btn-lg" href="<%= signup_path %>">Sign up</a>
+		    <a type="button" class="btn btn-info btn-lg" href="<%= login_path %>">Login</a>
+			</p>
+	    </div>
+	    <br />
+		<div class="container center search">
+			<form name="input" method="get">
+			Content: <input type="text" name="content">
+			Location: <input type="text" name="location">
+			<button type="submit" class="btn btn-default btn-lg">Search</button>
+			</form>
+		</div>
 	</div>
-	</div>
+
 <% end %>
