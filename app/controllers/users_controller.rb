@@ -36,16 +36,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    get_users_videos(@user.id)
   end
 
-  def get_users_videos(id)
-    @users_videos = Video.where(:user_id => id)
-    if @users_videos.nil?
-      @users_videos = []
-    end
-  end
-  
   private
 
   def user_params
