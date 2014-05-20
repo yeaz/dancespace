@@ -17,12 +17,16 @@ DanceSpace::Application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
 
-  get 'user_settings', to: 'users#edit_profile'
   get 'events_list', to: 'events#all'
   get 'studios_nearby', to: 'studios#nearby'
   
   resources :users
+  get 'user_settings', to: 'users#edit_profile'
+  get 'random_user', to: 'users#get_random_user'
+  
   resources :videos
+  get 'get_it', to: 'videos#get_it'
+  
   resources :experiences
   resources :studios do
     resources :events

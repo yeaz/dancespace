@@ -46,6 +46,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def get_random_user
+    @user = User.offset(rand(User.count)).first
+    redirect_to user_path(@user)
+  end
+  
   private
 
   def user_params
