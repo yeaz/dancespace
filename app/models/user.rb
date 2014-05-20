@@ -36,9 +36,20 @@ class User < ActiveRecord::Base
       return
     elsif phone_area_code == "" or phone_1 == "" or phone_2 == ""
       errors.add(:phone, "Incomplete phone number")
+    elsif !numeric?(phone_area_code, 3) or !numeric?(phone_1, 3) or !numeric?(phone_2, 4)
+      errors.add(:phone, "Invalid phone number. Use format: XXX-XXX-XXXX")
     end
   end
-  
+
+  def numeric?(num, length)
+    match = /[0-9]+/.match(num)
+    if !match.nil?
+      if match[0].length == length
+        return true
+      end
+    end
+    return false
+  end
 
   # *** METHODS *** #
   
