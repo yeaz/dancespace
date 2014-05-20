@@ -1,0 +1,6 @@
+<%= render "home/navbar" %>
+<h1>All Dancers</h1>
+
+	<% for d in @users do %>
+	  <a href=<%= user_path(d) %>><%= d.username %></a>
+	<% end %>

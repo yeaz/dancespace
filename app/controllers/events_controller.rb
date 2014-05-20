@@ -1,9 +1,14 @@
 class EventsController < ApplicationController
 
   # *** FILTERS *** #
+  skip_before_action :authentication_user!, only: [:index]
   before_action :get_events, only: [:edit, :update, :show, :destroy]
   before_action :get_studio, only: [:index, :new, :create]
   
+  def index
+    @events = Event.all
+  end
+
   def new
     @event = Event.new
   end

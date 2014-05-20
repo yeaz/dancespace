@@ -11,15 +11,11 @@
 	    		<h2>Events Feed</h2>
 	    		<p><span class="lead">Find upcoming events!</span><br /><small>All events in ascending order</small></p>
 	    		<ul>
-	    			<li>Sample Event</li>
-	    			<ul><li>Details</li></ul>
 					<% Event.find_each do |e| %>
-					<li>
-					  <a href="<%= event_path(e) %>"><%= e.name %></a>
+					  <h3><a href="<%= event_path(e) %>"><%= e.name %></a></h3>
 					  <div>Description: <%= e.description %></div>
 					  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
 					  <div>Date and time: <%= e.event_date_time %></div>
-					</li>
 					<% end %>
 	    		</ul>
 	    	</div>
@@ -32,8 +28,8 @@
 		    <h1>DanceSpace</h1>
 		    <p class="spec">An online community for dancers.</p>
 		    <p style="margin-top:10px;">
-		    <a type="button" class="btn btn-info btn-lg" href="<%= signup_path %>">Sign up</a>
-		    <a type="button" class="btn btn-info btn-lg" href="<%= login_path %>">Login</a>
+		    <a type="button" class="btn btn-warning btn-lg" href="<%= signup_path %>">Sign up</a>
+		    <a type="button" class="btn btn-warning btn-lg" href="<%= login_path %>">Login</a>
 			</p>
 	    </div>
 	    <br />

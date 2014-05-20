@@ -1,0 +1,8 @@
+<%= render "home/navbar" %>
+<h1>All Studios</h1>
+
+	<% for s in @studios do %>
+	  <a href=<%= studio_path(s) %>><%= s.name %></a>
+	  <div>Description: <%= s.description %></div>
+	  <div>Location: TODO waiting on location </div>
+	<% end %>

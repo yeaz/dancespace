@@ -1,8 +1,9 @@
 class VideosController < ApplicationController
 
   # *** FILTERS *** #
+  skip_before_action :authentication_user!, only: [:index]
   before_action :get_video, only: [:edit, :update, :destroy, :show]
-  
+
   def index
     @videos = Video.all
   end

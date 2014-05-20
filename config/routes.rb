@@ -19,7 +19,6 @@ DanceSpace::Application.routes.draw do
 
   get 'user_settings', to: 'users#edit_profile'
   get 'events_list', to: 'events#all'
-  get 'studios_list', to: 'studios#all'
   get 'studios_nearby', to: 'studios#nearby'
   
   resources :users
