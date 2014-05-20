@@ -30,6 +30,10 @@ class StudiosController < ApplicationController
   def destroy
   end
 
+  def nearby
+    @studios = Studio.all
+  end
+
   def show
     @events = Event.where("studio_id = ?",  params[:id])
   end

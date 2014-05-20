@@ -1,8 +1,12 @@
 class VideosController < ApplicationController
 
   # *** FILTERS *** #
-  before_action :get_video, only: [:edit, :update, :destroy]
+  before_action :get_video, only: [:edit, :update, :destroy, :show]
   
+  def index
+    @videos = Video.all
+  end
+
   def new
     @video = Video.new
   end
@@ -13,7 +17,7 @@ class VideosController < ApplicationController
     @video.user = current_user
         
     if @video.save
-      redirect_to root_path
+      redirect_to video_path(@video)
     else
       render 'new'
     end
@@ -23,7 +27,7 @@ class VideosController < ApplicationController
     @video.update_attributes(video_params)
     @video.set_youtube_id    
     if @video.save
-      redirect_to root_path
+      redirect_to video_path(@video)
     else
       render 'edit'
     end

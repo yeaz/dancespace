@@ -1,0 +1,5 @@
+	<% for v in @videos do %>
+	  <a href=<%= video_path(v) %>><%= v.title %></a>
+	  <div>Description: <%= v.description %></div>
+	  <div>URL: <%= v.youtube_url %> </div>
+	<% end %>

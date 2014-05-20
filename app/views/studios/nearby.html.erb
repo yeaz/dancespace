@@ -1,0 +1,26 @@
+	<%= render "home/navbar" %>
+	<div class="container spec">
+		<div class="row">
+			<!-- Side bar with actions -->
+	        <div class="col-md-3">
+	        	<%= render "home/sidebar" %>
+	        </div>
+			<!-- Page Content TODO: javascript it up-->
+	    	<div class="col-md-9" style="background:#eee">
+	    		<h1> NEARBY !!!!</h1>
+	    		<h2>Studios Nearby</h2>
+	    		<p><span class="lead">Find local studios!</span><br /><small>All studios in order of first created</small></p>
+	    		<ul>
+	    			<li>Sample studio</li>
+	    			<ul><li>Details</li></ul>
+	    			<% Studio.find_each do |s| %>
+	    			<li>
+					  <a href=<%= studio_path(s) %>><%= s.name %></a>
+					  <div>Description: <%= s.description %></div>
+					  <div>Location: TODO WE NEED A LOCATION FOR STUDIOS</div>
+					 </li>
+					<% end %>
+	    		</ul>
+	    	</div>
+		</div>
+	</div>
