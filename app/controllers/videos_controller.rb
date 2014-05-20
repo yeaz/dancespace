@@ -39,6 +39,15 @@ class VideosController < ApplicationController
     redirect_to root_path
   end
   
+  def get_it
+    @video = Video.offset(rand(Video.count)).first
+    if @video.blank?
+      redirect_to new_video_path
+    else
+      redirect_to video_path(@video)
+    end
+  end
+  
   # *** HELPER METHODS *** #
   private
   
