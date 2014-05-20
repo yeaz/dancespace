@@ -26,6 +26,8 @@ DanceSpace::Application.routes.draw do
   get 'random_user', to: 'users#get_random_user'
   
   resources :videos
+  get 'get_it', to: 'videos#get_it'
+  
   resources :experiences
   resources :studios do
     resources :events
