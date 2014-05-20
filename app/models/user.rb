@@ -27,7 +27,18 @@ class User < ActiveRecord::Base
   validates_length_of :password, :within => Devise.password_length, on: :create
 
   validates_length_of :blurb, maximum: 2000, message: "Your blurb needs to be 2000 characters or less"
-  validates_length_of :title, maximum: 500, message: "Your title needs to be 500 characters or less" 
+  validates_length_of :title, maximum: 500, message: "Your title needs to be 500 characters or less"
+
+  validate :check_phone_number
+
+  def check_phone_number
+    if phone_area_code == "" and phone_1 == "" and phone_2 == ""
+      return
+    elsif phone_area_code == "" or phone_1 == "" or phone_2 == ""
+      errors.add(:phone, "Incomplete phone number")
+    end
+  end
+  
 
   # *** METHODS *** #
   

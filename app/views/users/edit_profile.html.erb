@@ -25,6 +25,31 @@ edit your profile:
   <%= user_form.submit 'Edit profile' %>
 <% end %>
 <br><br>
+
+Contact info
+<%= form_for @user do |user_form| %>
+  <div><%= user_form.text_field :fb_url, placeholder: 'facebook url' %>
+  </div>
+  <div><%= user_form.text_field :twtr_url, placeholder: 'twitter url' %>
+  </div>
+  <div><%= user_form.text_field :yt_url, placeholder: 'youtube url' %>
+  </div>
+  <div><%= user_form.text_field :ig_url, placeholder: 'instagram url'
+  %>
+  </div>
+  <div><%= user_form.text_field :website_url, placeholder: 'website
+  url' %>
+  </div>
+  <div>
+    <%= user_form.text_field :phone_area_code, placeholder: 'phone #'
+    %>
+    <%= user_form.text_field :phone_1 %>
+    <%= user_form.text_field :phone_2 %>
+  </div>
+  <%= user_form.submit 'Change contact info' %>
+
+<% end %>
+<br><br>
 <div>ADDING AN EXPERIENCE
 <!-- printing errors -->
 
