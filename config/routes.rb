@@ -17,7 +17,6 @@ DanceSpace::Application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
 
-  get 'events_list', to: 'events#all'
   get 'studios_nearby', to: 'studios#nearby'
   
   resources :users
