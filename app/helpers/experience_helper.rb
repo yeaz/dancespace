@@ -38,8 +38,15 @@ module ExperienceHelper
       get_title(link) + '</a>'
   end
 
+  def construct_div_tag(link)
+    '<div>' + link.collab_name + '</div>'
+  end
+
   def get_collab_field(link)
     if link.collab_id != -1
       construct_a_tag(link).html_safe
+    else
+      construct_div_tag(link).html_safe
+    end
   end
 end

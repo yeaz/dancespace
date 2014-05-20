@@ -82,10 +82,11 @@ Contact info
 <br><br>
 <div>ALL EXPERIENCES
   <% @user.experiences.each do |exp| %>
-    <div>Content: <%= exp.content %></div>
+    <div>-----</div>
+    <div><b>Content:</b><%= exp.content %></div>
     <% exp.experiencelinks.each do |link| %>
       <!-- helper code is in /app/helpers/experience_helper.rb -->
-      <%= get_collab_field(link) %>
+      <b>Experiencelink:</b> <%= get_collab_field(link) %>
     <% end %>
   <% end %>
 <div>

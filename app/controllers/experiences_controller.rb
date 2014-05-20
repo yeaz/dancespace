@@ -69,6 +69,7 @@ class ExperiencesController < ApplicationController
         set_collab_attribute(e_params, studio.id, :collab_id)
       else
         set_collab_attribute(e_params, -1, :collab_id)
+        set_collab_attribute(e_params, collab_id, :collab_name)
       end
       return true
     end
