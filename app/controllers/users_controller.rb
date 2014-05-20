@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+    skip_before_action :authentication_user!, only: [:index]
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
     @user.experiences.build
