@@ -1,6 +1,5 @@
 <%= render "home/navbar" %>
 <h1>All Videos</h1>
-
 	<% for v in @videos do %>
 	  <a href=<%= video_path(v) %>><%= v.title %></a>
 	  <div>Description: <%= v.description %></div>
