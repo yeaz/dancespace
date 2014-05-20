@@ -1,3 +1,11 @@
 <%= render "home/navbar" %>
-<h1>Video Show Page</h1>
-@video.url
+<div class="container spec display">
+<h1><b>Video</b> <%= @video.title %>
+<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-warning" %> <small>[TODO: make this viewable only by owner]</small>
+
+</h1>
+			<p>
+				<%= @video.youtube_url %>
+</p>
+
+</div>
