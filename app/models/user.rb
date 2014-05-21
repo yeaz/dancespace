@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   validates_length_of :blurb, maximum: 2000, message: "Your blurb needs to be 2000 characters or less"
   validates_length_of :title, maximum: 500, message: "Your title needs to be 500 characters or less"
 
-  validate :check_phone_number
+  validate :check_phone_number, on: :update
 
   def check_phone_number
     if phone_area_code == "" and phone_1 == "" and phone_2 == ""
