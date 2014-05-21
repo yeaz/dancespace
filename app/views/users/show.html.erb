@@ -1,8 +1,31 @@
-<div><%= @user.username %></div>
-<div><%= @user.title %></div>
+<%= render "home/navbar" %>
+<div class ="profile-container spec container">
+	<div class="profile-header row">
+		<div class="propic col-md-3">
+			<%= image_tag "studio1.jpg" %>
+		</div>
 
-VIDEOS
-<% @users_videos.each do |vid| %>
-  <div><%= vid.youtube_id %> </div>
-<% end %>
+		<div class="main-info col-md-5">
+			<h1><b><%= @user.username %></b><% if current_user.id == @user.id %> (Edit Profile) <% end %></h1>
 
+			<p><%= @user.title %><br/>
+				<%= @user.city %>, <%= @user.state %><p>
+		</div>
+	</div>
+	<h4><%=@user.blurb%> </h4>
+	<h1>Portfolio</h1>
+	<% @users_videos.each do |vid| %>
+	  <div><a href= "http://www.youtube.com/watch?v=<%= vid.youtube_id %>"><%=vid.title%></a> </div>
+	<% end %>
+
+	<h1>Experience</h1>
+	<div>
+  <% @user.experiences.each do |exp| %>
+    <div>Content: <%= exp.content %></div>
+    <% exp.experiencelinks.each do |link| %>
+      <a href="<%= get_url(link) %>"><%= get_title(link) %></a>
+    <% end %>
+  <% end %>
+<div>
+
+</div>
