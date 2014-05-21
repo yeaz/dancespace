@@ -2,11 +2,10 @@
 <div class="profile-container spec container">
 	<div class="profile-header row">
 			<div class="col-md-3 propic">
-				<% @imgname = "studio" + @studio.id.to_s + ".jpg" %>
-				<%= image_tag @imgname %>
+				<%= image_tag "studio1.jpg" %>
 			</div>
 			<div class="col-md-4 main-info">
-				<h1><b><%=@studio.name%></b></h1>
+				<h1><b><%=@studio.name%></b></h1><br/>
 				Address [line 1]<br/>
 				Address [line 2]<br/>
 				<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a> <br/>

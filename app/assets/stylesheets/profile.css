@@ -34,8 +34,14 @@
 }
 
 .main-info{
-	display: inline-block;
+	display: inline;
 	vertical-align: top;
+}
+.main-info h1{
+	display: inline;
+}
+.main-info h5{
+	display:inline;
 }
 
 .social-media{
@@ -59,6 +65,9 @@
 .blurb{
 	margin-top: 5px;
 	max-width: 100%;
-	padding-right: 25px;
+}
 
+.vid-thumbnail img{
+	max-height: 150px;
+	max-width: 100%;
 }

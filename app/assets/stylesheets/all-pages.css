@@ -1,0 +1,16 @@
+.listing-photo img{
+	max-height: 150px;
+	max-width: 100%;
+}
+.all-page h3, .all-page h4, .all-page h5, .all-page p{
+	margin: 0px;
+	padding: 0px;
+}
+
+.all-page h4{
+	margin-bottom:3px;
+}
+
+.listing-blurb{
+	margin-top: 8px;
+}
