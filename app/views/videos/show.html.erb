@@ -1,11 +1,17 @@
 <%= render "home/navbar" %>
 <div class="container spec display">
-<h1><b>Video</b> <%= @video.title %>
-<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-warning" %> <small>[TODO: make this viewable only by owner]</small>
+	<h1><%= @video.title %>
+	<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-warning" %> <small>[TODO: make this viewable only by owner]</small>
+	</h1>
 
-</h1>
-			<p>
-				<%= @video.youtube_url %>
-</p>
+	<div class="center" id="video">
+	<iframe width="640" height="360" src="//www.youtube.com/embed/<%= @video.youtube_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
+	</div>
 
+	<div id="data">
+		<p><b>Description</b><br><%= @video.description %></p>
+		<p><b>Shared by</b><br><%= link_to 'Owner: TODO get name', user_path(@video.user_id) %></p>
+		<p><b>Share date</b><br><%= @video.created_at %></p>
+	</div>
+	</div>
 </div>
