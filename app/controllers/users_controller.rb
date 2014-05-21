@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
     @user.experiences.build
@@ -31,21 +36,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    get_users_videos(@user.id)
   end
 
-  def get_users_videos(id)
-    @users_videos = Video.where(:user_id => id)
-    if @users_videos.nil?
-      @users_videos = []
-    end
+  def get_random_user
+    @user = User.offset(rand(User.count)).first
+    redirect_to user_path(@user)
   end
   
   private
 
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation,
-                                 :title, :blurb, :city, :state, :style_list,
+                                 :title, :blurb, :city, :state, :style_list, :fb_url, :yt_url,
+                                 :ig_url, :website_url, :twtr_url, :phone_area_code, :phone_1, :phone_2, 
                                  :experiences_attributes => [:id, :content,
                                                              :experience_links_attributes => [:id, :collab_type, :collab_id]])
   end

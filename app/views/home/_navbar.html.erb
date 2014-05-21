@@ -19,7 +19,7 @@
  			<a href=<%= current_user.get_profile_url
  			%> class="btn btn-default navbar-btn"><strong><%=current_user.username %></strong></a>
 	        <a href="<%= new_video_path %>" class="btn btn-default navbar-btn">Share a Video</a>
-	        <a href="#" class="btn btn-default navbar-btn">Random Dancer!</a>
+	        <a href="<%= random_user_path %>" class="btn btn-default navbar-btn">Random Dancer!</a>
 	        <a href="<%= logout_path %>" class="btn btn-default navbar-btn">Logout</a>
 		<% else %>
 		  <a type="button" class="btn btn-default navbar-btn" href="<%= signup_path %>">Sign up</a>

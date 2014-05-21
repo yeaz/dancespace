@@ -1,9 +1,11 @@
 class StudiosController < ApplicationController
 
   # *** FILTERS *** #
+  skip_before_action :authenticate_user!, only: [:index]
   before_action :get_studio, only: [:edit, :update, :show, :destroy]
   
   def index
+    @studios = Studio.all
   end
   
   def new
@@ -28,6 +30,10 @@ class StudiosController < ApplicationController
   end
   
   def destroy
+  end
+
+  def nearby
+    @studios = Studio.all
   end
 
   def show

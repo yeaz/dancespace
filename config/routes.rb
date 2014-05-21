@@ -17,22 +17,26 @@ DanceSpace::Application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
 
-  get 'user_settings', to: 'users#edit_profile'
-  get 'events_list', to: 'events#all'
-  get 'studios_list', to: 'studios#all'
+  get 'studios_nearby', to: 'studios#nearby'
   
   resources :users
+  get 'user_settings', to: 'users#edit_profile'
+  get 'random_user', to: 'users#get_random_user'
+  
   resources :videos
+  get 'get_it', to: 'videos#get_it'
+  
   resources :experiences
   resources :studios do
     resources :events
   end
   
   resources :studios, only: [:show] do 
-    resources :events, only: [:index, :new, :create]
+    resources :events, only: [:new, :create]
   end
-  
-  resources :events, only: [:show, :edit, :update, :destroy]
+
+  resources :events, only: [:index, :show, :edit, :update, :destroy]
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

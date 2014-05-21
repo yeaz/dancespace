@@ -1,6 +1,0 @@
-<h2>All events (in ascending order) </h2>
-
-<% Event.find_each do |e| %>
-  <a href=<%= event_path(e) %>><%= e.name %></a>
-  <div><%= e.event_date_time %></div>
-<% end %>

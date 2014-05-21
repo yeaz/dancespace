@@ -53,18 +53,26 @@ class ExperiencesController < ApplicationController
   
   def update_collab_id(e_params)
     collab_type = get_collab_attribute(e_params, :collab_type)
-    username = get_collab_attribute(e_params, :collab_id)
+    collab_id = get_collab_attribute(e_params, :collab_id)
     if collab_type == "user"
       # changing the currently entered username to that user's id
-      user = User.find_by(username: username)
+      user = User.find_by(username: collab_id)
       if !user.nil?
         set_collab_attribute(e_params, user.id, :collab_id)
         return true
       else
         return {:collab_id => "Enter a valid username"}
       end
+    elsif collab_type == "studio"
+      studio = Studio.find_by(name: collab_id)
+      if !studio.nil?
+        set_collab_attribute(e_params, studio.id, :collab_id)
+      else
+        set_collab_attribute(e_params, -1, :collab_id)
+        set_collab_attribute(e_params, collab_id, :collab_name)
+      end
+      return true
     end
-    return {}
   end
 
   def get_collab_attribute(e_params, attribute)

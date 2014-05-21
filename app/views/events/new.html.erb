@@ -6,8 +6,10 @@
   <% flash.delete(:event_errors) %>
 <% end %>
 
-
-<%= form_for [@studio, @event] do |f| %>
+<%= render "home/navbar" %>
+<div class="container spec submitter">
+<h1>Event Create</h1>
+<%= bootstrap_form_for [@studio, @event] do |f| %>
   <div>
     <%= f.text_field :name, placeholder: 'name' %>
   </div>
@@ -19,6 +21,7 @@
   </div>
   <div>
     <%= f.text_field :address_line2, placeholder: 'address line 2' %>
+  </div>
   <div>
     <%= f.text_field :city, placeholder: 'city' %>
   </div>
@@ -27,7 +30,9 @@
   </div>
   <div>
     <%= f.datetime_select(:event_date_time) %>
+  </div>
   <div>
-    <%= f.submit 'Create Event' %>
+    <%= f.submit 'Create Event', class: "btn btn-lg btn-warning btn-block" %>
   </div>
 <% end %>
+</div>

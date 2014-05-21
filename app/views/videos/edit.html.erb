@@ -11,8 +11,11 @@
   <div>
     <%= f.text_area :description, placeholder: 'Add a description' %>
   </div>
+    <div>
+   <%= f.text_area :tag_list, placeholder: 'Comma separated tags'%>
+  </div>
   <div>
-    <%= f.submit 'Update Video' %>
+    <%= f.submit 'Update Video', class: "btn btn-lg btn-warning btn-block" %>
   </div>
 <% end %>
 </div>

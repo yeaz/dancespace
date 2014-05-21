@@ -1,4 +1,58 @@
 <%= render "home/navbar" %>
+edit your profile:
+<!-- printing errors -->
+
+<% if flash.key?(:user_errors) and flash[:user_errors].any? %>
+   <div>ERRORS</div>
+   <% flash[:user_errors].each do |k, v| %>
+     <div>Attribute: <%= k %></div>
+     <div>Error msg: <%= v %></div>
+   <% end %>
+<% end %>
+
+<!-- errors themselves -->
+<%= form_for @user do |user_form| %>
+  <div><%= user_form.text_field :title, placeholder: 'Current title / 1 line summary' %>
+  </div>
+  <div><%= user_form.text_area :blurb, placeholder: 'Blurb' %>
+  </div>
+  <div><%= user_form.text_field :city, placeholder: 'City' %>
+  </div>
+  <div><%= user_form.text_field :state, placeholder: 'State' %>
+  <!-- State should be a dropdown -->
+  </div>
+  <div><%= user_form.text_field :style_list, placeholder: 'comma separated dance styles' %>
+  </div>
+  <%= user_form.submit 'Edit profile' %>
+<% end %>
+<br><br>
+
+Contact info
+<%= form_for @user do |user_form| %>
+  <div><%= user_form.text_field :fb_url, placeholder: 'facebook url' %>
+  </div>
+  <div><%= user_form.text_field :twtr_url, placeholder: 'twitter url' %>
+  </div>
+  <div><%= user_form.text_field :yt_url, placeholder: 'youtube url' %>
+  </div>
+  <div><%= user_form.text_field :ig_url, placeholder: 'instagram url'
+  %>
+  </div>
+  <div><%= user_form.text_field :website_url, placeholder: 'website
+  url' %>
+  </div>
+  <div>
+    <%= user_form.text_field :phone_area_code, placeholder: 'phone #'
+    %>
+    <%= user_form.text_field :phone_1 %>
+    <%= user_form.text_field :phone_2 %>
+  </div>
+  <%= user_form.submit 'Change contact info' %>
+
+<% end %>
+<br><br>
+<div>ADDING AN EXPERIENCE
+
 <!-- printing errors -->
 <div class="container spec">
   <h1>Edit your profile:</h1>
@@ -37,31 +91,32 @@
      <% end %>
   <% end %>
 
-  <!-- form itself -->
-  <%= bootstrap_form_for @experience do |experience_form| %>
-    <div><%= experience_form.text_field :content, placeholder: 'Content'
-    %></div>
-    <%= experience_form.fields_for :experiencelinks do |link_form|
-    %>
-      <div>Adding an experience link</div>
-      <div>Collab type<%= link_form.select :collab_type,
-    options_for_select(["Select one", "dancer", "studio", "company"],"Select one"),
-    placeholder: 'Collab type' %></div>
-      <div><%= link_form.text_field :collab_id, placeholder: 'Collab id' %></div>
-    <% end %>
-    <div><%= experience_form.submit 'Add experience' %></div>
-    
+<!-- form itself -->
+<%= bootstrap_form_for @experience do |experience_form| %>
+  <div><%= experience_form.text_field :content, placeholder: 'Content'
+  %></div>
+  <%= experience_form.fields_for :experiencelinks do |link_form|
+  %>
+    <div>Adding an experience link</div>
+    <div>Collab type<%= link_form.select :collab_type,
+  options_for_select(["Select one", "dancer", "studio", "company"],"Select one"),
+  placeholder: 'Collab type' %></div>
+    <div><%= link_form.text_field :collab_id, placeholder: 'Collab id' %></div>
   <% end %>
-  </div>
-
-  <!-- DEBUGGING CODE -->
-  <br><br>
-  <div>ALL EXPERIENCES
-    <% @user.experiences.each do |exp| %>
-      <div>Content: <%= exp.content %></div>
-      <% exp.experiencelinks.each do |link| %>
-        <a href="<%= get_url(link) %>"><%= get_title(link) %></a>
-      <% end %>
-    <% end %>
-  <div>
+  <div><%= experience_form.submit 'Add experience' %></div>
+  
+<% end %>
 </div>
+
+<!-- DEBUGGING CODE -->
+<br><br>
+<div>ALL EXPERIENCES
+  <% @user.experiences.each do |exp| %>
+    <div>-----</div>
+    <div><b>Content:</b><%= exp.content %></div>
+    <% exp.experiencelinks.each do |link| %>
+      <!-- helper code is in /app/helpers/experience_helper.rb -->
+      <b>Experiencelink:</b> <%= get_collab_field(link) %>
+    <% end %>
+  <% end %>
+<div>

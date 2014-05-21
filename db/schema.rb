@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140517181311) do
+ActiveRecord::Schema.define(version: 20140520185803) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140517181311) do
     t.integer  "experience_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "collab_name",   default: ""
   end
 
   create_table "experiences", force: true do |t|
