@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20140520185803) do
   end
 
   create_table "studios", force: true do |t|
-    t.string   "name",            null: false
-    t.text     "description",     null: false
+    t.string   "name",                         null: false
+    t.text     "description",                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "fb_url"
@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(version: 20140520185803) do
     t.string   "ig_url"
     t.string   "website_url"
     t.string   "email"
-    t.string   "phone_area_code"
-    t.string   "phone_1"
-    t.string   "phone_2"
+    t.string   "phone_area_code", default: ""
+    t.string   "phone_1",         default: ""
+    t.string   "phone_2",         default: ""
   end
 
   create_table "taggings", force: true do |t|
@@ -123,9 +123,9 @@ ActiveRecord::Schema.define(version: 20140520185803) do
     t.string   "yt_url"
     t.string   "ig_url"
     t.string   "website_url"
-    t.string   "phone_area_code"
-    t.string   "phone_1"
-    t.string   "phone_2"
+    t.string   "phone_area_code",        default: ""
+    t.string   "phone_1",                default: ""
+    t.string   "phone_2",                default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
