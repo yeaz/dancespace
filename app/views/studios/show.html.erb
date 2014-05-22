@@ -24,10 +24,11 @@
 	<div class="blurb">
 		<p><%=@studio.description%></p>
 	</div>
-    
-    <div>
-      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
-    </div>
+    <% if current_user_owns_studio(@studio.id) %>
+      <div>
+        <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
+      </div>
+    <% end %>
 </div>
 <br><br>
 <h2> This Studio's Event List (from upcoming to far in the

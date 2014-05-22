@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
 
+  include StudioHelper
+  
   # *** FILTERS *** #
   skip_before_action :authenticate_user!, only: [:index]
   before_action :get_events, only: [:edit, :update, :show, :destroy]
@@ -10,6 +12,10 @@ class EventsController < ApplicationController
   end
 
   def new
+    if !current_user_owns_studio(params[:studio_id])
+      redirect_to studio_path(params[:studio_id])
+    end
+
     @event = Event.new
   end
   
