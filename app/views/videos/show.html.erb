@@ -1,7 +1,9 @@
 <%= render "home/navbar" %>
 <div class="container spec display">
 	<h1><%= @video.title %>
-	<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-warning" %> <small>[TODO: make this viewable only by owner]</small>
+	<% if current_user.id == @video.user.id %>
+	<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-warning" %>	
+	<% end %>
 	</h1>
 
 	<div class="center" id="video">
@@ -10,12 +12,8 @@
 
 	<div id="data">
 		<p><b>Description</b><br><%= @video.description %></p>
-		<p><b>Shared by</b><br><%= link_to 'Owner: TODO get name', user_path(@video.user_id) %></p>
+		<p><b>Shared by</b><br><%= link_to @video.get_users_name, user_path(@video.user_id) %></p>
 		<p><b>Share date</b><br><%= @video.created_at %></p>
 	</div>
 	</div>
-</div>
-
-<div>
-  <%= @video.get_users_name %>
 </div>
