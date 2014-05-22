@@ -1,10 +1,8 @@
 <%= render "home/navbar" %>
 <h1>All events (in ascending order) </h1>
-<% if true %>
 <% for e in @events do %>
 	  <a href=<%= events_path(e) %>><%= e.name %></a>
 	  <div>Description: <%= e.description %></div>
 	  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
  	  <div>Date and time: <%= e.event_date_time %></div>
-	<% end %>
-	<% end%>
+<% end %>
