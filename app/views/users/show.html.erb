@@ -40,7 +40,7 @@
 		<hr>
 	<% end %>
 
-
+	<br/>
 	<h1>Experience</h1>
 	<ul>
 		<% @user.experiences.each do |exp| %>
@@ -53,10 +53,17 @@
   	</ul>
   	<br/>
 
-  	<h1>Studios You Admin <%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %></h1>
+  	<h1>Studios Owned
+  		<% if current_user.id == @user.id %>
+				<%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
+		<% end %>
+	</h1>
 
-  	<ul>
-
+	<ul>
+	  	<% for s in @user.get_studios_that_user_owns %>
+		  	<li>
+		  		<%= link_to(s.name, studio_path(s)) %>
+		  	</li>
+	  	<%end%>
   	</ul>
-
 </div>
