@@ -48,10 +48,6 @@ class EventsController < ApplicationController
       redirect_to event_path(@event)
     end
   end
-
-  def index
-  end
-
   
   def destroy
   end

@@ -27,9 +27,7 @@ DanceSpace::Application.routes.draw do
   get 'get_it', to: 'videos#get_it'
   
   resources :experiences
-  resources :studios do
-    resources :events
-  end
+  resources :studios
   
   resources :studios, only: [:show] do 
     resources :events, only: [:new, :create]
