@@ -8,7 +8,8 @@
 		<div class="main-info col-md-4">
 			<h1><b><%= @user.username %></b>
 				<% if current_user.id == @user.id %>
-					<h5><%= link_to("(Edit Profile)", user_settings_path) %> <br/></h5>
+					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
+					<!-- <h5><%= link_to("(Edit Profile)", user_settings_path) %> <br/></h5> -->
 				<% end %>
 			</h1>
 			<p><%= @user.title %><br/>
@@ -49,6 +50,13 @@
 	    	<% end %>
 	    	</li>
 	  	<% end %>
+  	</ul>
+  	<br/>
+
+  	<h1>Studios You Admin <%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %></h1>
+
+  	<ul>
+
   	</ul>
 
 </div>

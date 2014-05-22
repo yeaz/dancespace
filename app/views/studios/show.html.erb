@@ -9,6 +9,7 @@
 				Address [line 1]<br/>
 				Address [line 2]<br/>
 				<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a> <br/>
+				<h4><%=@studio.description%></h4>
 			</div>
 		<div class="col-md-5 social-media">
 			<a href=<%=@studio.yt_url%> target="_blank"> <%= image_tag "youtube-icon.png" %> </a>
@@ -20,21 +21,18 @@
 		</div>
 	</div>
 
-	<div class="blurb row col-md-12">
-		<p><%=@studio.description%></p>
-	</div>
     
     <div>
       <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
     </div>
 
-    <br><br>
-	<h2> This Studio's Event List (from upcoming to far in the
-	  future) </h2>
-	<% @events.each do |e| %>
-	  <a href=<%= event_path(e) %>><%= e.name %></a>
-	  <div><%= e.event_date_time %></div>
-<% end %>
+	<h2> Upcoming Events (in chronological order) </h2>
+	<ul>
+		<% @events.each do |e| %>
+		  <li><b><a href=<%= event_path(e) %>><%= e.name %></a></b>
+		  <div><%= e.event_date_time %></div></li>
+		<% end %>
+	</ul>
 </div>
 
   
