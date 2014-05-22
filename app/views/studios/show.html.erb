@@ -21,10 +21,12 @@
 		</div>
 	</div>
 
+    <% if current_user_owns_studio(@studio.id) %>
+      <div>
+        <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
+      </div>
+    <% end %>
     
-    <div>
-      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
-    </div>
 
 	<h2> Upcoming Events (in chronological order) </h2>
 	<ul>
