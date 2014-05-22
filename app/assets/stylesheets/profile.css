@@ -1,8 +1,12 @@
 .profile-container{
-	padding-left: 50px;
-	padding-right: 50px;
+	margin:0px;
+	padding:0px;
 }
 
+.profile-container.col-med-4{
+	margin-right:0px;
+	padding-right:0px;
+}
 
 .profile-container h1{
 	margin-top: 0px;
@@ -11,28 +15,33 @@
 .profile-container img{
 }
 
-.profile-header{
+/*.profile-header{
 	vertical-align: top;
 	white-space: nowrap;
 	width: 100%;
-}
+}*/
 
-.propic {
+/*.propic {
 	display: inline-block;
 	vertical-align: top;
-
-}
+}*/
 
 
 .propic img{
-	max-height: 200px;
+	max-width: 100%;
+	max-height: 250px;
 	border: solid 1px #EDEDED;
 }
 
 .main-info{
-	display: inline-block;
+	display: inline;
 	vertical-align: top;
-	margin-left: 15px;
+}
+.main-info h1{
+	display: inline;
+}
+.main-info h5{
+	display:inline;
 }
 
 .social-media{
@@ -56,6 +65,9 @@
 .blurb{
 	margin-top: 5px;
 	max-width: 100%;
-	padding-right: 25px;
+}
 
+.vid-thumbnail img{
+	max-height: 150px;
+	max-width: 100%;
 }
