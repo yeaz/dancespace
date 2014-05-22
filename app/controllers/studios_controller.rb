@@ -5,7 +5,7 @@ class StudiosController < ApplicationController
   before_action :get_studio, only: [:edit, :update, :show, :destroy]
   
   def index
-    @studios = Studio.all
+    @studios = Studio.search params[:search]
   end
   
   def new

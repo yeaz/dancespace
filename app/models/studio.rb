@@ -16,4 +16,11 @@ class Studio < ActiveRecord::Base
   validates :description, presence: { message: 'Please provide a description' }
   validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/,
                               message: 'Please provide a valid email address' }
+                              
+  # *** SPHINX INDEXES *** #
+  define_index do
+    indexes :name, :sortable => true
+    indexes :description
+  end
+  
 end
