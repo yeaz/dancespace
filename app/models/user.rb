@@ -75,5 +75,14 @@ class User < ActiveRecord::Base
   def get_profile_url
     return '/users/' + id.to_s
   end
+
+  def get_studios_that_user_owns
+    memberships = Membership.find(:all, conditions: {member_id: self.id, is_admin: true})
+    if !memberships.nil? 
+      ids = memberships.map { |m| m.studio_id }
+      return Studio.find(ids)
+    end
+    return []
+  end
   
 end
