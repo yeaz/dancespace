@@ -16,7 +16,3 @@
 /tmp
 
 /config/database.yml
-
-#Ignore gemfiles
-/Gemfile
-/Gemfile.lock
