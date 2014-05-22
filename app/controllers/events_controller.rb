@@ -43,6 +43,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    if !current_user_owns_studio(@event.studio_id)
+      redirect_to event_path(@event)
+    end
+  end
 
   def index
   end

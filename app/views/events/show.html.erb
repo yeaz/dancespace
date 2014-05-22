@@ -2,7 +2,11 @@
 <div class="container spec display">
 	<div class="row">
 		<div class="col-md-12">
-		<h1><%= @event.name %> <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-warning" %> <small>[TODO: make this viewable only by owner]</small>
+		<h1><%= @event.name %>
+                  <% if current_user_owns_studio(@event.studio_id) %>
+                    <%= link_to 'Edit', edit_event_path(@event), class:
+                    "btn btn-warning" %>
+                  <% end %>
 		</h1>		
 		  <p><b>Description</b><br><%= @event.description %></p>
 	      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
