@@ -1,0 +1,10 @@
+#map-canvas {
+    height: 500px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+#event_lat, #event_lng {
+    display: none; 
+}

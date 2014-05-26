@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
-      redirect_to event_path(@event)
+      redirect_to '/events/' + @event.id.to_s + '/set_location'
     else
       add_errors_to_flash
       render 'new'
@@ -34,6 +34,13 @@ class EventsController < ApplicationController
   
   def update
     e_params = event_params
+    if e_params.has_key?(:lat) and e_params.has_key?(:lng)
+      e_params[:is_location_set] = true
+      @event.update_attributes(e_params)
+      redirect_to event_path(@event)
+      return
+    end
+    
     update_date_time(e_params)
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
@@ -47,6 +54,16 @@ class EventsController < ApplicationController
     if !current_user_owns_studio(@event.studio_id)
       redirect_to event_path(@event)
     end
+  end
+
+  def get_address
+    puts 'GET ADDRESS'
+    @event = Event.find(params[:event_id])
+    render :json => {"address" => @event.get_address}
+  end
+
+  def set_location
+    @event = Event.find(params[:event_id])
   end
 
   def index
@@ -97,7 +114,7 @@ class EventsController < ApplicationController
     end
     
     def event_params 
-      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :event_date_time)
+      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :event_date_time, :lat, :lng)
     end
   
 end

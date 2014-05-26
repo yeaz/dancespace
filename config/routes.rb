@@ -30,6 +30,11 @@ DanceSpace::Application.routes.draw do
   resources :studios do
     resources :events
   end
+
+  resources :events do
+    get 'set_location', to: 'events#set_location'
+    get 'get_address', to: 'events#get_address'
+  end
   
   resources :studios, only: [:show] do 
     resources :events, only: [:new, :create]
