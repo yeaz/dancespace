@@ -37,7 +37,7 @@ function constructGetAddressUrl() {
 }
 
 function codeAddress() {
-    var address = document.getElementById('address').value
+    var address = document.getElementById('address').value; 
     var error = document.getElementById('error'); 
     geocoder.geocode( { 'address' : address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {

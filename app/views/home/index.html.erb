@@ -1,4 +1,8 @@
 <% if user_signed_in? %>
+  <% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+  <% end %>
+
 	<%= render "home/navbar" %>
 	<div class="container spec">
 		<div class="row">
@@ -9,14 +13,9 @@
 			<!-- Page Content TODO: javascript it up-->
 	    	<div class="col-md-9" style="background:#eee">
 	    		<h2>Events Feed</h2>
-	    		<p><span class="lead">Find upcoming events!</span><br /><small>All events in ascending order</small></p>
+	    		<p><span class="lead">Find events near you</span><br /></p>
 	    		<ul>
-					<% Event.find_each do |e| %>
-					  <h3><a href="<%= event_path(e) %>"><%= e.name %></a></h3>
-					  <div>Description: <%= e.description %></div>
-					  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
-					  <div>Date and time: <%= e.event_date_time %></div>
-					<% end %>
+                          <%= render "home/events_near_you" %>
 	    		</ul>
 	    	</div>
 		</div>
@@ -43,3 +42,4 @@
 	</div>
 
 <% end %>
+
