@@ -20,13 +20,20 @@ function initMap() {
         google.maps.event.addListener(marker, 'drag', function() {
             updateCoordsOnPage(marker.getPosition()); 
         });
-        var url = "get_address";
+        var url = constructGetAddressUrl(); 
         jQuery.get(url, function(data) {
             document.getElementById('address').value = data["address"];
             codeAddress(); 
         });
     }
 
+}
+
+function constructGetAddressUrl() {
+    var url = window.location.pathname;
+    var re = /\/events\/+([0-9]+)\/+set_location/;
+    var reArray = re.exec(url);
+    return "/events/" + reArray[1] + "/get_address/"; 
 }
 
 function codeAddress() {

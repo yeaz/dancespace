@@ -19,6 +19,7 @@
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>
 		</p>
+                <a href="/events/<%= params[:id] %>/set_location/" data-no-turbolink="true">Edit location</a>
                 <div id="show-event-map-canvas"></div>
 		</div>
 	</div>
