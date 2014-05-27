@@ -51,11 +51,22 @@ class StudiosController < ApplicationController
 
   def get_address
     @studio = Studio.find(params[:studio_id])
-    puts 'GET ADDRESS'
-    puts @studio.get_address
-    render :json => {"address" => @studio.get_address}
+    if @studio.is_location_set == false
+      render :json => {"address" => @studio.get_address}
+    else
+      render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
+    end
   end
 
+  def get_coordinates
+    @studio = Studio.find(params[:studio_id])
+    if @studio.is_location_set == true
+      render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
+    else
+      render :json => {"error" => "no coords set"}
+    end
+  end
+  
   def search
     studios_at_location = []
     valid_studios = Studio.where(is_location_set: true)
@@ -67,7 +78,7 @@ class StudiosController < ApplicationController
     render :partial => "studios_in_bounds", :locals => {:studios => studios_at_location}
   end
 
-  # *** HELPER METHODS *** #
+  # *** HELPER METHODS
   private
 
     def create_membership

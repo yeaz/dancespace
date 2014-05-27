@@ -9,7 +9,7 @@
     display: none; 
 }
 
-#show-event-map-canvas, #events-feed-map-canvas, #studios-feed-map-canvas {
+#show-event-map-canvas, #events-feed-map-canvas, #studios-feed-map-canvas, #show-studio-map-canvas {
     height: 500px;
     width: 75%;
     margin-left: auto;

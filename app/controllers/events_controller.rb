@@ -58,7 +58,11 @@ class EventsController < ApplicationController
 
   def get_address
     @event = Event.find(params[:event_id])
-    render :json => {"address" => @event.get_address}
+    if @event.is_location_set == false
+      render :json => {"address" => @event.get_address}
+    else
+      render :json => {"lat" => @event.lat, "lng" => @event.lng}
+    end
   end
 
   def set_location

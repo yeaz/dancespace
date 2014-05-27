@@ -12,11 +12,9 @@ function initMaps() {
 }
 
 function initStudioMap() {
-   // console.log('heeere'); 
     studioGeocoder = new google.maps.Geocoder();
     var studioMapDiv = document.getElementById('set-studio-location-map');
     if (studioMapDiv != null) {
-        console.log(studioMapDiv); 
         studioMap = new google.maps.Map(studioMapDiv, {
             center: new google.maps.LatLng(37.4, -122.2),
             zoom: 10,
@@ -31,21 +29,23 @@ function initStudioMap() {
             updateStudioCoordsOnPage(studioMarker.getPosition()); 
         });
         var url = constructGetStudioAddressUrl();
-        console.log(window.location.pathname); 
-        console.log(url); 
         jQuery.get(url, function(data) {
-            document.getElementById('address').value = data["address"];
-            codeStudioAddress(); 
+            if (data["address"]) {
+                document.getElementById('address').value = data["address"];
+                codeStudioAddress(); 
+             }
+             else {
+                 studioMap.setCenter(new google.maps.LatLng(data["lat"], data["lng"]));
+                 studioMarker.setPosition(studioMap.getCenter()); 
+             }
         });
     }
 }
 
 function constructGetStudioAddressUrl() {
-    console.log('constructing'); 
     var url = window.location.pathname;
     var re = /\/studios\/+([0-9]+)\/+set_location/;
     var reArray = re.exec(url);
-    console.log(reArray); 
     return "/studios/" + reArray[1] + "/get_address"; 
 }
 
@@ -68,8 +68,14 @@ function initEventMap() {
         });
         var url = constructGetAddressUrl(); 
         jQuery.get(url, function(data) {
-            document.getElementById('address').value = data["address"];
-            codeAddress(); 
+            if (data["address"]) {
+                document.getElementById('address').value = data["address"];
+                codeAddress(); 
+            }
+            else {
+                map.setCenter(new google.maps.LatLng(data["lat"], data["lng"]));
+                marker.setPosition(map.getCenter()); 
+            }
         });
     }
 
@@ -99,7 +105,6 @@ function codeAddress() {
 
 function codeStudioAddress() {
     var address = document.getElementById('address').value;
-    console.log(address); 
     var error = document.getElementById('error'); 
     studioGeocoder.geocode( { 'address' : address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
