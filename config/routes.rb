@@ -27,10 +27,23 @@ DanceSpace::Application.routes.draw do
   get 'get_it', to: 'videos#get_it'
   
   resources :experiences
-  resources :studios
+  resources :studios do
+    resources :events
+  end
+
+  get 'get_events_in_bounds', to: 'events#search'
+  get 'get_studios_in_bounds', to: 'studios#search'
   
-  resources :studios, only: [:show] do 
-    resources :events, only: [:new, :create]
+  resources :events do
+    get 'set_location', to: 'events#set_location'
+    get 'get_address', to: 'events#get_address'
+    get 'get_coordinates', to: 'events#get_coordinates'
+  end
+  
+  resources :studios, only: [:show] do
+    get 'set_location', to: 'studios#set_location'
+    get 'get_address', to: 'studios#get_address'
+    get 'get_coordinates', to: 'studios#get_coordinates'
   end
 
   resources :events, only: [:index, :show, :edit, :update, :destroy]

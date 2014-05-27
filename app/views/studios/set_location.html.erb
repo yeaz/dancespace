@@ -1,0 +1,23 @@
+redirect here
+
+<% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+<% end %>
+
+<!-- CSS is in maps.css -->
+
+<div id="set-studio-location-map"></div>
+<div id="panel">
+  <input id="address" type="textbox" placeholder="Stanford, CA"/>
+  <input type="submit" onclick="codeStudioAddress()" value="Change Location!"/>
+</div>
+<div id="error"></div>
+
+<%= form_for @studio do |f| %>
+  <%= f.text_area :lat %>
+  <%= f.text_area :lng %>
+  <%= f.submit 'Set location' %>
+<% end %>
+
+<a href="<%= studio_path(params[:studio_id]) %>"
+   data-no-turbolink="true">Skip setting location </a>

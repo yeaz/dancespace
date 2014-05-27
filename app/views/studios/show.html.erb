@@ -1,3 +1,7 @@
+<% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+<% end %>
+
 <%= render "home/navbar" %>
 <div class="profile-container spec container">
 	<div class="profile-header row">
@@ -6,8 +10,9 @@
 			</div>
 			<div class="col-md-4 main-info">
 				<h1><b><%=@studio.name%></b></h1><br/>
-				Address [line 1]<br/>
-				Address [line 2]<br/>
+				<%= @studio.address_line1 %><br/>
+				<%= @studio.address_line2 %><br/>
+                                <%= @studio.city %>, <%= @studio.state%> <%= @studio.zip_code %>
 				<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a> <br/>
 				<h4><%=@studio.description%></h4>
 			</div>
@@ -26,7 +31,12 @@
         <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
       </div>
     <% end %>
-    
+    <br><br>
+
+    <div id="show-studio-map-canvas"></div>
+    <a href="/studios/<%= params[:id] %>/set_location/"
+    data-no-turbolink="true">Edit location</a>
+  
 
 	<h2> Upcoming Events (in chronological order) </h2>
 	<ul>

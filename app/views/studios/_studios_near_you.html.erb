@@ -1,0 +1,14 @@
+<% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+<% end %>
+
+<div id="studios_feed_panel">
+  <input id="studio_feed_address" type="textbox"
+  placeholder="Stanford, CA"/>
+  <input type="submit" onclick="codeAddressAndUpdateStudios()"
+  value="Change Location!"/>
+</div>
+
+<div id="studios_feed_error"></div>
+<div id="studios-feed-map-canvas"></div>
+<div id="all_studios"></div>
