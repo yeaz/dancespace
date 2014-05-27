@@ -17,8 +17,10 @@
 			<!-- User Profile Info -->
 		<ul class="nav navbar-nav navbar-right">
 		<% if user_signed_in? %>
-	        <a href="<%= new_video_path %>" class="btn btn-default navbar-btn">Share a Video</a>
-	        <a href="<%= random_user_path %>" class="btn btn-default navbar-btn">Random Dancer!</a>
+<!-- 	        <a href="<%= new_video_path %>" class="btn btn-default navbar-btn">Share a Video</a>
+ -->	        
+			<a id="jstest" class="btn btn-default navbar-btn">Test</a>
+			<a href="<%= random_user_path %>" class="btn btn-default navbar-btn">Random Dancer!</a>
 	        <a href="<%= get_it_path %>" class="btn btn-default navbar-btn">Random Video!</a>
  			<a href=<%= current_user.get_profile_url
  			%> class="btn btn-default navbar-btn"><strong><%=current_user.first_name %></strong></a>
