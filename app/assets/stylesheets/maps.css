@@ -1,4 +1,4 @@
-#map-canvas {
+#set-location-map-canvas {
     height: 500px;
     width: 75%;
     margin-left: auto;
@@ -7,4 +7,11 @@
 
 #event_lat, #event_lng {
     display: none; 
+}
+
+#show-event-map-canvas {
+    height: 500px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto; 
 }

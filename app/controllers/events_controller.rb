@@ -66,6 +66,16 @@ class EventsController < ApplicationController
     @event = Event.find(params[:event_id])
   end
 
+  def get_coordinates
+    puts 'GET COORDS'
+    @event = Event.find(params[:event_id])
+    if @event.is_location_set == true
+      render :json => {"lat" => @event.lat, "lng" => @event.lng}
+    else
+      render :json => {"error" => "no coords set"}
+    end
+  end
+
   def index
   end
 

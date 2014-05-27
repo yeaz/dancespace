@@ -5,7 +5,7 @@ var marker = null;
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
-    var mapDiv = document.getElementById('map-canvas');
+    var mapDiv = document.getElementById('set-location-map-canvas');
     if (mapDiv != null) {
         map = new google.maps.Map(mapDiv, {
             center: new google.maps.LatLng(37.4, -122.2),
@@ -19,13 +19,14 @@ function initMap() {
             visible: true}); 
         google.maps.event.addListener(marker, 'drag', function() {
             updateCoordsOnPage(marker.getPosition()); 
-        }); 
+        });
+        var url = "get_address";
+        jQuery.get(url, function(data) {
+            document.getElementById('address').value = data["address"];
+            codeAddress(); 
+        });
     }
-    var url = "get_address";
-    jQuery.get(url, function(data) {
-        document.getElementById('address').value = data["address"];
-        codeAddress(); 
-    });
+
 }
 
 function codeAddress() {

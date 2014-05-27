@@ -1,3 +1,7 @@
+<% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+<% end %>
+
 <%= render "home/navbar" %>
 <div class="container spec display">
 	<div class="row">
@@ -15,6 +19,7 @@
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>
 		</p>
+                <div id="show-event-map-canvas"></div>
 		</div>
 	</div>
 </div>
