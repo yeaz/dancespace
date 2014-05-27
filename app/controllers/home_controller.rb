@@ -6,5 +6,13 @@ class HomeController < ApplicationController
   def index
     @videos = Video.all
   end
+
+  def eventsfeed
+  	render :partial => "home/eventsfeed"
+  end
+
+  def studiosnearby
+  	render :partial => "home/studiosnearby"
+  end
   
 end
