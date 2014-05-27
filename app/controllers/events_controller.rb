@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   before_action :get_studio, only: [:new, :create]
   
   def index
-    @events = Event.all
+    @events = Event.search params[:search]
   end
 
   def new
