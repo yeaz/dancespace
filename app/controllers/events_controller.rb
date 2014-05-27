@@ -76,7 +76,6 @@ class EventsController < ApplicationController
 
   # gets questions within the north, south, east, west boundaries
   def search
-    puts 'SEARCHING'
     events_at_location = []
     valid_events = Event.where(is_location_set: true)
     for event in valid_events
@@ -84,7 +83,19 @@ class EventsController < ApplicationController
         events_at_location.push(event)
       end
     end
-    render :partial => "events_in_bounds", :locals => {:events => events_at_location}
+    @questions = get_and_update_future_events(events_at_location)
+    render :partial => "events_in_bounds", :locals => {:events => @questions}
+  end
+
+  def get_and_update_future_events(events_at_location)
+    future_events = []
+    curr_time = DateTime.now
+    for event in events_at_location
+      if curr_time <= event.event_date_time
+        future_events.push(event)
+      end
+    end
+    return future_events
   end
 
   def index
