@@ -8,13 +8,9 @@
 			<!-- Page Content TODO: javascript it up-->
 	    	<div class="col-md-9" style="background:#eee">
 	    		<h2>Studios Nearby</h2>
-	    		<p><span class="lead">Find local studios!</span><br /><small>All studios in order of first created</small></p>
+	    		<p><span class="lead">Find local studios!</span><br /></p>
 	    		<ul>
-	    			<% Studio.find_each do |s| %>
-					  <h3><a href=<%= studio_path(s) %>><%= s.name %></a></h3>
-					  <div>Description: <%= s.description %></div>
-					  <div>Location: TODO WE NEED A LOCATION FOR STUDIOS</div>
-					<% end %>
+                          <%= render "studios/studios_near_you" %>
 	    		</ul>
 	    	</div>
 		</div>

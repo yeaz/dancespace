@@ -32,7 +32,7 @@ DanceSpace::Application.routes.draw do
   end
 
   get 'get_events_in_bounds', to: 'events#search'
-
+  get 'get_studios_in_bounds', to: 'studios#search'
   
   resources :events do
     get 'set_location', to: 'events#set_location'
@@ -40,7 +40,9 @@ DanceSpace::Application.routes.draw do
     get 'get_coordinates', to: 'events#get_coordinates'
   end
   
-  resources :studios, only: [:show] do 
+  resources :studios, only: [:show] do
+    get 'set_location', to: 'studios#set_location'
+    get 'get_address', to: 'studios#get_address'
     resources :events, only: [:new, :create]
   end
 

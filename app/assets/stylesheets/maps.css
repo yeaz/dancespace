@@ -1,15 +1,15 @@
-#set-location-map-canvas {
+#set-location-map-canvas, #set-studio-location-map {
     height: 500px;
     width: 75%;
     margin-left: auto;
     margin-right: auto; 
 }
 
-#event_lat, #event_lng {
+#event_lat, #event_lng, #studio_lat, #studio_lng {
     display: none; 
 }
 
-#show-event-map-canvas, #events-feed-map-canvas {
+#show-event-map-canvas, #events-feed-map-canvas, #studios-feed-map-canvas {
     height: 500px;
     width: 75%;
     margin-left: auto;

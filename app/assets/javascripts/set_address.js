@@ -1,9 +1,55 @@
-google.maps.event.addDomListener(window, 'load', initMap);
+google.maps.event.addDomListener(window, 'load', initMaps);
 var map = null;
 var geocoder = null; 
 var marker = null; 
+var studioMap = null; 
+var studioGeocoder = null; 
+var studioMarker = null; 
 
-function initMap() {
+function initMaps() {
+    initEventMap();
+    initStudioMap(); 
+}
+
+function initStudioMap() {
+   // console.log('heeere'); 
+    studioGeocoder = new google.maps.Geocoder();
+    var studioMapDiv = document.getElementById('set-studio-location-map');
+    if (studioMapDiv != null) {
+        console.log(studioMapDiv); 
+        studioMap = new google.maps.Map(studioMapDiv, {
+            center: new google.maps.LatLng(37.4, -122.2),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        studioMarker = new google.maps.Marker({
+            position: studioMap.getCenter(),
+            map: studioMap,
+            draggable: true,
+            visible: true}); 
+        google.maps.event.addListener(studioMarker, 'drag', function() {
+            updateStudioCoordsOnPage(studioMarker.getPosition()); 
+        });
+        var url = constructGetStudioAddressUrl();
+        console.log(window.location.pathname); 
+        console.log(url); 
+        jQuery.get(url, function(data) {
+            document.getElementById('address').value = data["address"];
+            codeStudioAddress(); 
+        });
+    }
+}
+
+function constructGetStudioAddressUrl() {
+    console.log('constructing'); 
+    var url = window.location.pathname;
+    var re = /\/studios\/+([0-9]+)\/+set_location/;
+    var reArray = re.exec(url);
+    console.log(reArray); 
+    return "/studios/" + reArray[1] + "/get_address"; 
+}
+
+function initEventMap() {
     geocoder = new google.maps.Geocoder();
     var mapDiv = document.getElementById('set-location-map-canvas');
     if (mapDiv != null) {
@@ -50,6 +96,30 @@ function codeAddress() {
         }
     }); 
 }
+
+function codeStudioAddress() {
+    var address = document.getElementById('address').value;
+    console.log(address); 
+    var error = document.getElementById('error'); 
+    studioGeocoder.geocode( { 'address' : address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            studioMap.setCenter(results[0].geometry.location);
+            studioMarker.setPosition(studioMap.getCenter());
+            updateStudioCoordsOnPage(studioMarker.getPosition());
+            error.innerHTML = ""; 
+        } else {
+            error.innerHTML = "Error - invalid address."; 
+        }
+    }); 
+}
+
+function updateStudioCoordsOnPage(pos) {
+    var studio_lat = document.getElementById('studio_lat');
+    var studio_lng = document.getElementById('studio_lng');
+    studio_lat.value = Math.round(pos.lat() * 10) / 10;
+    studio_lng.value = Math.round(pos.lng() * 10) / 10; 
+}
+
 
 function updateCoordsOnPage(pos) {
     var event_lat = document.getElementById('event_lat');

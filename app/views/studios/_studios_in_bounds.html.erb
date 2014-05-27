@@ -1,0 +1,5 @@
+<% studios.each do |s| %>
+  <h3><a href=<%= studio_path(s) %>><%= s.name %></a></h3>
+  <div>Description: <%= s.description %></div>
+  <div>Location: <%= s.get_address %></div>
+<% end %>
