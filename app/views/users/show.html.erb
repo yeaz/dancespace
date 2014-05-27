@@ -8,7 +8,8 @@
 		<div class="main-info col-md-4">
 			<h1><b><%= @user.username %></b>
 				<% if current_user.id == @user.id %>
-					<h5><%= link_to("(Edit Profile)", user_settings_path) %> <br/></h5>
+					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
+					<!-- <h5><%= link_to("(Edit Profile)", user_settings_path) %> <br/></h5> -->
 				<% end %>
 			</h1>
 			<p><%= @user.title %><br/>
@@ -39,7 +40,7 @@
 		<hr>
 	<% end %>
 
-
+	<br/>
 	<h1>Experience</h1>
 	<ul>
 		<% @user.experiences.each do |exp| %>
@@ -50,5 +51,19 @@
 	    	</li>
 	  	<% end %>
   	</ul>
+  	<br/>
 
+  	<h1>Studios Owned
+  		<% if current_user.id == @user.id %>
+				<%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
+		<% end %>
+	</h1>
+
+	<ul>
+	  	<% for s in @user.get_studios_that_user_owns %>
+		  	<li>
+		  		<%= link_to(s.name, studio_path(s)) %>
+		  	</li>
+	  	<%end%>
+  	</ul>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140520185803) do
+ActiveRecord::Schema.define(version: 20140522032728) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 20140520185803) do
     t.text     "address_line2"
     t.text     "city",            null: false
     t.text     "state",           null: false
+    t.float    "lat"
+    t.float    "lng"
+    t.boolean  "is_location_set"
   end
 
   create_table "experiencelinks", force: true do |t|
@@ -77,6 +80,9 @@ ActiveRecord::Schema.define(version: 20140520185803) do
     t.string   "phone_area_code", default: ""
     t.string   "phone_1",         default: ""
     t.string   "phone_2",         default: ""
+    t.float    "lat"
+    t.float    "lng"
+    t.boolean  "is_location_set"
   end
 
   create_table "taggings", force: true do |t|

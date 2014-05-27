@@ -12,6 +12,12 @@ class Video < ActiveRecord::Base
                                     message: 'The Youtube URL is not valid' }
   validates :youtube_id, presence: { message: 'There was an internal error when saving video' } 
 
+  
+  def get_users_name
+    user = User.find(self.user_id)
+    return user.username
+  end
+  
   def owned_by?(user)
     self.user_id == user.id
   end

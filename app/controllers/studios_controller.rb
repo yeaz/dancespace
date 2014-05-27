@@ -15,6 +15,7 @@ class StudiosController < ApplicationController
   def create
     @studio = Studio.new(studio_params)
     if @studio.save
+      create_membership
       redirect_to studio_path(@studio)
     else
       render 'new'
@@ -42,6 +43,12 @@ class StudiosController < ApplicationController
 
   # *** HELPER METHODS *** #
   private
+
+    def create_membership
+      m_params = {:studio_id => @studio.id, :is_admin => true, :member_id => current_user.id, :created_at => @studio.created_at, :updated_at => @studio.updated_at}
+      membership = Membership.new(m_params)
+      membership.save
+    end
   
     def get_studio
       if params[:studio_id].blank? && params[:id].blank?
