@@ -15,6 +15,6 @@ class Event < ActiveRecord::Base
   end
 
   def get_address
-    return address_line1 + ' ' + address_line2 + ', ' + city + ' ' + state
+    return address_line1 + ' ' + address_line2 + ', ' + city + ' ' + state + ' ' + zip_code
   end
 end

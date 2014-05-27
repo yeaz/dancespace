@@ -6,8 +6,9 @@
 			</div>
 			<div class="col-md-4 main-info">
 				<h1><b><%=@studio.name%></b></h1><br/>
-				Address [line 1]<br/>
-				Address [line 2]<br/>
+				<%= @studio.address_line1 %><br/>
+				<%= @studio.address_line2 %><br/>
+                                <%= @studio.city %>, <%= @studio.state%> <%= @studio.zip_code %>
 				<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a> <br/>
 			</div>
 		<div class="col-md-5 social-media">

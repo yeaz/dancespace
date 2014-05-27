@@ -63,7 +63,8 @@ class StudiosController < ApplicationController
     def studio_params 
       params.require(:studio).permit(:name, :description, :fb_url, :twtr_url, 
                                      :yt_url, :ig_url, :website_url, :email, 
-                                     :phone_area_code, :phone_1, :phone_2)
+                                     :phone_area_code, :phone_1, :phone_2,
+                                     :address_line1, :address_line2, :city, :state, :zip_code)
     end
   
 end

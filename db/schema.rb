@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522032728) do
+ActiveRecord::Schema.define(version: 20140527032231) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140522032728) do
     t.float    "lat"
     t.float    "lng"
     t.boolean  "is_location_set", default: false
+    t.string   "zip_code"
   end
 
   create_table "experiencelinks", force: true do |t|
@@ -83,6 +84,11 @@ ActiveRecord::Schema.define(version: 20140522032728) do
     t.float    "lat"
     t.float    "lng"
     t.boolean  "is_location_set", default: false
+    t.string   "zip_code"
+    t.text     "address_line1",                   null: false
+    t.text     "address_line2"
+    t.text     "city",                            null: false
+    t.text     "state",                           null: false
   end
 
   create_table "taggings", force: true do |t|
