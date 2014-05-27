@@ -8,9 +8,9 @@ function loadEventsFeed() {
 	});
 	$( "#finderheader").html("Studio Finder");
 	$( "#eventheader").html("<strong>Events Feed</strong>");
-    $( "#listpane" ).fadeIn(500);
-	$( "#foot" ).fadeIn(500);
-	$( "#sidebar" ).fadeIn(500);
+    $( "#listpane" ).fadeIn(750);
+	$( "#foot" ).fadeIn(750);
+	// $( "#sidebar" ).fadeIn(750);
 }
 
 function loadStudiosNearby() {
@@ -23,9 +23,9 @@ function loadStudiosNearby() {
 	});
 	$( "#finderheader").html("<strong>Studio Finder</strong>");
 	$( "#eventheader").html("Events Feed");
-	$( "#listpane" ).fadeIn(500);
-	$( "#foot" ).fadeIn(500);
-	$( "#sidebar" ).fadeIn(500);
+	$( "#listpane" ).fadeIn(750);
+	$( "#foot" ).fadeIn(750);
+	// $( "#sidebar" ).fadeIn(750);
 }
 
 $(document).ready(function() {
@@ -35,7 +35,7 @@ $(document).ready(function() {
 	  $( "#sidebar" ).fadeIn(1000);
 
 	  $( "#listpane" ).hide();
-	  $( "#listpane").html("<h2>This is where the dancer would go</h2><p style='font-size:35px;'>and info about the dancer...basically use the script to get the data for a dancer and put it in the pane</p>");
+	  $( "#listpane").html("<h1>Dancer Info</h1><h2>This is where the dancer would go</h2><p style='font-size:35px;'>and info about the dancer...basically use the script to get the data for a dancer and put it in the pane</p>");
 	  $( "#listpane" ).fadeIn(1000);
 
 	  $( "#foot" ).hide();
