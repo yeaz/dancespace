@@ -20,12 +20,23 @@ function loadEventFeedMap() {
     var eventsMapDiv = document.getElementById('events-feed-map-canvas');
     if (eventsMapDiv != null) {
         eventsMap = new google.maps.Map(eventsMapDiv, {
-            center: new google.maps.LatLng(37, 122),
+            center: new google.maps.LatLng(37.5, -122.2),
             zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
        });
-       geocoder = new google.maps.Geocoder(); 
+       geocoder = new google.maps.Geocoder();
+       google.maps.event.addDomListener(eventsMap, 'bounds_changed', updateDisplayedEvents); 
     }
+}
+
+function updateDisplayedEvents() {
+    var bounds = eventsMap.getBounds(); 
+    var ne = bounds.getNorthEast();
+    var sw = bounds.getSouthWest();
+    var url = "/get_events_in_bounds?n=" + encodeURIComponent(ne.lat()) + "&e=" + encodeURIComponent(ne.lng()) + "&s=" + encodeURIComponent(sw.lat()) + "&w=" + encodeURIComponent(sw.lng());
+    jQuery.get(url, function(data) {
+        document.getElementById('all_events').innerHTML = data; 
+    }); 
 }
 
 function codeAddressAndUpdateEvents() {
@@ -35,6 +46,7 @@ function codeAddressAndUpdateEvents() {
         if (status == google.maps.GeocoderStatus.OK) {
             eventsMap.setCenter(results[0].geometry.location);
             error.innerHTML = "";
+            updateDisplayedEvents(); 
         }
         else {
             error.innerHTML = "Error - invalid address"; 

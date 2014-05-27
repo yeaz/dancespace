@@ -57,7 +57,6 @@ class EventsController < ApplicationController
   end
 
   def get_address
-    puts 'GET ADDRESS'
     @event = Event.find(params[:event_id])
     render :json => {"address" => @event.get_address}
   end
@@ -67,13 +66,25 @@ class EventsController < ApplicationController
   end
 
   def get_coordinates
-    puts 'GET COORDS'
     @event = Event.find(params[:event_id])
     if @event.is_location_set == true
       render :json => {"lat" => @event.lat, "lng" => @event.lng}
     else
       render :json => {"error" => "no coords set"}
     end
+  end
+
+  # gets questions within the north, south, east, west boundaries
+  def search
+    puts 'SEARCHING'
+    events_at_location = []
+    valid_events = Event.where(is_location_set: true)
+    for event in valid_events
+      if event.lat.between?(params[:s].to_f, params[:n].to_f) and event.lng.between?(params[:w].to_f, params[:e].to_f)
+        events_at_location.push(event)
+      end
+    end
+    render :partial => "events_in_bounds", :locals => {:events => events_at_location}
   end
 
   def index
