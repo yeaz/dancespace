@@ -5,7 +5,13 @@
 				<%= image_tag "studio1.jpg" %>
 			</div>
 			<div class="col-md-4 main-info">
-				<h1><b><%=@studio.name%></b></h1><br/>
+				<h1><b><%=@studio.name%></b>
+			<% if current_user_owns_studio(@studio.id) %>
+		      <%= link_to 'Edit', edit_studio_path(studio_id: @studio), class: "btn btn-lg btn-warning" %> 
+		    <% end %>
+
+
+				</h1><br/>
 				Address [line 1]<br/>
 				Address [line 2]<br/>
 				<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a> <br/>
@@ -21,20 +27,20 @@
 		</div>
 	</div>
 
-    <% if current_user_owns_studio(@studio.id) %>
-      <div>
-        <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio) %> 
-      </div>
-    <% end %>
+  
     
 
-	<h2> Upcoming Events (in chronological order) </h2>
-	<ul>
+	<h2>Upcoming Events  
+		<% if current_user_owns_studio(@studio.id) %>
+      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-lg btn-warning" %> 
+    <% end %>
+   </h2>
 		<% @events.each do |e| %>
-		  <li><b><a href=<%= event_path(e) %>><%= e.name %></a></b>
+		<div>
+		  <h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
 		  <div><%= e.event_date_time %></div></li>
+		</div>
 		<% end %>
-	</ul>
 </div>
 
   
