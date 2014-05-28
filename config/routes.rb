@@ -49,6 +49,8 @@ DanceSpace::Application.routes.draw do
   get 'eventsfeed', to: "home#eventsfeed"
   get 'studiosnearby', to: "home#studiosnearby"
 
+  get 'studios_nearby', to: "studios#nearby"
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
