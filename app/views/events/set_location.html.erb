@@ -1,20 +1,26 @@
-<% content_for :google_maps_js do %>
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
-<% end %>
+<%= render "home/navbar" %>
+	<div class="container spec">
+		<h1>Set Event Location on Map</h1>
+		<a href="<%= event_path(params[:event_id]) %>" data-no-turbolink="true" class="btn btn-warning"> Skip setting location</a>
 
-<!-- CSS is in maps.css -->
+		<% content_for :google_maps_js do %>
+		  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+		<% end %>
 
-<div id="set-location-map-canvas"></div>
-<div id="panel">
-  <input id="address" type="textbox" placeholder="Stanford, CA"/>
-  <input type="submit" onclick="codeAddress()" value="Change Location!"/>
+		<!-- CSS is in maps.css -->
+		<input id="address" type="textbox" placeholder="Stanford, CA"/>
+		  <input type="submit" onclick="codeAddress()" class="btn btn-default" value="Go to new address"/>
+		<div id="set-location-map-canvas"></div>
+		<div class="container" style="padding-top:20px;">
+		<div id="panel">
+		</div>
+		<div id="error"></div>
+
+		<%= form_for @event do |f| %>
+		  <%= f.text_area :lat %>
+		  <%= f.text_area :lng %>
+		  <%= f.submit 'Set location', class: "btn btn-warning btn-lg" %>
+		<% end %>
+
 </div>
-<div id="error"></div>
-
-<%= form_for @event do |f| %>
-  <%= f.text_area :lat %>
-  <%= f.text_area :lng %>
-  <%= f.submit 'Set location' %>
-<% end %>
-
-<a href="<%= event_path(params[:event_id]) %>" data-no-turbolink="true"> Skip setting location</a>
+	</div>
