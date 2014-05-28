@@ -12,9 +12,26 @@
 					<!-- <h5><%= link_to("(Edit Profile)", user_settings_path) %> <br/></h5> -->
 				<% end %>
 			</h1>
-			<p><%= @user.title %><br/>
-				<%= @user.city %>, <%= @user.state %><p>
-			<h4><div class="blurb"><%=@user.blurb%></div></h4>
+
+			<p>
+			<% if @user.title!="" && @user.title !=nil%>
+				<%= @user.title %><br/>
+			<% elsif current_user.id == @user.id %>
+				<div class="reminder">Edit profile to add a title.</div>
+			<% end %>
+
+			<% if @user.city !="" && @user.city != nil%>
+				<%= @user.city %>, <%= @user.state %><br/>
+			<% elsif current_user.id == @user.id %>
+				<div class="reminder">Edit profile to add your current location.</div>
+			<% end %>
+			</p>
+
+			<% if @user.blurb!="" && @user.blurb != nil %>
+				<h4><div class="blurb"><%=@user.blurb%></div></h4>
+			<% elsif current_user.id == @user.id %>
+				<div class="reminder"> Edit profile to add a personal blurb about yourself.</div>
+			<%end%>
 		</div>
 		<div class="col-md-5 social-media">
 			<a href=<%=@user.yt_url%> target="_blank"> <%= image_tag "youtube-icon.png" %> </a>
@@ -27,6 +44,9 @@
 	</div>
 	<br>
 	<h1>Video Portfolio</h1>
+	<% if @user.videos.size == 0 %>
+		<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
+	<%end%>
 	<% for v in @user.videos do%>
 		<div class="row">
 			<div class="col-md-3 vid-thumbnail">
@@ -42,6 +62,10 @@
 
 	<br/>
 	<h1>Experience</h1>
+	<% if @user.experiences.size == 0 %>
+		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
+	<% end %>
+
 	<ul>
 		<% @user.experiences.each do |exp| %>
 	    	<li><%= exp.content %>
@@ -53,17 +77,23 @@
   	</ul>
   	<br/>
 
-  	<h1>Studios Owned
-  		<% if current_user.id == @user.id %>
-				<%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
-		<% end %>
-	</h1>
+  	<% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
+  		<h1>Own a studio? Why not create a page for it?</h1>
+		<h4>Once you create a studio, it's page will be linked here on your profile.</h4>
+		<%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %>
+  	<% else %>
+	  	<h1>Studios Owned
+	  		<% if current_user.id == @user.id %>
+					<%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
+			<% end %>
+		</h1>
 
-	<ul>
-	  	<% for s in @user.get_studios_that_user_owns %>
-		  	<li>
-		  		<%= link_to(s.name, studio_path(s)) %>
-		  	</li>
-	  	<%end%>
-  	</ul>
+		<ul>
+		  	<% for s in @user.get_studios_that_user_owns %>
+			  	<li>
+			  		<%= link_to(s.name, studio_path(s)) %>
+			  	</li>
+		  	<%end%>
+	  	</ul>
+  	<% end %>
 </div>
