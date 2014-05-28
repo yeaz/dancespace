@@ -12,19 +12,6 @@
 	margin-top: 0px;
 	padding-top: 0px;
 }
-.profile-container img{
-}
-
-/*.profile-header{
-	vertical-align: top;
-	white-space: nowrap;
-	width: 100%;
-}*/
-
-/*.propic {
-	display: inline-block;
-	vertical-align: top;
-}*/
 
 
 .propic img{
@@ -70,4 +57,9 @@
 .vid-thumbnail img{
 	max-height: 150px;
 	max-width: 100%;
+}
+
+.reminder{
+	color: #BABABA;
+	font-style: italic;
 }
