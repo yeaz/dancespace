@@ -8,7 +8,7 @@
 			</div>
 			<div class="listing-info col-md-6">
 				<h3><b><a href= <%= studio_path(s) %> data-no-turbolink="true" > <%= s.name %> </a></h3></b>
-				<h5><b>Location: TODO waiting on location</b></h5>
+				<h5><b>Location</b>: <%= s.get_address %></h5>
 				<div class="listing-blurb"><h5><%= s.description %></h5></div>
 			</div>
 			<div class="col-md-4 social-media">
