@@ -1,0 +1,13 @@
+<% for result in @results do %>
+  <div>
+    <% if result.class.name == "User" %>
+      <%= result.first_name + ' ' + result.last_name %> 
+    <% elsif result.class.name == "Studio" %>
+      <%= result.name %> 
+    <% elsif result.class.name == "Video" %>
+      <%= result.title %> 
+    <% elsif result.class.name == "Event" %>
+      <%= result.name %>         
+    <% end %>
+  </div>
+<% end %>
