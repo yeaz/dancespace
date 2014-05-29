@@ -1,33 +1,35 @@
 function loadEventsFeed() {
-    $( "#listpane" ).hide();
-    $( "#foot" ).hide(); 
+ //   $( "#listpane" ).hide();
+   // $( "#foot" ).hide(); 
     // $( "#sidebar" ).hide(); 
 	url = "eventsfeed_title";
 	jQuery.get(url, function(data) {
                 document.getElementById("page_title").innerHTML = data; 
 	//	document.getElementById("listpane").innerHTML = data;
 	});
+    loadFeedMap("/get_events_in_bounds"); 
 	$( "#finderheader").html("Studio Finder");
 	$( "#eventheader").html("<strong>Events Feed</strong>");
 	$( "#randomheader").html("Randomizer");
-    $( "#listpane" ).fadeIn(750);
-	$( "#foot" ).fadeIn(750);
+ //   $( "#listpane" ).fadeIn(750);
+//	$( "#foot" ).fadeIn(750);
 	// $( "#sidebar" ).fadeIn(750);
 }
 
 function loadStudiosNearby() {
-    $( "#listpane" ).hide();
-    $( "#foot" ).hide();
+  //  $( "#listpane" ).hide();
+    //$( "#foot" ).hide();
     // $( "#sidebar" ).hide();
 	url = "studiosfeed_title"
 	jQuery.get(url, function(data) {
 		document.getElementById("page_title").innerHTML = data;
 	});
+    loadFeedMap("/get_studios_in_bounds"); 
 	$( "#finderheader").html("<strong>Studio Finder</strong>");
 	$( "#eventheader").html("Events Feed");
 	$( "#randomheader").html("Randomizer");
-	$( "#listpane" ).fadeIn(750);
-	$( "#foot" ).fadeIn(750);
+//	$( "#listpane" ).fadeIn(750);
+//	$( "#foot" ).fadeIn(750);
 	// $( "#sidebar" ).fadeIn(750);
 }
 
