@@ -56,10 +56,8 @@ function loadRandomizer(type) {
 			+	"<div class='listing-blurb'><h5>" 
 			+ data.blurb 
 			+ "</h5></div>"
-			+ "</div>");
-	    // $( "#listpane").html("<h1>Dancer Info</h1><h2>This is where the dancer would go</h2><p style='font-size:35px;font-family:monospace;font-weight:100'>and info about the dancer...basically use the script to get the data for a dancer and put it in the pane...<br><br>where should i put the option for dancer or video?</p>");
-
-
+			+ "</div>"
+			+ "<p class='lead'>info about the dancer...basically use the script to get the data for a dancer and put it in the pane..</p>");
 	});
 
 	  $( "#listpane" ).fadeIn(750);
