@@ -40,7 +40,9 @@ class UsersController < ApplicationController
 
   def get_random_user
     @user = User.offset(rand(User.count)).first
-    redirect_to user_path(@user)
+    respond_to do |format|
+      format.json { render json: @user} # take the fields we need only [email: @user.email, id: @user.id]
+    end    
   end
   
   private

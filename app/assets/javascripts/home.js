@@ -30,14 +30,39 @@ function loadStudiosNearby() {
 	// $( "#sidebar" ).fadeIn(750);
 }
 
-function loadRandomizer() {
+function loadRandomizer(type) {
 	  $( "#finderheader").html("Studio Finder");
 	  $( "#eventheader").html("Events Feed");
 	  $( "#randomheader").html("<strong>Randomizer</strong>");
 
 	  $( "#listpane" ).hide();
 	  $( "#foot" ).hide();
-	  $( "#listpane").html("<h1>Dancer Info</h1><h2>This is where the dancer would go</h2><p style='font-size:35px;font-family:monospace;font-weight:100'>and info about the dancer...basically use the script to get the data for a dancer and put it in the pane...<br><br>where should i put the option for dancer or video?</p>");
+	  // url = "random_user";
+	  // if (type == "dancer") 
+	  // 	url = "random_user";
+	  // else {
+	  // 	get_it();
+	  // }
+// 0. get dancer object
+// 1. populate listpane with dancer data
+	url = "random_user";
+	jQuery.get(url, function(data) {
+		console.log(data);
+		console.log(data.email);
+		$("#listpane").html("<h1><b>Random dancer: <a href='/users/" + data.id + "'>"
+			+ data.first_name + " " + data.last_name 
+			+ "</a></b></h1>"
+			+ "<div class='col-md-6'>"
+			+	"<div class='listing-blurb'><h5>" 
+			+ data.blurb 
+			+ "</h5></div>"
+			+ "</div>");
+	    // $( "#listpane").html("<h1>Dancer Info</h1><h2>This is where the dancer would go</h2><p style='font-size:35px;font-family:monospace;font-weight:100'>and info about the dancer...basically use the script to get the data for a dancer and put it in the pane...<br><br>where should i put the option for dancer or video?</p>");
+
+
+	});
+
 	  $( "#listpane" ).fadeIn(750);
 	  $( "#foot" ).fadeIn(750);
 }
+
