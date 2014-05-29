@@ -5,7 +5,7 @@ class VideosController < ApplicationController
   before_action :get_video, only: [:edit, :update, :destroy, :show]
 
   def index
-    @videos = Video.all
+    @videos = Video.search params[:search]
   end
 
   def new

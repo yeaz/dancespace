@@ -2,6 +2,14 @@
 <div class="spec container all-page">
 	<h1><b/>All Dancers</b></h1>
 
+    <!-- SEARCH BAR -->
+    <%= form_tag users_path, :method => 'get' do %>
+      <div>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search", :name => nil %>
+      </div>
+	<% end %>
+
 	<% for d in @users do %>
 		<div class="row">
 			<div class="listing-photo col-md-2">
@@ -9,7 +17,7 @@
 			</div>
 			<div class="col-md-6">
 				<h3><b><a href=<%= user_path(d) %>><%= d.username %></a></h3></b>
-				<h5><b><%= d.city %>, <%= d.state %><b></h5>
+				<h5><b><%= d.city %>, <%= d.state %></b></h5>
 				<div class="listing-blurb"><h5><%= d.blurb %> </h5></div>
 			</div>
 			<div class="col-md-4 social-media">
@@ -18,7 +26,7 @@
 				<b>E-MAIL:</b> <%= d.email %> <br/>
 				<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
 			</div>
-		</div>
 		<hr>
+		</div>
 	<% end %>
 </div>

@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   before_action :get_studio, only: [:new, :create]
   
   def index
-    @events = Event.all
+    @events = Event.search params[:search]
   end
 
   def new
@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
-      redirect_to event_path(@event)
+      redirect_to '/events/' + @event.id.to_s + '/set_location'
     else
       add_errors_to_flash
       render 'new'
@@ -34,6 +34,13 @@ class EventsController < ApplicationController
   
   def update
     e_params = event_params
+    if e_params.has_key?(:lat) and e_params.has_key?(:lng)
+      e_params[:is_location_set] = true
+      @event.update_attributes(e_params)
+      redirect_to event_path(@event)
+      return
+    end
+    
     update_date_time(e_params)
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
@@ -48,7 +55,53 @@ class EventsController < ApplicationController
       redirect_to event_path(@event)
     end
   end
-  
+
+  def get_address
+    @event = Event.find(params[:event_id])
+    if @event.is_location_set == false
+      render :json => {"address" => @event.get_address}
+    else
+      render :json => {"lat" => @event.lat, "lng" => @event.lng}
+    end
+  end
+
+  def set_location
+    @event = Event.find(params[:event_id])
+  end
+
+  def get_coordinates
+    @event = Event.find(params[:event_id])
+    if @event.is_location_set == true
+      render :json => {"lat" => @event.lat, "lng" => @event.lng}
+    else
+      render :json => {"error" => "no coords set"}
+    end
+  end
+
+  # gets questions within the north, south, east, west boundaries
+  def search
+    events_at_location = []
+    valid_events = Event.where(is_location_set: true)
+    for event in valid_events
+      if event.lat.between?(params[:s].to_f, params[:n].to_f) and event.lng.between?(params[:w].to_f, params[:e].to_f)
+        events_at_location.push(event)
+      end
+    end
+    @questions = get_and_update_future_events(events_at_location)
+    render :partial => "events_in_bounds", :locals => {:events => @questions}
+  end
+
+  def get_and_update_future_events(events_at_location)
+    future_events = []
+    curr_time = DateTime.now
+    for event in events_at_location
+      if curr_time <= event.event_date_time
+        future_events.push(event)
+      end
+    end
+    return future_events
+  end
+
   def destroy
   end
   
@@ -93,7 +146,7 @@ class EventsController < ApplicationController
     end
     
     def event_params 
-      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :event_date_time)
+      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng)
     end
   
 end

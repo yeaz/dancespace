@@ -1,3 +1,7 @@
+<% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+<% end %>
+
 <%= render "home/navbar" %>
 <div class="container spec display">
 	<div class="row">
@@ -14,7 +18,12 @@
 	      <p><b>Location</b><br>
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>
+			  <%= @event.zip_code %>
 		</p>
+		    <% if current_user_owns_studio(@event.studio_id) %>
+                <a href="/events/<%= params[:id] %>/set_location/" data-no-turbolink="true" class="btn btn-warning">Edit location</a>
+                <div id="show-event-map-canvas"></div>
+            <% end %>
 		</div>
 	</div>
 </div>
