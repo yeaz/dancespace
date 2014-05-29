@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
+  
   def index
-    @users = User.all
+    @users = User.search params[:search]
   end
 
   def new

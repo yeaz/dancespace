@@ -5,6 +5,7 @@ DanceSpace::Application.routes.draw do
   root 'home#index'
   
   get '/about' => 'home#about'
+  get '/search' => 'home#search'
 
   devise_for :users,
   :controllers => {
