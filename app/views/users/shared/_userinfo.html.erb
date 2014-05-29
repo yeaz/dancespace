@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <h2>You!</h2><!-- TODO: change to choreo/studio/etc -->
-  <p>Hi <strong><%=current_user.username%></strong>. You're signed in with the email <strong><%=current_user.email %></strong> and apparently your name is <strong><%=current_user.first_name %> <%=current_user.last_name%></strong>. Very clutch.</p>
+  <p>Hi, You're signed in with the email <strong><%=current_user.email %></strong> and apparently your name is <strong><%=current_user.first_name %> <%=current_user.last_name%></strong>. Very clutch.</p>
     <a type="button" class="btn btn-warning" href="#">View Profile</a>
 	<a type="button" class="btn btn-default" href="<%= logout_path %>">Logout</a>
 <% else %>
