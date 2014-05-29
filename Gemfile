@@ -68,6 +68,9 @@ gem 'cancan'
 # Use devise as the authentication framework
 gem 'devise'
 
+# Use Sphinx search engine for text-based search
+gem 'thinking-sphinx'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
