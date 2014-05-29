@@ -17,8 +17,6 @@ DanceSpace::Application.routes.draw do
     get 'logout', to: 'devise/sessions#destroy'
     get 'signup', to: 'devise/registrations#new'
   end
-
-  get 'studios_nearby', to: 'studios#nearby'
   
   resources :users
   get 'user_settings', to: 'users#edit_profile'
@@ -28,13 +26,31 @@ DanceSpace::Application.routes.draw do
   get 'get_it', to: 'videos#get_it'
   
   resources :experiences
-  resources :studios
+  resources :studios do
+    resources :events
+  end
+
+  get 'get_events_in_bounds', to: 'events#search'
+  get 'get_studios_in_bounds', to: 'studios#search'
   
-  resources :studios, only: [:show] do 
-    resources :events, only: [:new, :create]
+  resources :events do
+    get 'set_location', to: 'events#set_location'
+    get 'get_address', to: 'events#get_address'
+    get 'get_coordinates', to: 'events#get_coordinates'
+  end
+  
+  resources :studios, only: [:show] do
+    get 'set_location', to: 'studios#set_location'
+    get 'get_address', to: 'studios#get_address'
+    get 'get_coordinates', to: 'studios#get_coordinates'
   end
 
   resources :events, only: [:index, :show, :edit, :update, :destroy]
+
+  get 'eventsfeed', to: "home#eventsfeed"
+  get 'studiosnearby', to: "home#studiosnearby"
+
+  get 'studios_nearby', to: "studios#nearby"
 
   
   # The priority is based upon order of creation: first created -> highest priority.

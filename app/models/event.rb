@@ -13,4 +13,8 @@ class Event < ActiveRecord::Base
       errors.add(:event_date_time, "Can't be in the past")
     end
   end
+
+  def get_address
+    return address_line1 + ' ' + address_line2 + ', ' + city + ' ' + state + ' ' + zip_code
+  end
 end

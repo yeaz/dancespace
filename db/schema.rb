@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522032728) do
+ActiveRecord::Schema.define(version: 20140527032231) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -21,19 +21,20 @@ ActiveRecord::Schema.define(version: 20140522032728) do
   end
 
   create_table "events", force: true do |t|
-    t.string   "name",            null: false
-    t.text     "description",     null: false
+    t.string   "name",                            null: false
+    t.text     "description",                     null: false
     t.integer  "studio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "event_date_time", null: false
-    t.text     "address_line1",   null: false
+    t.datetime "event_date_time",                 null: false
+    t.text     "address_line1",                   null: false
     t.text     "address_line2"
-    t.text     "city",            null: false
-    t.text     "state",           null: false
+    t.text     "city",                            null: false
+    t.text     "state",                           null: false
     t.float    "lat"
     t.float    "lng"
-    t.boolean  "is_location_set"
+    t.boolean  "is_location_set", default: false
+    t.string   "zip_code"
   end
 
   create_table "experiencelinks", force: true do |t|
@@ -67,8 +68,8 @@ ActiveRecord::Schema.define(version: 20140522032728) do
   end
 
   create_table "studios", force: true do |t|
-    t.string   "name",                         null: false
-    t.text     "description",                  null: false
+    t.string   "name",                            null: false
+    t.text     "description",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "fb_url"
@@ -82,7 +83,12 @@ ActiveRecord::Schema.define(version: 20140522032728) do
     t.string   "phone_2",         default: ""
     t.float    "lat"
     t.float    "lng"
-    t.boolean  "is_location_set"
+    t.boolean  "is_location_set", default: false
+    t.string   "zip_code"
+    t.text     "address_line1",                   null: false
+    t.text     "address_line2"
+    t.text     "city",                            null: false
+    t.text     "state",                           null: false
   end
 
   create_table "taggings", force: true do |t|

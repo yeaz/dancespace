@@ -16,14 +16,18 @@ class StudiosController < ApplicationController
     @studio = Studio.new(studio_params)
     if @studio.save
       create_membership
-      redirect_to studio_path(@studio)
+      redirect_to "/studios/" + @studio.id.to_s + "/set_location"
     else
       render 'new'
     end
   end
     
   def update
-    if @studio.update_attributes(studio_params)
+    s_params = studio_params
+    if s_params.has_key?(:lat) and s_params.has_key?(:lng)
+      s_params[:is_location_set] = true
+    end
+    if @studio.update_attributes(s_params)
       redirect_to studio_path(@studio)
     else
       render 'edit'
@@ -41,7 +45,40 @@ class StudiosController < ApplicationController
     @events = Event.where("studio_id = ?",  params[:id])
   end
 
-  # *** HELPER METHODS *** #
+  def set_location
+    @studio = Studio.find(params[:studio_id])
+  end
+
+  def get_address
+    @studio = Studio.find(params[:studio_id])
+    if @studio.is_location_set == false
+      render :json => {"address" => @studio.get_address}
+    else
+      render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
+    end
+  end
+
+  def get_coordinates
+    @studio = Studio.find(params[:studio_id])
+    if @studio.is_location_set == true
+      render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
+    else
+      render :json => {"error" => "no coords set"}
+    end
+  end
+  
+  def search
+    studios_at_location = []
+    valid_studios = Studio.where(is_location_set: true)
+    for studio in valid_studios
+      if studio.lat.between?(params[:s].to_f, params[:n].to_f) and studio.lng.between?(params[:w].to_f, params[:e].to_f)
+        studios_at_location.push(studio)
+      end
+    end
+    render :partial => "studios_in_bounds", :locals => {:studios => studios_at_location}
+  end
+
+  # *** HELPER METHODS
   private
 
     def create_membership
@@ -63,7 +100,26 @@ class StudiosController < ApplicationController
     def studio_params 
       params.require(:studio).permit(:name, :description, :fb_url, :twtr_url, 
                                      :yt_url, :ig_url, :website_url, :email, 
-                                     :phone_area_code, :phone_1, :phone_2)
+                                     :phone_area_code, :phone_1, :phone_2,
+                                     :address_line1, :address_line2, :city, :state, :zip_code,
+                                     :lat, :lng)
     end
   
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

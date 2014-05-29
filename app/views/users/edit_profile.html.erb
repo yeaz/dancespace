@@ -1,10 +1,11 @@
 <%= render "home/navbar" %>
-<div class="spec container">
-    Edit your profile:
+<div class="spec container submitter custom-form">
+    <h1><b>Edit Profile</b></h1>
+    <h3>General Information:</h3>
 
     <!-- printing errors -->
     <% if flash.key?(:user_errors) and flash[:user_errors].any? %>
-       <div>ERRORS</div>
+       ERRORS
        <% flash[:user_errors].each do |k, v| %>
          <div>Attribute: <%= k %></div>
          <div>Error msg: <%= v %></div>
@@ -13,48 +14,46 @@
 
     <!-- errors themselves -->
     <%= bootstrap_form_for @user do |user_form| %>
-      <div><%= user_form.text_field :title, placeholder: 'Current title / 1 line summary' %>
+      <div><%= user_form.text_field :title, placeholder: 'One-line summary of what you do (i.e. Contemporary Choreographer / Dancer)' %>
       </div>
-      <div><%= user_form.text_area :blurb, placeholder: 'Blurb' %>
+      <div><%= user_form.text_area :blurb, label: "Personal Statement", placeholder: 'Tell us a little more about yourself - dance background, occupational desires, perspective on life.' %>
       </div>
-      <div><%= user_form.text_field :city, placeholder: 'City' %>
+      <div><%= user_form.text_field :city, label: "Current City", placeholder: 'City' %>
       </div>
-      <div><%= user_form.text_field :state, placeholder: 'State' %>
+      <div><%= user_form.text_field :state, label: "Current State", placeholder: 'State' %>
       <!-- State should be a dropdown -->
       </div>
-      <div><%= user_form.text_field :style_list, placeholder: 'comma separated dance styles' %>
+      <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. tap, jazz, hip hop)' %>
       </div>
-      <%= user_form.submit 'Edit profile' %>
+      <%= user_form.submit 'Update Profile' %>
     <% end %>
-    <br><br>
+    <br>
 
-    Contact info
+    <h3>Contact Information</h3>
+    <h5> Gain more followers for your social media sites! Leave your info here.</h5>
     <%= bootstrap_form_for @user do |user_form| %>
-      <div><%= user_form.text_field :fb_url, placeholder: 'facebook url' %>
+      <div><%= user_form.text_field :fb_url, label: "Facebook Page", placeholder: 'Copy & paste your Facebook URL here' %>
       </div>
-      <div><%= user_form.text_field :twtr_url, placeholder: 'twitter url' %>
+      <div><%= user_form.text_field :twtr_url, label: "Twitter", placeholder: 'twitter url', placeholder: "Copy & paste your Twitter URL here" %>
       </div>
-      <div><%= user_form.text_field :yt_url, placeholder: 'youtube url' %>
+      <div><%= user_form.text_field :yt_url, label: "YouTube Account", placeholder: 'Copy & paste your YouTube URL here' %>
       </div>
-      <div><%= user_form.text_field :ig_url, placeholder: 'instagram url'
-      %>
+      <div><%= user_form.text_field :ig_url, label: 'Instagram', placeholder: "Copy & paste your Instagram URL here" %>
       </div>
-      <div><%= user_form.text_field :website_url, placeholder: 'website
-      url' %>
+      <div><%= user_form.text_field :website_url, placeholder: 'Copy & paste your personal website\'s URL here', label: 'Personal Website' %>
       </div>
       <div>
-        <%= user_form.text_field :phone_area_code, placeholder: 'phone #'
-        %>
-        <%= user_form.text_field :phone_1 %>
-        <%= user_form.text_field :phone_2 %>
+        <%= user_form.text_field :phone_area_code, label: "Phone: (", :size => 3, placeholder: '###', :maxlength => 3 %><b> )</b>
+        <%= user_form.text_field :phone_1, hide_label: true, :maxlength => 3 %><b>&nbsp;-</b>
+        <%= user_form.text_field :phone_2,  hide_label: true, :size => 3, :maxlength => 4 %>
       </div>
-      <%= user_form.submit 'Change contact info' %>
-
+      <%= user_form.submit 'Update Contact Info' %>
     <% end %>
-    <br><br>
+    <br/>
 
 
-      <div>ADDING AN EXPERIENCE
+      <div><h3>Add An Experience</h3>
+        <h5>Treat this section like your resume. Tell us what you've done - be it collaborations with other choreographers or teaching classes at a studio</h5>
       <!-- printing errors -->
 
       <% if flash.key?(:experience_errors) and flash[:experience_errors].any? %>
@@ -71,13 +70,13 @@
       %></div>
       <%= experience_form.fields_for :experiencelinks do |link_form|
       %>
-        <div>Adding an experience link</div>
-        <div>Collab type<%= link_form.select :collab_type,
+
+        <div><%= link_form.select :collab_type,
       options_for_select(["Select one", "dancer", "studio", "company"],"Select one"),
       placeholder: 'Collab type' %></div>
         <div><%= link_form.text_field :collab_id, placeholder: 'Collab id' %></div>
       <% end %>
-      <div><%= experience_form.submit 'Add experience' %></div>
+      <div><%= experience_form.submit 'Add Experience' %></div>
       
     <% end %>
     </div>
@@ -93,5 +92,5 @@
           <b>Experiencelink:</b> <%= get_collab_field(link) %>
         <% end %>
       <% end %>
-    <div>
+    </div>
 </div>

@@ -7,7 +7,7 @@
 <% end %>
 
 <%= render "home/navbar" %>
-<div class="container">
+<div class="container submitter">
 <h1>Event Create</h1>
 <%= bootstrap_form_for [@studio, @event] do |f| %>
   <div>
@@ -29,7 +29,10 @@
     <%= f.text_field :state, placeholder: 'state' %>
   </div>
   <div>
-    <%= f.datetime_select(:event_date_time, :minute_step => 5) %>
+    <%= f.text_field :zip_code, placeholder: 'zip code' %>
+  </div>
+  <div>
+    <%= f.datetime_select(:event_date_time) %>
   </div>
   <div>
     <%= f.submit 'Create Event', class: "btn btn-lg btn-warning btn-block" %>

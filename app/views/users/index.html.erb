@@ -1,5 +1,6 @@
 <%= render "home/navbar" %>
 <div class="spec container all-page">
+<<<<<<< HEAD
 	<h1><b/>All Dancers</b></h1>
 
     <!-- SEARCH BAR -->
@@ -10,6 +11,9 @@
       </div>
 	<% end %>
     
+=======
+	<h1><b>All Dancers</b></h1>
+>>>>>>> 639d56fd71b69a64af94323702cd7a15bde53844
 	<% for d in @users do %>
 		<div class="row">
 			<div class="listing-photo col-md-2">
@@ -17,7 +21,7 @@
 			</div>
 			<div class="col-md-6">
 				<h3><b><a href=<%= user_path(d) %>><%= d.username %></a></h3></b>
-				<h5><b><%= d.city %>, <%= d.state %><b></h5>
+				<h5><b><%= d.city %>, <%= d.state %></b></h5>
 				<div class="listing-blurb"><h5><%= d.blurb %> </h5></div>
 			</div>
 			<div class="col-md-4 social-media">
@@ -26,7 +30,7 @@
 				<b>E-MAIL:</b> <%= d.email %> <br/>
 				<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
 			</div>
-		</div>
 		<hr>
+		</div>
 	<% end %>
 </div>

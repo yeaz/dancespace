@@ -1,22 +1,39 @@
 <% if user_signed_in? %>
+  <% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+  <% end %>
+
 	<%= render "home/navbar" %>
 	<div class="container spec">
 		<div class="row">
-			<!-- Side bar with actions -->
-	        <div class="col-md-3">
+			<!-- Side bar  -->
+	        <div class="col-md-3" id="sidebar">
 	        	<%= render "home/sidebar" %>
 	        </div>
+JAKES CONTAINER	        <!-- Content -->
+			<div class="col-md-9" style="background:#eee" id="listpane">
+				<%= render "home/eventsfeed" %>
+			</div>
+		</div>
+		<hr>
+</div>
+<div class="container spec">
+	RUPAS CONTAINER
+
+			<div class="row">
+	<div class="col-md-3">
+	RUPAS SIDEBAR
+	 	<p><a type="button" data-no-turbolink="true" class="btn btn-warning btn-lg" href="<%= root_path %>">See Events</a></p>
+<h2>Studio Finder</h2>
+    <p class="lead">Find a studio in your area.</p>
+	 	<p><a type="button" data-no-turbolink="true" class="btn btn-warning btn-lg" href="/studios_nearby">Find a Studio</a></p>
+</div>
 			<!-- Page Content TODO: javascript it up-->
 	    	<div class="col-md-9" style="background:#eee">
 	    		<h2>Events Feed</h2>
-	    		<p><span class="lead">Find upcoming events!</span><br /><small>All events in ascending order</small></p>
+	    		<p><span class="lead">Find events near you</span><br /></p>
 	    		<ul>
-					<% Event.find_each do |e| %>
-					  <h3><a href="<%= event_path(e) %>"><%= e.name %></a></h3>
-					  <div>Description: <%= e.description %></div>
-					  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
-					  <div>Date and time: <%= e.event_date_time %></div>
-					<% end %>
+                          <%= render "home/events_near_you" %>
 	    		</ul>
 	    	</div>
 		</div>
@@ -41,5 +58,5 @@
 			</form>
 		</div> -->
 	</div>
-
 <% end %>
+
