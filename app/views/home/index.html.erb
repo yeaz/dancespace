@@ -11,8 +11,22 @@
 	        	<%= render "home/sidebar" %>
 	        </div>
 JAKES CONTAINER	        <!-- Content -->
-			<div class="col-md-9" style="background:#eee" id="listpane">
-				<%= render "home/eventsfeed" %>
+			<div class="col-md-9" style="background:#eee"
+                             id="listpane">
+
+                          <div id="page_title">
+                            <%= render "home/eventsfeed_title" %>
+                          </div>
+
+                          <div id="panel">
+                            <input id="events_feed_address" type="textbox" placeholder="Stanford, CA"/>
+                            <input type="submit" onclick="codeAddressAndUpdateEvents()" value="Change Location!"/>
+                          </div>
+                          <div id="events_feed_error"></div>
+
+                          <div id="events-feed-map-canvas"></div>
+                          
+                          <div id="all_events"></div>
 			</div>
 		</div>
 		<hr>

@@ -2,9 +2,10 @@ function loadEventsFeed() {
     $( "#listpane" ).hide();
     $( "#foot" ).hide(); 
     // $( "#sidebar" ).hide(); 
-	url = "eventsfeed";
+	url = "eventsfeed_title";
 	jQuery.get(url, function(data) {
-		document.getElementById("listpane").innerHTML = data;
+                document.getElementById("page_title").innerHTML = data; 
+	//	document.getElementById("listpane").innerHTML = data;
 	});
 	$( "#finderheader").html("Studio Finder");
 	$( "#eventheader").html("<strong>Events Feed</strong>");
@@ -18,9 +19,9 @@ function loadStudiosNearby() {
     $( "#listpane" ).hide();
     $( "#foot" ).hide();
     // $( "#sidebar" ).hide();
-	url = "studiosnearby"
+	url = "studiosfeed_title"
 	jQuery.get(url, function(data) {
-		document.getElementById("listpane").innerHTML = data;
+		document.getElementById("page_title").innerHTML = data;
 	});
 	$( "#finderheader").html("<strong>Studio Finder</strong>");
 	$( "#eventheader").html("Events Feed");

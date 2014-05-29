@@ -8,7 +8,16 @@ class HomeController < ApplicationController
   end
 
   def eventsfeed
-  	render :partial => "home/eventsfeed"
+  #	render :partial => "home/eventsfeed"
+    render :partial => "home/events_near_you"
+  end
+
+  def load_eventsfeed_title
+    render :partial => "home/eventsfeed_title"
+  end
+
+  def load_studiosfeed_title
+    render :partial => "home/studiosfeed_title"
   end
 
   def studiosnearby
