@@ -5,6 +5,7 @@ DanceSpace::Application.routes.draw do
   root 'home#index'
   
   get '/about' => 'home#about'
+  get '/search' => 'home#search'
 
   devise_for :users,
   :controllers => {
@@ -48,6 +49,8 @@ DanceSpace::Application.routes.draw do
 
   get 'eventsfeed', to: "home#eventsfeed"
   get 'studiosnearby', to: "home#studiosnearby"
+  get 'eventsfeed_title', to: "home#load_eventsfeed_title"
+  get 'studiosfeed_title', to: "home#load_studiosfeed_title"
 
   get 'studios_nearby', to: "studios#nearby"
 

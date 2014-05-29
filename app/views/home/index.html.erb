@@ -10,34 +10,28 @@
 	        <div class="col-md-3" id="sidebar">
 	        	<%= render "home/sidebar" %>
 	        </div>
-JAKES CONTAINER	        <!-- Content -->
-			<div class="col-md-9" style="background:#eee" id="listpane">
-				<%= render "home/eventsfeed" %>
+        <!-- Content -->
+			<div class="col-md-9" style="background:#eee"
+                             id="listpane">
+
+                          <div id="page_title">
+                            <%= render "home/eventsfeed_title" %>
+                          </div>
+
+                          <div id="panel">
+                            <input id="events_feed_address" type="textbox" placeholder="Stanford, CA"/>
+                            <input id="code_address_submit" type="submit" onclick="codeAddressAndUpdateEvents()" value="Change Location!"/>
+                          </div>
+                          <div id="events_feed_error"></div>
+
+                          <div id="events-feed-map-canvas"></div>
+                          
+                          <div id="all_events"></div>
 			</div>
 		</div>
 		<hr>
 </div>
-<div class="container spec">
-	RUPAS CONTAINER
 
-			<div class="row">
-	<div class="col-md-3">
-	RUPAS SIDEBAR
-	 	<p><a type="button" data-no-turbolink="true" class="btn btn-warning btn-lg" href="<%= root_path %>">See Events</a></p>
-<h2>Studio Finder</h2>
-    <p class="lead">Find a studio in your area.</p>
-	 	<p><a type="button" data-no-turbolink="true" class="btn btn-warning btn-lg" href="/studios_nearby">Find a Studio</a></p>
-</div>
-			<!-- Page Content TODO: javascript it up-->
-	    	<div class="col-md-9" style="background:#eee">
-	    		<h2>Events Feed</h2>
-	    		<p><span class="lead">Find events near you</span><br /></p>
-	    		<ul>
-                          <%= render "home/events_near_you" %>
-	    		</ul>
-	    	</div>
-		</div>
-	</div>
 <% else %>
 
 	<div class="ds-docs-header" id="content">

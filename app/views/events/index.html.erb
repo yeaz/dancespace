@@ -1,6 +1,16 @@
 <%= render "home/navbar" %>
+
 <div class="container spec">
 <h1><b>All events</b></h1>
+
+   <!-- SEARCH BAR -->
+      <%= form_tag events_path, :method => 'get' do %>
+      <div>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search", :name => nil %>
+      </div>
+	<% end %>
+
 <% for e in @events do %>
 	  <h2><b><a "<%= event_path(e) %>" data-no-turbolink="true"><%= e.name %></a></b></h2>
 	  <div>Description: <%= e.description %></div>

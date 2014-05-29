@@ -16,6 +16,15 @@
 		<!-- Collect nav links and forms for toggling -->
 		<div class="collapse navbar-collapse" id="navcollapseresults">
 			<!-- User Profile Info -->
+
+        <!-- SEARCH BAR -->
+        <%= form_tag search_path, :method => 'get' do %>
+          <div>
+            <%= text_field_tag :query, params[:query] %>
+            <%= submit_tag "Search", :name => nil %>
+          </div>
+	    <% end %>
+
 		<ul class="nav navbar-nav navbar-right">
 		<% if user_signed_in? %>
 <!-- 	<a href="<%= new_video_path %>" class="btn btn-default navbar-btn">Share a Video</a> -->	        
@@ -32,14 +41,6 @@
 	</div>
 </div>			
 
-
-	    <!-- Search bar -->
-<!-- 		<form class="navbar-form navbar-left" role="search">
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Search">
-		</div>
-		<button type="submit" class="btn btn-default">Submit</button>
-		</form> -->
 </nav>
 
 	<!--  TODO adjust style as needed
