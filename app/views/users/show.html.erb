@@ -62,7 +62,7 @@
 
 	<br/>
 
-	<h1>Experience</h1>
+	<h1>Experience <a href="<%= add_experience_path %>" class="btn btn-lg btn-warning">Add Experience</a></h1>
 	<% if @user.experiences.size == 0 %>
 		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
 	<% end %>
@@ -71,7 +71,7 @@
 		<% @user.experiences.each do |exp| %>
 	    	<li><%= exp.content %>
 	    	<% exp.experiencelinks.each do |link| %>
-	      		<a href="<%= get_url(link) %>"><%= get_title(link) %></a>
+	      		<%=  get_collab_field(link) %>
 	    	<% end %>
 	    	</li>
 	  	<% end %>

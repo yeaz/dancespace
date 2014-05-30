@@ -25,13 +25,10 @@
       </div>
       <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. tap, jazz, hip hop)' %>
       </div>
-      <%= user_form.submit 'Update Profile' %>
-    <% end %>
     <br>
 
     <h3>Contact Information</h3>
     <h5> Gain more followers for your social media sites! Leave your info here.</h5>
-    <%= bootstrap_form_for @user do |user_form| %>
       <div><%= user_form.text_field :fb_url, label: "Facebook Page", placeholder: 'Copy & paste your Facebook URL here' %>
       </div>
       <div><%= user_form.text_field :twtr_url, label: "Twitter", placeholder: 'twitter url', placeholder: "Copy & paste your Twitter URL here" %>
@@ -52,45 +49,5 @@
     <br/>
 
 
-      <div><h3>Add An Experience</h3>
-        <h5>Treat this section like your resume. Tell us what you've done - be it collaborations with other choreographers or teaching classes at a studio</h5>
-      <!-- printing errors -->
-
-      <% if flash.key?(:experience_errors) and flash[:experience_errors].any? %>
-         <div>ERRORS</div>
-         <% flash[:experience_errors].each do |k, v| %>
-           <div>Attribute: <%= k %></div>
-           <div>Error msg: <%= v %></div>
-         <% end %>
-      <% end %>
-
-    <!-- form itself -->
-    <%= bootstrap_form_for @experience do |experience_form| %>
-      <div><%= experience_form.text_field :content, placeholder: 'Content'
-      %></div>
-      <%= experience_form.fields_for :experiencelinks do |link_form|
-      %>
-
-        <div><%= link_form.select :collab_type,
-      options_for_select(["Select one", "dancer", "studio", "company"],"Select one"),
-      placeholder: 'Collab type' %></div>
-        <div><%= link_form.text_field :collab_id, placeholder: 'Collab id' %></div>
-      <% end %>
-      <div><%= experience_form.submit 'Add Experience' %></div>
       
-    <% end %>
-    </div>
-
-    <!-- DEBUGGING CODE -->
-    <br><br>
-    <div>ALL EXPERIENCES
-      <% @user.experiences.each do |exp| %>
-        <div>-----</div>
-        <div><b>Content:</b><%= exp.content %></div>
-        <% exp.experiencelinks.each do |link| %>
-          <!-- helper code is in /app/helpers/experience_helper.rb -->
-          <b>Experiencelink:</b> <%= get_collab_field(link) %>
-        <% end %>
-      <% end %>
-    </div>
 </div>

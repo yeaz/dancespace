@@ -22,8 +22,11 @@ class ExperiencesController < ApplicationController
         flash[:experience_errors][k] = v
       end
     end
-    
-    redirect_to '/user_settings'
+    if flash[:experience_errors] == {}
+      redirect_to user_path(current_user.id)
+    else
+      redirect_to "/add_experience"
+    end
   end
 
   

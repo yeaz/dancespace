@@ -18,6 +18,10 @@ class UsersController < ApplicationController
 
   def edit_profile
     @user = current_user
+  end
+
+  def add_experience
+    @user = current_user
     @user.experiences.build
     @experience = Experience.new
     @experience.experiencelinks.build

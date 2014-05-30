@@ -32,6 +32,7 @@ DanceSpace::Application.routes.draw do
 
   get 'get_events_in_bounds', to: 'events#search'
   get 'get_studios_in_bounds', to: 'studios#search'
+  get 'add_experience', to: 'users#add_experience'
   
   resources :events do
     get 'set_location', to: 'events#set_location'
