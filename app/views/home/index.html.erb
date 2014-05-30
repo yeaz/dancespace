@@ -18,15 +18,18 @@
                             <%= render "home/eventsfeed_title" %>
                           </div>
 
-                          <div id="panel">
-                            <input id="events_feed_address" type="textbox" placeholder="Stanford, CA"/>
-                            <input id="code_address_submit" type="submit" onclick="codeAddressAndUpdateEvents()" value="Change Location!"/>
-                          </div>
-                          <div id="events_feed_error"></div>
+                          <div id="mappingpane">
 
-                          <div id="events-feed-map-canvas"></div>
-                          
-                          <div id="all_events"></div>
+						   <div id="panel">
+							 <input id="events_feed_address" type="textbox" class="form-group" placeholder="Stanford, CA"/>
+							 <input type="submit" onclick="codeAddressAndUpdateEvents()" class="btn btn-default" value="Go to new address"/>
+						   </div>
+							<div id="events_feed_error"></div>
+							<div id="all_events"></div>
+							<br>
+							<div id="events-feed-map-canvas"></div>
+						</div>
+
 			</div>
 		</div>
 		<hr>

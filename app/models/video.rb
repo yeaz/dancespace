@@ -15,7 +15,7 @@ class Video < ActiveRecord::Base
   
   def get_users_name
     user = User.find(self.user_id)
-    return user.username
+    return user.get_full_name
   end
   
   def owned_by?(user)

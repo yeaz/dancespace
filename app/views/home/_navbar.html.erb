@@ -19,19 +19,17 @@
 
         <!-- SEARCH BAR -->
         <%= form_tag search_path, :method => 'get' do %>
-          <div>
-            <%= text_field_tag :query, params[:query] %>
-            <%= submit_tag "Search", :name => nil %>
+          <div class="navbar-form navbar-left form-inline input-group" role="form">
+            <%= text_field_tag :query, params[:query], class: "form-control" %>
+            <span style="padding-right:1px"></span>
+            <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
           </div>
 	    <% end %>
 
 		<ul class="nav navbar-nav navbar-right">
 		<% if user_signed_in? %>
-<!-- 	<a href="<%= new_video_path %>" class="btn btn-default navbar-btn">Share a Video</a> -->	        
-<!-- <a href="<%= random_user_path %>" class="btn btn-default navbar-btn">Random Dancer!</a> -->
-<!-- <a href="<%= get_it_path %>" class="btn btn-default navbar-btn">Random Video!</a> -->
  			<a href=<%= current_user.get_profile_url
- 			%> class="btn btn-default navbar-btn"><strong><%=current_user.first_name %></strong></a>
+ 			%> class="btn btn-default navbar-btn"><strong><%=current_user.first_name %> <%=current_user.last_name %></strong></a>
 	        <a href="<%= logout_path %>" class="btn btn-default navbar-btn">Logout</a>
 		<% else %>
 		  <a type="button" class="btn btn-default navbar-btn" href="<%= signup_path %>">Sign up</a>
