@@ -4,7 +4,7 @@ function resetMapper() {
 
     $("#listpane").html("<div id='page_title'></div>"
     	+ "<div id='panel'>"
-    	+ "<input id='events_feed_address' type='textbox' class='form-group' placeholder='Stanford, CA'/>"
+    	+ "<input id='events_feed_address' type='textbox' class='form-group' placeholder='Stanford, CA'/> "
     	+ "<input type='submit' onclick='codeAddressAndUpdateEvents()' class='btn btn-default' value='Go to new address'/>"
     	+ "</div>"
 		+ "<div id='events_feed_error'></div>"
@@ -27,9 +27,6 @@ function loadEventsFeed() {
 	jQuery.get(url, function(data) {
                 document.getElementById("page_title").innerHTML = data; 
 	});
-
-	// RELOAD BASIC STRUCTURE
-
     loadFeedMap("/get_events_in_bounds"); 
 	$( "#finderheader").html("Studio Finder");
 	$( "#eventheader").html("<strong>Events Feed</strong>");
