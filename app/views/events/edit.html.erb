@@ -26,7 +26,7 @@
     <%= f.text_field :city, placeholder: 'city' %>
   </div>
   <div>
-    <%= f.text_field :state, placeholder: 'state' %>
+    <%= f.select :state, options_for_select(us_states, 'CA') %>
   </div>
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
