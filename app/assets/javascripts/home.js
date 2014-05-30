@@ -57,6 +57,14 @@ function loadStudiosNearby() {
 	// $( "#sidebar" ).fadeIn(750);
 }
 
+function get_user_blurb(user) {
+    console.log(user.blurb); 
+    if (user.blurb == null) {
+        return ""; 
+    }
+    return user.blurb; 
+}
+
 function loadRandomizer(type) {
 	randomUsedLast = true;
 	// Animations
@@ -82,7 +90,7 @@ function loadRandomizer(type) {
 			+ data.first_name + " " + data.last_name 
 			+ "</a></h2>"
 			+	"<div class='listing-blurb'><h5>" 
-			+ data.email + "<br>" + data.blurb 
+			+ data.email + "<br>" + get_user_blurb(data)
 			+ "</h5></div>"
 			+ "</div>");
 			// TODO: insert videos eventually
