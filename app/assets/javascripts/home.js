@@ -4,7 +4,7 @@ function loadEventsFeed() {
     // $( "#sidebar" ).hide(); 
 	url = "eventsfeed_title";
 	jQuery.get(url, function(data) {
-                document.getElementById("page_title").innerHTML = data; 
+                document.getElementById("page_title").innerHTML = data; // needs work 
 	//	document.getElementById("listpane").innerHTML = data;
 	});
     loadFeedMap("/get_events_in_bounds"); 
@@ -22,7 +22,7 @@ function loadStudiosNearby() {
     // $( "#sidebar" ).hide();
 	url = "studiosfeed_title"
 	jQuery.get(url, function(data) {
-		document.getElementById("page_title").innerHTML = data;
+		document.getElementById("page_title").innerHTML = data; // needs work
 	});
     loadFeedMap("/get_studios_in_bounds"); 
 	$( "#finderheader").html("<strong>Studio Finder</strong>");
@@ -34,35 +34,56 @@ function loadStudiosNearby() {
 }
 
 function loadRandomizer(type) {
+	// Animations
 	  $( "#finderheader").html("Studio Finder");
 	  $( "#eventheader").html("Events Feed");
 	  $( "#randomheader").html("<strong>Randomizer</strong>");
 
 	  $( "#listpane" ).hide();
 	  $( "#foot" ).hide();
-	  // url = "random_user";
-	  // if (type == "dancer") 
-	  // 	url = "random_user";
-	  // else {
-	  // 	get_it();
-	  // }
-// 0. get dancer object
-// 1. populate listpane with dancer data
-	url = "random_user";
-	jQuery.get(url, function(data) {
-		console.log(data);
-		console.log(data.email);
-		$("#listpane").html("<h1><b>Random dancer: <a href='/users/" + data.id + "'>"
-			+ data.first_name + " " + data.last_name 
-			+ "</a></b></h1>"
-			+ "<div class='col-md-6'>"
-			+	"<div class='listing-blurb'><h5>" 
-			+ data.blurb 
-			+ "</h5></div>"
-			+ "</div>"
-			+ "<p class='lead'>info about the dancer...basically use the script to get the data for a dancer and put it in the pane..</p>");
-	});
+	// Logging
+	  console.log(type);
 
-	  $( "#listpane" ).fadeIn(750);
-	  $( "#foot" ).fadeIn(750);
+	// Random Dancer
+	if (type == "dancer") {
+		url = "random_user";
+		jQuery.get(url, function(data) {
+		$("#listpane").html("<h1>Random Dancer</h1>"
+			+ "<div class='col-md-5' style='padding-bottom:20px;'>"
+			+ "<img src='/assets/blank_profile.jpg'>"
+			+ "</div>"
+			+ "<div class='col-md-4' >"
+			+ "<h2><a href='/users/" + data.id + "'>"
+			+ data.first_name + " " + data.last_name 
+			+ "</a></h2>"
+			+	"<div class='listing-blurb'><h5>" 
+			+ data.email + "<br>" + data.blurb 
+			+ "</h5></div>"
+			+ "</div>");
+			// TODO: insert videos eventually
+		});
+	}
+	else {
+		url = "random_video";
+		jQuery.get(url, function(data) {
+			console.log(data);
+			$("#listpane").html("<h1>Random Video</h1>"
+				// 2. video box
+				+ "<div class='col-md-8' style='padding-bottom:20px; margin-right:15px;' id='video'>"
+				+ "<iframe width='560' height='315' src='//www.youtube.com/embed/" 
+				+ data.youtube_id 
+				+ "?rel=0' frameborder='0' allowfullscreen></iframe>"
+				+ "</div>"
+				// 3. description
+				+ "<div class='col-md-3'>"
+				+ "<h2><a href='/videos/" + data.id + "'>" + data.title + "</a></h2>"
+				+ "<p class='lead' style='font-size:150%'>" + data.description + "</p>"
+				+ "</div>");
+		});	
+	}
+
+
+	// Animations
+	$( "#listpane" ).fadeIn(750);
+	$( "#foot" ).fadeIn(750);
 }
