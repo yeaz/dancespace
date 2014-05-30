@@ -33,10 +33,17 @@
 			<%end%>
 		</div>
 		<div class="col-md-5 social-media">
-			<a href=<%=@user.yt_url%> target="_blank"> <%= image_tag "youtube-icon.png" %> </a>
-			<a href=<%=@user.fb_url%> target="_blank"> <%= image_tag "facebook-icon.png" %> </a><br/>
-			<a href=<%=@user.ig_url%> target="_blank"> <%= image_tag "insta-icon.png" %> </a>
-			<a href=<%=@user.twtr_url%> target="_blank"> <%= image_tag "twitter-icon.png" %> </a><br/>	
+                  <!-- in helpers/users_helper.rb -->
+                  <%= make_contact_icon(@user.yt_url,
+		      "youtube-icon.png") %>
+                  <%= make_contact_icon(@user.fb_url,
+		      "facebook-icon.png") %>
+                  <%= make_contact_icon(@user.ig_url,
+		      "insta-icon.png") %>
+                  <%= make_contact_icon(@user.twtr_url,
+		      "twitter-icon.png") %>
+
+<br/>	
 			<b>E-MAIL:</b> <%= @user.email %> <br/>
 			<b>PHONE: </b>(<%= @user.phone_area_code %>) <%= @user.phone_1 %> - <%= @user.phone_2 %>
 		</div>

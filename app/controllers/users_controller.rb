@@ -57,6 +57,7 @@ class UsersController < ApplicationController
     update_contact_param(:ig_url, u_params)
     update_contact_param(:twtr_url, u_params)
     return u_params
+  end
 
   def update_contact_param(param, u_params)
     e = /\Ahttp[s]?:\/\//
