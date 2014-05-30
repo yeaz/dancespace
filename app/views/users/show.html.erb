@@ -43,7 +43,7 @@
 	</div>
 	<br>
 
-	<h1>Video Portfolio</h1><a href="<%= new_video_path %>" class="btn btn-lg btn-warning">Share a Video</a>
+	<h1>Video Portfolio <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a></h1>
 	<% if @user.videos.size == 0 %>
 		<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
 	<%end%>
@@ -79,9 +79,8 @@
   	<br/>
 
   	<% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
-  		<h1>Own a studio? Why not create a page for it?</h1>
-		<h4>Once you create a studio, it's page will be linked here on your profile.</h4>
-		<%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %>
+  		<h1>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h1>
+		<h4 class="reminder">Create a page for it! Once you create a studio, it's page will be linked here on your profile.</h4>
   	<% else %>
 	  	<h1>Studios Owned
 	  		<% if current_user.id == @user.id %>
