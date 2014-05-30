@@ -1,11 +1,3 @@
-<% if flash.key?(:event_errors) %>
-  <% flash[:event_errors].each do |k, v| %>
-    <div>Attribute: <%= k %></div>
-    <div>Error msg: <%= v %></div>
-  <% end %>
-  <% flash.delete(:event_errors) %>
-<% end %>
-
 <%= render "home/navbar" %>
 <div class="container submitter">
 <h1>Event Create</h1>

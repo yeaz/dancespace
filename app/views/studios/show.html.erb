@@ -23,10 +23,16 @@
 		<h4><%=@studio.description%></h4>
 			</div>
 		<div class="col-md-5 social-media">
-			<a href=<%=@studio.yt_url%> target="_blank"> <%= image_tag "youtube-icon.png" %> </a>
-			<a href=<%=@studio.fb_url%> target="_blank"> <%= image_tag "facebook-icon.png" %> </a><br/>
-			<a href=<%=@studio.ig_url%> target="_blank"> <%= image_tag "insta-icon.png" %> </a>
-			<a href=<%=@studio.twtr_url%> target="_blank"> <%= image_tag "twitter-icon.png" %> </a><br/>	
+
+                  <%= make_contact_icon(@studio.yt_url,
+		      "youtube-icon.png") %>
+                  <%= make_contact_icon(@studio.fb_url,
+		      "facebook-icon.png") %> <br>
+                  <%= make_contact_icon(@studio.ig_url,
+		      "insta-icon.png") %>
+                  <%= make_contact_icon(@studio.twtr_url,
+		      "twitter-icon.png") %> <br>
+
 			<b>E-MAIL:</b> <%= @studio.email %> <br/>
 			<b>PHONE: </b>(<%= @studio.phone_area_code %>) <%= @studio.phone_1 %> - <%= @studio.phone_2 %>
 		</div>

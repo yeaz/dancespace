@@ -27,7 +27,6 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to '/events/' + @event.id.to_s + '/set_location'
     else
-      add_errors_to_flash
       render 'new'
     end
   end
@@ -45,7 +44,6 @@ class EventsController < ApplicationController
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
     else
-      add_errors_to_flash
       render 'edit'
     end
   end
@@ -107,13 +105,6 @@ class EventsController < ApplicationController
   
   # *** HELPER METHODS *** #
   private
-
-  def add_errors_to_flash
-    flash[:event_errors] = {}
-    @event.errors.each do |k, v|
-      flash[:event_errors][k] = v
-    end
-  end
 
     def update_date_time(e_params)
       convert_datetimes_to_pst('event_date_time', e_params)
