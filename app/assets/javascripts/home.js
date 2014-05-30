@@ -1,12 +1,35 @@
+var randomUsedLast = false;
+
+function resetMapper() {
+
+    $("#listpane").html("<div id='page_title'></div>"
+    	+ "<div id='panel'>"
+    	+ "<input id='events_feed_address' type='textbox' class='form-group' placeholder='Stanford, CA'/>"
+    	+ "<input type='submit' onclick='codeAddressAndUpdateEvents()' class='btn btn-default' value='Go to new address'/>"
+    	+ "</div>"
+		+ "<div id='events_feed_error'></div>"
+		+ "<div id='all_events'></div>"
+		+ "<br>"
+		+ "<div id='events-feed-map-canvas'></div>");
+}
+
+
+
 function loadEventsFeed() {
- //   $( "#listpane" ).hide();
+    // $( "#listpane" ).hide();
    // $( "#foot" ).hide(); 
     // $( "#sidebar" ).hide(); 
+    if (randomUsedLast) {
+    	resetMapper();    						  
+    	randomUsedLast = false;
+    }
 	url = "eventsfeed_title";
 	jQuery.get(url, function(data) {
-                document.getElementById("page_title").innerHTML = data; // needs work 
-	//	document.getElementById("listpane").innerHTML = data;
+                document.getElementById("page_title").innerHTML = data; 
 	});
+
+	// RELOAD BASIC STRUCTURE
+
     loadFeedMap("/get_events_in_bounds"); 
 	$( "#finderheader").html("Studio Finder");
 	$( "#eventheader").html("<strong>Events Feed</strong>");
@@ -20,6 +43,10 @@ function loadStudiosNearby() {
   //  $( "#listpane" ).hide();
     //$( "#foot" ).hide();
     // $( "#sidebar" ).hide();
+    if (randomUsedLast) {
+    	resetMapper();    						  
+    	randomUsedLast = false;
+    }
 	url = "studiosfeed_title"
 	jQuery.get(url, function(data) {
 		document.getElementById("page_title").innerHTML = data; // needs work
@@ -34,6 +61,7 @@ function loadStudiosNearby() {
 }
 
 function loadRandomizer(type) {
+	randomUsedLast = true;
 	// Animations
 	  $( "#finderheader").html("Studio Finder");
 	  $( "#eventheader").html("Events Feed");
@@ -68,20 +96,19 @@ function loadRandomizer(type) {
 		jQuery.get(url, function(data) {
 			console.log(data);
 			$("#listpane").html("<h1>Random Video</h1>"
-				// 2. video box
+				// video box
 				+ "<div class='col-md-8' style='padding-bottom:20px; margin-right:15px;' id='video'>"
 				+ "<iframe width='560' height='315' src='//www.youtube.com/embed/" 
 				+ data.youtube_id 
 				+ "?rel=0' frameborder='0' allowfullscreen></iframe>"
 				+ "</div>"
-				// 3. description
+				// description
 				+ "<div class='col-md-3'>"
 				+ "<h2><a href='/videos/" + data.id + "'>" + data.title + "</a></h2>"
 				+ "<p class='lead' style='font-size:150%'>" + data.description + "</p>"
 				+ "</div>");
 		});	
 	}
-
 
 	// Animations
 	$( "#listpane" ).fadeIn(750);
