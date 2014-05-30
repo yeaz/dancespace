@@ -1,12 +1,9 @@
-<%= render "home/navbar" %>
+w<%= render "home/navbar" %>
 <div class="container spec submitter">
 <p>
 <h1>Join the crew!</h1>
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
-  <div>
-  <%= f.text_field :username, hide_label: true, :placeholder => "Username", autofocus: true %>
-  </div>
 
   <div>
   <%= f.text_field :first_name, hide_label: true, :placeholder => "First Name" %>

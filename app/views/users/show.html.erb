@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="main-info col-md-4">
-			<h1><b><%= @user.username %></b>
+			<h1><b><%= @user.get_full_name %></b>
 				<% if current_user.id == @user.id %>
 					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
 				<% end %>
