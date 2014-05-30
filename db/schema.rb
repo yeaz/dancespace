@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529180614) do
+ActiveRecord::Schema.define(version: 20140530044705) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -129,10 +129,10 @@ ActiveRecord::Schema.define(version: 20140529180614) do
     t.string   "city"
     t.string   "state"
     t.string   "title"
-    t.string   "fb_url"
-    t.string   "twtr_url"
-    t.string   "yt_url"
-    t.string   "ig_url"
+    t.string   "fb_url",                 default: ""
+    t.string   "twtr_url",               default: ""
+    t.string   "yt_url",                 default: ""
+    t.string   "ig_url",                 default: ""
     t.string   "website_url"
     t.string   "phone_area_code",        default: ""
     t.string   "phone_1",                default: ""
