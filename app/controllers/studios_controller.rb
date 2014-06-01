@@ -3,6 +3,8 @@ class StudiosController < ApplicationController
   # *** FILTERS *** #
   skip_before_action :authenticate_user!, only: [:index]
   before_action :get_studio, only: [:edit, :update, :show, :destroy]
+
+  include UsersHelper
   
   def index
     @studios = Studio.search params[:search]
@@ -13,7 +15,7 @@ class StudiosController < ApplicationController
   end
   
   def create
-    @studio = Studio.new(studio_params)
+    @studio = Studio.new(fix_contact_urls(studio_params))
     if @studio.save
       create_membership
       redirect_to studio_path(@studio)
@@ -23,8 +25,7 @@ class StudiosController < ApplicationController
   end
     
   def update
-    s_params = studio_params
-    if @studio.update_attributes(s_params)
+    if @studio.update_attributes(fix_contact_urls(studio_params))
       redirect_to studio_path(@studio)
     else
       render 'edit'
