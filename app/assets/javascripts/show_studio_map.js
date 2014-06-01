@@ -55,10 +55,8 @@ function codeAndSetAddress(address, divName, setCoordsUrlFn) {
             console.log(setCoordsUrl);
             jQuery.get(setCoordsUrl, function(setdata) {
                 console.log('DONE');
-                showMap = makeGenericMap(divName); 
+                makeMapAndMarker(pos, divName); 
 
-                showMap.setCenter(pos); 
-                showMarker = makeMarker(showMap, false); 
             }); 
         }
         else {
@@ -66,7 +64,7 @@ function codeAndSetAddress(address, divName, setCoordsUrlFn) {
             var setCoordsUrl = setCoordsUrlFn() + "?set=0";
             console.log(setCoordsUrl);
             jQuery.get(setCoordsUrl, function(setdata) {
-                $(divName).text("No location set"); 
+                $("#" + divName).text("No location set"); 
                 
             });
         }
@@ -82,12 +80,10 @@ function setCoordinates(divName, setCoordsUrlFn, getAddressUrlFn) {
         }
         else if (data["lat"] && data["lng"]) {
             console.log('setting map'); 
-            showMap = makeGenericMap(divName);
-            showMap.setCenter(new google.maps.LatLng(data["lat"], data["lng"]));
-            showMarker = makeMarker(showMap, false); 
+            makeMapAndMarker(new google.maps.LatLng(data["lat"], data["lng"]), divName)
         }
         else if (data["error"]) {
-            $(divName).text("No location set"); 
+            $("#" + divName).text("No location set"); 
         }
 
     }); 
@@ -98,4 +94,22 @@ function loadShowMap(divName, setCoordsUrlFn, getAddressUrlFn) {
         setCoordinates(divName, setCoordsUrlFn, getAddressUrlFn);
         console.log('SET COORDINATES'); 
     }    
+}
+
+function makeMapAndMarker(pos, divName) {
+    showMap = makeGenericMap(divName); 
+    showMap.setCenter(pos); 
+    showMarker = makeMarker(showMap, false); 
+    makeStreetView(pos); 
+}
+
+function makeStreetView(pos) {
+    console.log('street view');
+    //size is in pixels
+    var width = "600";
+    var height = "300"; 
+    var url = "http://maps.googleapis.com/maps/api/streetview?size=" +
+        width + "x" + height + "&sensor=false&location=" + pos.lat() + "," + pos.lng();
+    var img = $('<img/>', { src: url })
+    $("#show-studio-streetview-canvas").append(img); 
 }
