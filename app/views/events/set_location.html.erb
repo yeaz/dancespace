@@ -11,6 +11,12 @@
 		<!-- CSS is in maps.css -->
 		<input id="address" type="textbox" placeholder="Stanford, CA"/>
 		  <input type="submit" onclick="codeAddress()" class="btn btn-default" value="Go to new address"/>
+		  		<%= form_for @event do |f| %>
+		  <%= f.text_area :lat %>
+		  <%= f.text_area :lng %>
+		  <%= f.submit 'Set location', class: "btn btn-warning btn-lg" %>
+		<% end %>
+
 		<div style="margin-top:20px" id="set-location-map-canvas"></div>
 		<div class="container" style="padding-top:20px;">
 		<div id="panel">
@@ -18,11 +24,6 @@
 		<div id="error"></div>
 
 		<div style="text-align:center">
-		<%= form_for @event do |f| %>
-		  <%= f.text_area :lat %>
-		  <%= f.text_area :lng %>
-		  <%= f.submit 'Set location', class: "btn btn-warning btn-lg" %>
-		<% end %>
 	</div>
 
 </div>
