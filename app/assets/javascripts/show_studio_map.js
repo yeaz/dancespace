@@ -20,10 +20,11 @@ function studioSetCoordsUrl() {
 }
 
 function loadShowStudioMap() {
-    loadShowMap('show-studio-map-canvas', constructStudioShowUrl); 
+    loadShowMap('show-studio-map-canvas', studioSetCoordsUrl, studioGetAddressUrl); 
 }
 
-function codeAndSetAddress(address) {
+function codeAndSetAddress(address, divName, setCoordsUrlFn) {
+    
     console.log('***setting address'); 
     geocoder = new google.maps.Geocoder(); 
     geocoder.geocode( {'address': address}, function(results, status) {
@@ -31,11 +32,11 @@ function codeAndSetAddress(address) {
         if (status == google.maps.GeocoderStatus.OK) {
             console.log('GOOD GEOCODE'); 
             var pos = results[0].geometry.location;
-            var setCoordsUrl = studioSetCoordsUrl() + "?set=true&lat=" + pos.lat() + "&lng=" + pos.lng();
+            var setCoordsUrl = setCoordsUrlFn() + "?set=1&lat=" + pos.lat() + "&lng=" + pos.lng();
             console.log(setCoordsUrl);
             jQuery.get(setCoordsUrl, function(setdata) {
                 console.log('DONE');
-                showMap = makeGenericMap('show-studio-map-canvas'); 
+                showMap = makeGenericMap(divName); 
 
                 showMap.setCenter(pos); 
                 showMarker = makeMarker(showMap, false); 
@@ -43,10 +44,10 @@ function codeAndSetAddress(address) {
         }
         else {
             console.log('BAD GEOCODE');
-            var setCoordsUrl = studioSetCoordsUrl() + "?set=false";
+            var setCoordsUrl = setCoordsUrlFn() + "?set=0";
             console.log(setCoordsUrl);
             jQuery.get(setCoordsUrl, function(setdata) {
-                $("#show-studio-map-canvas").text("No location set"); 
+                $(divName).text("No location set"); 
                 
             });
         }
@@ -54,41 +55,28 @@ function codeAndSetAddress(address) {
 }
 
 
-function setCoordinates() {
-    var url = studioGetAddressUrl(); 
+function setCoordinates(divName, setCoordsUrlFn, getAddressUrlFn) {
+    var url = getAddressUrlFn(); 
     jQuery.get(url, function(data) {
         if (data["address"]) {
-            codeAndSetAddress(data["address"]); 
+            codeAndSetAddress(data["address"], divName, setCoordsUrlFn); 
         }
         else if (data["lat"] && data["lng"]) {
             console.log('setting map'); 
-            showMap = makeGenericMap('show-studio-map-canvas');
+            showMap = makeGenericMap(divName);
             showMap.setCenter(new google.maps.LatLng(data["lat"], data["lng"]));
             showMarker = makeMarker(showMap, false); 
         }
         else if (data["error"]) {
-            $("#show-studio-map-canvas").text("No location set"); 
+            $(divName).text("No location set"); 
         }
 
     }); 
 }
 
-function loadShowMap(divName, getUrlFn) {
+function loadShowMap(divName, setCoordsUrlFn, getAddressUrlFn) {
     if (divExists(divName)) {
-        setCoordinates();
+        setCoordinates(divName, setCoordsUrlFn, getAddressUrlFn);
         console.log('SET COORDINATES'); 
-        // var url = getUrlFn(); 
-        // jQuery.get(url, function(data) {
-        //     console.log('getting loc'); 
-        //     if (!data["error"]) {
-        //         showMap = makeGenericMap(divName); 
-
-        //         showMap.setCenter(new google.maps.LatLng(data["lat"], data["lng"])); 
-        //         showMarker = makeMarker(showMap, false); 
-        //     }
-        //     else {
-        //         $("#" + divName).text("No location set.");
-        //     }
-        // }); 
     }    
 }

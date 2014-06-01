@@ -57,6 +57,3 @@ function loadShowEventMap() {
     loadShowMap('show-event-map-canvas', constructUrl);
 }
 
-function setEventCoords() {
-    setCoords('event'); 
-}

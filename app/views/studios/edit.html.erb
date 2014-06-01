@@ -52,8 +52,8 @@
     <%= f.text_field :phone_2, hide_label: true, :size => 5, :maxlength => 4  %>
   </div>
   <div>
-    <%= f.text_field :is_location_set, :value => nil %>
-    <%= f.submit 'Save', "onclick" => "setStudioCoords()"%>
+    <%= f.text_field :is_location_set, :value => -1 %>
+    <%= f.submit 'Save' %>
   </div>
   <% end %>
 </div>

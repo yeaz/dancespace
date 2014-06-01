@@ -61,11 +61,11 @@ class StudiosController < ApplicationController
 
   def get_address
     @studio = Studio.find(params[:studio_id])
-    if @studio.is_location_set.nil?
+    if @studio.is_location_set == -1
       render :json => {"address" => @studio.get_address}
-    elsif @studio.is_location_set == true
+    elsif @studio.is_location_set == 1
       render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
-    elsif @studio.is_location_set == false
+    elsif @studio.is_location_set == 0
       render :json => {"error" => "true"}
     end
   end

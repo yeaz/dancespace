@@ -47,19 +47,29 @@ class EventsController < ApplicationController
     end
   end
 
+  def set_coordinates
+    puts 'PARAMS'
+    @studio = Studio.find(params[:studio_id])
+    if @studio.is_location_set == -1
+      puts 'is nil'
+    end
+    @studio.update(is_location_set: params[:set])
+    if params.has_key?(:lat)
+      @studio.update({lat: params[:lat].to_f, lng: params[:lng].to_f})
+    end
+    render :json => {"success" => "true"}
+  end
+
   def get_address
-    @event = Event.find(params[:event_id])
-    if @event.is_location_set == false
-      render :json => {"address" => @event.get_address}
-    else
-      render :json => {"lat" => @event.lat, "lng" => @event.lng}
+    @studio = Studio.find(params[:studio_id])
+    if @studio.is_location_set == -1
+      render :json => {"address" => @studio.get_address}
+    elsif @studio.is_location_set == 1
+      render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
+    elsif @studio.is_location_set == 0
+      render :json => {"error" => "true"}
     end
   end
-
-  def set_location
-    @event = Event.find(params[:event_id])
-  end
-
   def get_coordinates
     @event = Event.find(params[:event_id])
     if @event.is_location_set == true
