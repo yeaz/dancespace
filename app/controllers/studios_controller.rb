@@ -47,11 +47,7 @@ class StudiosController < ApplicationController
   end
 
   def set_coordinates
-    puts 'PARAMS'
     @studio = Studio.find(params[:studio_id])
-    if @studio.is_location_set.nil?
-      puts 'is nil'
-    end
     @studio.update(is_location_set: params[:set])
     if params.has_key?(:lat)
       @studio.update({lat: params[:lat].to_f, lng: params[:lng].to_f})

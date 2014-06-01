@@ -54,6 +54,17 @@ function codeAddressAndUpdate(fn_name) {
 }
 
 function loadShowEventMap() {
-    loadShowMap('show-event-map-canvas', constructUrl);
+    loadShowMap('show-event-map-canvas', eventSetCoordsUrl, eventGetAddressUrl);
 }
 
+function eventGetAddressUrl() {
+    return "/events/" + getEventId() + "/get_address"; 
+}
+
+function getEventId() {
+    return $("#get_event_id").text(); 
+}
+
+function eventSetCoordsUrl() {
+    return "/events/" + getEventId() + "/set_coordinates"; 
+}

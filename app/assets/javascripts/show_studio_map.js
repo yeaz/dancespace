@@ -3,8 +3,27 @@ google.maps.event.addDomListener(window, 'load', loadShowStudioMap);
 var showMap = null;
 var showMarker = null; 
 
-function constructStudioShowUrl() {
-    return "/studios/" + getStudioId() + "/get_coordinates"; 
+function makeGenericMap(divName) {
+    var mapDiv = document.getElementById(divName);
+    if (mapDiv != null) {
+        return new google.maps.Map(mapDiv, {
+            center: new google.maps.LatLng(37.4, -122.2),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    }
+}
+
+function makeMarker(currMap, toDrag) {
+    return new google.maps.Marker({
+        position: currMap.getCenter(),
+        map: currMap,
+        draggable: toDrag,
+        visible: true}); 
+}
+
+function divExists(name) {
+    return document.getElementById(name) != null; 
 }
 
 function getStudioId() {

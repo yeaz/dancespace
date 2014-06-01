@@ -5,8 +5,8 @@
     margin-right: auto; 
 }
 
-#get_studio_id, #event_lat, #event_lng, #studio_lat, #studio_lng {
- //   display: none; 
+#get_studio_id, #get_event_id, #event_is_location_set, #studio_is_location_set {
+    display: none; 
 }
 
 #show-event-map-canvas, #events-feed-map-canvas, #studios-feed-map-canvas, #show-studio-map-canvas {
