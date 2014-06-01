@@ -18,7 +18,7 @@
     <%= f.text_field :city, placeholder: 'city' %>
   </div>
   <div>
-    <%= f.select :state, options_for_select(us_states, 'CA') %>
+    <%= f.select :state, options_for_select(us_states, nil) %>
   </div>
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
@@ -27,7 +27,9 @@
     <%= f.datetime_select(:event_date_time) %>
   </div>
   <div>
-    <%= f.submit 'Create Event', class: "btn btn-lg btn-warning btn-block" %>
+    <%= f.submit 'Create Event', class: "btn btn-lg btn-warning
+    btn-block" %>
   </div>
+
 <% end %>
 </div>

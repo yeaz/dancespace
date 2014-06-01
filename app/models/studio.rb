@@ -13,7 +13,7 @@ class Studio < ActiveRecord::Base
   
   # *** VALIDATIONS *** #
   validates :name, presence: { message: 'Please provide a name' }
-  validates :address_line1, :city, :state, :presence => true
+  validates :address_line1, :city, :state, :zip_code, :presence => true
   validates :description, presence: { message: 'Please provide a description' }
   validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/,
                               message: 'Please provide a valid email address' }
@@ -44,4 +44,12 @@ class Studio < ActiveRecord::Base
     return address_line1 + ' ' + address_line2 + ', ' + city + ' ' + state + ' ' + zip_code
   end
 
+  def get_phone_number
+    if phone_area_code != "" and phone_1 != "" and phone_2 != ""
+      return "(" + phone_area_code + ") " + phone_1 + "-" + phone_2
+    else
+      return ""
+    end
+  end
+  
 end

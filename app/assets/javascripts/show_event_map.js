@@ -1,7 +1,9 @@
 google.maps.event.addDomListener(window, 'load', loadMaps);
-var showMap = null; 
-var marker = null;
+var showEventMap = null; 
+var showEventMarker = null;
 var feedMap = null; 
+var feedMarkers = null; 
+var infoWindow = null; 
 
 function constructUrl() {
     var url = window.location.pathname;
@@ -11,22 +13,19 @@ function constructUrl() {
 }
 
 function loadMaps() {
-    loadMap();
+    loadShowEventMap(); 
     loadFeedMap("/get_events_in_bounds"); 
 }
 
 function loadFeedMap(fn_name) {
-    var feedMapDiv = document.getElementById('events-feed-map-canvas');
-    if (feedMapDiv != null) {
-        feedMap = new google.maps.Map(feedMapDiv, {
-            center: new google.maps.LatLng(37.5, -122.2),
-            zoom: 10,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-       });
-       geocoder = new google.maps.Geocoder();
-       google.maps.event.clearInstanceListeners(feedMap); 
-       google.maps.event.addListener(feedMap, 'bounds_changed', function() { updateDisplayed(fn_name); });
-       $("#code_address_submit").click(function() { codeAddressAndUpdate(fn_name); });
+    if (divExists('events-feed-map-canvas')) {
+        feedMarkers = new Array();
+        infoWindow = new google.maps.InfoWindow(); 
+        feedMap = makeGenericMap('events-feed-map-canvas'); 
+        geocoder = new google.maps.Geocoder();
+        google.maps.event.clearInstanceListeners(feedMap); 
+        google.maps.event.addListener(feedMap, 'bounds_changed', function() { updateDisplayed(fn_name); });
+        $("#code_address_submit").click(function() { codeAddressAndUpdate(fn_name); });
     }
 }
 
@@ -35,8 +34,46 @@ function updateDisplayed(fn_name) {
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     var url = fn_name + "?n=" + encodeURIComponent(ne.lat()) + "&e=" + encodeURIComponent(ne.lng()) + "&s=" + encodeURIComponent(sw.lat()) + "&w=" + encodeURIComponent(sw.lng());
-    jQuery.get(url, function(data) {
+    jQuery.get(url + "&json=false", function(data) {
         document.getElementById('all_events').innerHTML = data; 
+    });
+    jQuery.get(url + "&json=true", function(data) {
+        addMarkersToMap(data); 
+    }); 
+}
+
+function removeOutOfBoundsMarkers() {
+    for (i in feedMarkers) {
+        if (i > 0 && feedMarkers[i] && !feedMap.getBounds().contains(feedMarkers[i].getPosition())) {
+         //   feedMap.removeOverlay(feedMarkers[i]);
+            feedMarkers[i] = null; 
+        }
+    }
+}
+
+function generateInfoWindowContentForObj(currObj) {
+    return '<div id="infoWindow">' + currObj["name"] + '</div>'; 
+}
+
+function addMarkersToMap(objList) {
+    if (feedMarkers.length > 0) {
+        removeOutOfBoundsMarkers(); 
+    }
+    for (index in objList) {
+        var currObj = objList[index];
+        var id = currObj["id"]; 
+        if (!feedMarkers[id] || feedMarkers[id] == null ) {
+            var loc = new google.maps.LatLng(currObj["lat"], currObj["lng"]);
+            feedMarkers[id] = addMarker(loc, currObj); 
+        }
+    }
+}
+
+function addMarker(loc, currObj) {
+    var currMarker = new google.maps.Marker({position: loc, map: feedMap, draggable: false, visible: true});
+    google.maps.event.addListener(currMarker, 'click', function() {
+        infoWindow.setContent(generateInfoWindowContentForObj(currObj));
+        infoWindow.open(feedMap, currMarker); 
     }); 
 }
 
@@ -58,26 +95,18 @@ function codeAddressAndUpdate(fn_name) {
     }); 
 }
 
-function loadMap() {
-    var mapDiv = document.getElementById('show-event-map-canvas'); 
-    if (mapDiv != null) {
-        var url = constructUrl(); 
-        jQuery.get(url, function(data) {
-            if (!data["error"]) {
-                showMap = new google.maps.Map(mapDiv, {
-                    center: new google.maps.LatLng(data["lat"], data["lng"]), 
-                    zoom: 10,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-                marker = new google.maps.Marker({
-                    position: showMap.getCenter(),
-                    map: map,
-                    visible: true});
-            }
-            else {
-                mapDiv.innerHTML = "No location set"; 
-            }
-        }); 
+function loadShowEventMap() {
+    loadShowMap('show-event-map-canvas', eventSetCoordsUrl, eventGetAddressUrl);
+}
 
-    }
+function eventGetAddressUrl() {
+    return "/events/" + getEventId() + "/get_address"; 
+}
+
+function getEventId() {
+    return $("#get_event_id").text(); 
+}
+
+function eventSetCoordsUrl() {
+    return "/events/" + getEventId() + "/set_coordinates"; 
 }

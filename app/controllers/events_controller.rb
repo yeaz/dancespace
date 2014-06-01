@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
-      redirect_to '/events/' + @event.id.to_s + '/set_location'
+      redirect_to event_path(@event)
     else
       render 'new'
     end
@@ -33,13 +33,6 @@ class EventsController < ApplicationController
   
   def update
     e_params = event_params
-    if e_params.has_key?(:lat) and e_params.has_key?(:lng)
-      e_params[:is_location_set] = true
-      @event.update_attributes(e_params)
-      redirect_to event_path(@event)
-      return
-    end
-    
     update_date_time(e_params)
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
@@ -54,19 +47,26 @@ class EventsController < ApplicationController
     end
   end
 
+  def set_coordinates
+    @event = Event.find(params[:event_id])
+    @event.update(is_location_set: params[:set])
+    if params.has_key?(:lat)
+      @event.update({lat: params[:lat].to_f, lng: params[:lng].to_f})
+    end
+    render :json => {"success" => "true"}
+  end
+
   def get_address
     @event = Event.find(params[:event_id])
-    if @event.is_location_set == false
+    if @event.is_location_set == -1
       render :json => {"address" => @event.get_address}
-    else
+    elsif @event.is_location_set == 1
       render :json => {"lat" => @event.lat, "lng" => @event.lng}
+    elsif @event.is_location_set == 0
+      render :json => {"error" => "true"}
     end
   end
-
-  def set_location
-    @event = Event.find(params[:event_id])
-  end
-
+  
   def get_coordinates
     @event = Event.find(params[:event_id])
     if @event.is_location_set == true
@@ -85,8 +85,12 @@ class EventsController < ApplicationController
         events_at_location.push(event)
       end
     end
-    @questions = get_and_update_future_events(events_at_location)
-    render :partial => "events_in_bounds", :locals => {:events => @questions}
+    @events = get_and_update_future_events(events_at_location)
+    if params[:json] == "true"
+      render :json => @events
+    else
+      render :partial => "events_in_bounds", :locals => {:events => @events}
+    end
   end
 
   def get_and_update_future_events(events_at_location)
@@ -137,7 +141,7 @@ class EventsController < ApplicationController
     end
     
     def event_params 
-      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng)
+      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
     end
   
 end
