@@ -45,7 +45,10 @@
 
 <br/>	
 			<b>E-MAIL:</b> <%= @user.email %> <br/>
-			<b>PHONE: </b>(<%= @user.phone_area_code %>) <%= @user.phone_1 %> - <%= @user.phone_2 %>
+                        <% phone_num = @user.get_phone_number %>
+                        <% if phone_num != "" %>
+			<b>PHONE: </b><%= phone_num %>
+                        <% end %>
 		</div>
 	</div>
 	<br>

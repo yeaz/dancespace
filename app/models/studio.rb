@@ -44,4 +44,12 @@ class Studio < ActiveRecord::Base
     return address_line1 + ' ' + address_line2 + ', ' + city + ' ' + state + ' ' + zip_code
   end
 
+  def get_phone_number
+    if phone_area_code != "" and phone_1 != "" and phone_2 != ""
+      return "(" + phone_area_code + ") " + phone_1 + "-" + phone_2
+    else
+      return ""
+    end
+  end
+  
 end
