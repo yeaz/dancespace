@@ -2,7 +2,7 @@ google.maps.event.addDomListener(window, 'load', loadMaps);
 var showEventMap = null; 
 var showEventMarker = null;
 var feedMap = null; 
-var feedMarkers = new Array(); 
+var feedMarkers = null; 
 
 function constructUrl() {
     var url = window.location.pathname;
@@ -18,6 +18,7 @@ function loadMaps() {
 
 function loadFeedMap(fn_name) {
     if (divExists('events-feed-map-canvas')) {
+        feedMarkers = new Array(); 
         feedMap = makeGenericMap('events-feed-map-canvas'); 
         geocoder = new google.maps.Geocoder();
         google.maps.event.clearInstanceListeners(feedMap); 

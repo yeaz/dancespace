@@ -85,8 +85,12 @@ class EventsController < ApplicationController
         events_at_location.push(event)
       end
     end
-    @questions = get_and_update_future_events(events_at_location)
-    render :partial => "events_in_bounds", :locals => {:events => @questions}
+    @events = get_and_update_future_events(events_at_location)
+    if params[:json] == "true"
+      render :json => @events
+    else
+      render :partial => "events_in_bounds", :locals => {:events => @events}
+    end
   end
 
   def get_and_update_future_events(events_at_location)
