@@ -44,7 +44,7 @@
         <%= user_form.text_field :phone_1, hide_label: true, :maxlength => 3 %><b>&nbsp;-</b>
         <%= user_form.text_field :phone_2,  hide_label: true, :size => 3, :maxlength => 4 %>
       </div>
-      <%= user_form.submit 'Update Contact Info' %>
+      <%= user_form.submit 'Update Contact Info', class: "btn btn-block btn-warning" %>
     <% end %>
     <br/>      
 </div>

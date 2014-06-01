@@ -1,7 +1,7 @@
 <%= render "home/navbar" %>
 <div class = "container spec submitter custom-form">
   <h1>New Studio</h1>
-  <%= bootstrap_form_for(@studio, layout: :inline) do |f| %>
+  <%= bootstrap_form_for @studio do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
   <div>
     <%= f.text_field :name, placeholder: 'Name', label: "Studio Name: " %>
@@ -51,7 +51,7 @@
     <%= f.text_field :phone_2, hide_label: true, :size => 5, :maxlength=> 4 %>
   </div>
   <div>
-    <%= f.submit 'Create Studio' %>
+    <%= f.submit 'Create Studio', class: "btn btn-block btn-warning" %>
   </div>
   <% end %>
 </div>
