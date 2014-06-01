@@ -2,6 +2,7 @@ google.maps.event.addDomListener(window, 'load', loadMaps);
 var showEventMap = null; 
 var showEventMarker = null;
 var feedMap = null; 
+var feedMarkers = new Array(); 
 
 function constructUrl() {
     var url = window.location.pathname;
@@ -30,9 +31,36 @@ function updateDisplayed(fn_name) {
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     var url = fn_name + "?n=" + encodeURIComponent(ne.lat()) + "&e=" + encodeURIComponent(ne.lng()) + "&s=" + encodeURIComponent(sw.lat()) + "&w=" + encodeURIComponent(sw.lng());
-    jQuery.get(url, function(data) {
+    jQuery.get(url + "&json=false", function(data) {
         document.getElementById('all_events').innerHTML = data; 
+    });
+    jQuery.get(url + "&json=true", function(data) {
+        addMarkersToMap(data); 
     }); 
+}
+
+function removeOutOfBoundsMarkers() {
+    for (i in feedMarkers) {
+        if (i > 0 && feedMarkers[i] && !feedMap.getBounds().contains(feedMarkers[i].getPosition())) {
+         //   feedMap.removeOverlay(feedMarkers[i]);
+            feedMarkers[i] = null; 
+        }
+    }
+}
+
+function addMarkersToMap(objList) {
+    if (feedMarkers.length > 0) {
+        removeOutOfBoundsMarkers(); 
+    }
+    for (index in objList) {
+        var currObj = objList[index];
+        var id = currObj["id"]; 
+        if (!feedMarkers[id] || feedMarkers[id] == null ) {
+            var loc = new google.maps.LatLng(currObj["lat"], currObj["lng"]);
+            feedMarkers[id] = new google.maps.Marker({position: loc, map: feedMap, draggable: false, visible: true});
+        //    feedMap.addOverlay(feedMarkers[id]); 
+        }
+    }
 }
 
 function codeAddressAndUpdateEvents() {

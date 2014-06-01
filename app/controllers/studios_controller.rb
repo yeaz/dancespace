@@ -84,7 +84,11 @@ class StudiosController < ApplicationController
         studios_at_location.push(studio)
       end
     end
-    render :partial => "studios_in_bounds", :locals => {:studios => studios_at_location}
+    if params[:json] == "true"
+      render :json => studios_at_location
+    else
+      render :partial => "studios_in_bounds", :locals => {:studios => studios_at_location}
+    end
   end
 
   # *** HELPER METHODS
