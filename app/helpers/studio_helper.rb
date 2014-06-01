@@ -13,6 +13,7 @@ module StudioHelper
 
   def us_states
     [
+     ['Select a state', nil],
      ['AK', 'AK'],
      ['AL', 'AL'],
      ['AR', 'AR'],

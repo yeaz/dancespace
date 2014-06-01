@@ -1,6 +1,6 @@
 google.maps.event.addDomListener(window, 'load', loadMaps);
-var showMap = null; 
-var marker = null;
+var showEventMap = null; 
+var showEventMarker = null;
 var feedMap = null; 
 
 function constructUrl() {
@@ -11,22 +11,17 @@ function constructUrl() {
 }
 
 function loadMaps() {
-    loadMap();
+    loadShowEventMap(); 
     loadFeedMap("/get_events_in_bounds"); 
 }
 
 function loadFeedMap(fn_name) {
-    var feedMapDiv = document.getElementById('events-feed-map-canvas');
-    if (feedMapDiv != null) {
-        feedMap = new google.maps.Map(feedMapDiv, {
-            center: new google.maps.LatLng(37.5, -122.2),
-            zoom: 10,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-       });
-       geocoder = new google.maps.Geocoder();
-       google.maps.event.clearInstanceListeners(feedMap); 
-       google.maps.event.addListener(feedMap, 'bounds_changed', function() { updateDisplayed(fn_name); });
-       $("#code_address_submit").click(function() { codeAddressAndUpdate(fn_name); });
+    if (divExists('events-feed-map-canvas')) {
+        feedMap = makeGenericMap('events-feed-map-canvas'); 
+        geocoder = new google.maps.Geocoder();
+        google.maps.event.clearInstanceListeners(feedMap); 
+        google.maps.event.addListener(feedMap, 'bounds_changed', function() { updateDisplayed(fn_name); });
+        $("#code_address_submit").click(function() { codeAddressAndUpdate(fn_name); });
     }
 }
 
@@ -58,26 +53,10 @@ function codeAddressAndUpdate(fn_name) {
     }); 
 }
 
-function loadMap() {
-    var mapDiv = document.getElementById('show-event-map-canvas'); 
-    if (mapDiv != null) {
-        var url = constructUrl(); 
-        jQuery.get(url, function(data) {
-            if (!data["error"]) {
-                showMap = new google.maps.Map(mapDiv, {
-                    center: new google.maps.LatLng(data["lat"], data["lng"]), 
-                    zoom: 10,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-                marker = new google.maps.Marker({
-                    position: showMap.getCenter(),
-                    map: map,
-                    visible: true});
-            }
-            else {
-                mapDiv.innerHTML = "No location set"; 
-            }
-        }); 
+function loadShowEventMap() {
+    loadShowMap('show-event-map-canvas', constructUrl);
+}
 
-    }
+function setEventCoords() {
+    setCoords('event'); 
 }

@@ -98,7 +98,9 @@
 		<ul>
 		  	<% for s in @user.get_studios_that_user_owns %>
 			  	<li>
-			  		<h3><%= link_to(s.name, studio_path(s)) %></h3>
+			  		<h3><%= link_to(s.name,
+			  		studio_path(s),
+			  		"data-no-turbolink" => "true") %></h3>
 			  	</li>
 		  	<%end%>
 	  	</ul>

@@ -1,3 +1,8 @@
+<% content_for :google_maps_js do %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
+<% end %>
+
+
 <%= render "home/navbar" %>
 <div class="container submitter">
 <h1>Event Create</h1>
@@ -18,7 +23,7 @@
     <%= f.text_field :city, placeholder: 'city' %>
   </div>
   <div>
-    <%= f.select :state, options_for_select(us_states, 'CA') %>
+    <%= f.select :state, options_for_select(us_states, nil) %>
   </div>
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
@@ -27,7 +32,13 @@
     <%= f.datetime_select(:event_date_time) %>
   </div>
   <div>
-    <%= f.submit 'Create Event', class: "btn btn-lg btn-warning btn-block" %>
+    <%= f.submit 'Create Event', class: "btn btn-lg btn-warning
+    btn-block", "onclick" => "setEventCoords()" %>
   </div>
+    <%= f.text_field :lat %>
+  <%= f.text_field :lng %>
+  <%= f.text_field :is_location_set %>
+
 <% end %>
 </div>
+<input type="submit" onclick="setEventCoords()"/>

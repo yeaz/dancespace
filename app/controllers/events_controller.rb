@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
-      redirect_to '/events/' + @event.id.to_s + '/set_location'
+      redirect_to event_path(@event)
     else
       render 'new'
     end
@@ -33,13 +33,6 @@ class EventsController < ApplicationController
   
   def update
     e_params = event_params
-    if e_params.has_key?(:lat) and e_params.has_key?(:lng)
-      e_params[:is_location_set] = true
-      @event.update_attributes(e_params)
-      redirect_to event_path(@event)
-      return
-    end
-    
     update_date_time(e_params)
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
@@ -137,7 +130,7 @@ class EventsController < ApplicationController
     end
     
     def event_params 
-      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng)
+      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
     end
   
 end

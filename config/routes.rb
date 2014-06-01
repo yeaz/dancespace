@@ -44,6 +44,7 @@ DanceSpace::Application.routes.draw do
     get 'set_location', to: 'studios#set_location'
     get 'get_address', to: 'studios#get_address'
     get 'get_coordinates', to: 'studios#get_coordinates'
+    get 'set_coordinates', to: 'studios#set_coordinates'
   end
 
   resources :events, only: [:index, :show, :edit, :update, :destroy]

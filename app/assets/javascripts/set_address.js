@@ -1,9 +1,7 @@
 google.maps.event.addDomListener(window, 'load', initMaps);
-var map = null;
-var geocoder = null; 
-var marker = null; 
+var eventMap = null;
+var eventMarker = null; 
 var studioMap = null; 
-var studioGeocoder = null; 
 var studioMarker = null; 
 
 function initMaps() {
@@ -11,111 +9,91 @@ function initMaps() {
     initStudioMap(); 
 }
 
-function initStudioMap() {
-    studioGeocoder = new google.maps.Geocoder();
-    var studioMapDiv = document.getElementById('set-studio-location-map');
-    if (studioMapDiv != null) {
-        studioMap = new google.maps.Map(studioMapDiv, {
+function makeGenericMap(divName) {
+    var mapDiv = document.getElementById(divName);
+    if (mapDiv != null) {
+        return new google.maps.Map(mapDiv, {
             center: new google.maps.LatLng(37.4, -122.2),
             zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        studioMarker = new google.maps.Marker({
-            position: studioMap.getCenter(),
-            map: studioMap,
-            draggable: true,
-            visible: true}); 
+    }
+}
+
+function makeMarker(currMap, toDrag) {
+    return new google.maps.Marker({
+        position: currMap.getCenter(),
+        map: currMap,
+        draggable: toDrag,
+        visible: true}); 
+}
+
+function divExists(name) {
+    return document.getElementById(name) != null; 
+}
+
+function getAndSetAddress(url, currMap, currMarker) {
+    jQuery.get(url, function(data) {
+        loc = new google.maps.LatLng(data["lat"], data["lng"]); 
+        currMap.setCenter(loc); 
+        currMarker.setPosition(loc); 
+    }); 
+}
+
+function initStudioMap() {
+    if (divExists('set-studio-location-map')) {
+        studioMap = makeGenericMap('set-studio-location-map');
+     
+        studioMarker = makeMarker(studioMap, true);
+        if (divExists('editing_studio')) {
+            var url = '/studios/' + $("#editing_studio").text() + '/get_coordinates'; 
+            getAndSetAddress(url, studioMap, studioMarker); 
+        }
         google.maps.event.addListener(studioMarker, 'drag', function() {
             updateStudioCoordsOnPage(studioMarker.getPosition()); 
         });
-        var url = constructGetStudioAddressUrl();
-        jQuery.get(url, function(data) {
-            if (data["address"]) {
-                document.getElementById('address').value = data["address"];
-                codeStudioAddress(); 
-             }
-             else {
-                 studioMap.setCenter(new google.maps.LatLng(data["lat"], data["lng"]));
-                 studioMarker.setPosition(studioMap.getCenter()); 
-             }
-        });
     }
-}
-
-function constructGetStudioAddressUrl() {
-    var url = window.location.pathname;
-    var re = /\/studios\/+([0-9]+)\/+set_location/;
-    var reArray = re.exec(url);
-    return "/studios/" + reArray[1] + "/get_address"; 
+    
 }
 
 function initEventMap() {
-    geocoder = new google.maps.Geocoder();
-    var mapDiv = document.getElementById('set-location-map-canvas');
-    if (mapDiv != null) {
-        map = new google.maps.Map(mapDiv, {
-            center: new google.maps.LatLng(37.4, -122.2),
-            zoom: 10,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-        marker = new google.maps.Marker({
-            position: map.getCenter(),
-            map: map,
-            draggable: true,
-            visible: true}); 
-        google.maps.event.addListener(marker, 'drag', function() {
-            updateCoordsOnPage(marker.getPosition()); 
-        });
-        var url = constructGetAddressUrl(); 
-        jQuery.get(url, function(data) {
-            if (data["address"]) {
-                document.getElementById('address').value = data["address"];
-                codeAddress(); 
-            }
-            else {
-                map.setCenter(new google.maps.LatLng(data["lat"], data["lng"]));
-                marker.setPosition(map.getCenter()); 
-            }
+    if (divExists('set-event-location-map')) {
+        eventMap = makeGenericMap('set-event-location-map');
+        eventMarker = makeMarker(eventMap, true);
+        if (divExists('editing_event')) {
+            var url = '/events/' + $("#editing_event").text() + '/get_coordinates';
+            getAndSetAddress(url, eventMap, eventMarker); 
+        }
+        google.maps.event.addListener(eventMarker, 'drag', function() {
+            updateCoordsOnPage(eventMarker.getPosition()); 
         });
     }
 
 }
 
-function constructGetAddressUrl() {
-    var url = window.location.pathname;
-    var re = /\/events\/+([0-9]+)\/+set_location/;
-    var reArray = re.exec(url);
-    return "/events/" + reArray[1] + "/get_address/"; 
+function codeNewEventAddress() {
+    codeAddress(eventMap, eventMarker, updateCoordsOnPage); 
 }
 
-function codeAddress() {
+function codeNewStudioAddress() {
+    codeAddress(studioMap, studioMarker, updateStudioCoordsOnPage); 
+}
+
+function codeAddress(currMap, currMarker, updateFn) {
+    geocoder = new google.maps.Geocoder();  
     var address = document.getElementById('address').value; 
     var error = document.getElementById('error'); 
     geocoder.geocode( { 'address' : address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-            marker.setPosition(map.getCenter());
-            updateCoordsOnPage(marker.getPosition());
+            currMap.setCenter(results[0].geometry.location);
+            currMarker.setPosition(currMap.getCenter());
+            updateFn(currMarker.getPosition()); 
             error.innerHTML = ""; 
         } else {
             error.innerHTML = "Error - invalid address."; 
         }
     }); 
-}
-
-function codeStudioAddress() {
-    var address = document.getElementById('address').value;
-    var error = document.getElementById('error'); 
-    studioGeocoder.geocode( { 'address' : address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            studioMap.setCenter(results[0].geometry.location);
-            studioMarker.setPosition(studioMap.getCenter());
-            updateStudioCoordsOnPage(studioMarker.getPosition());
-            error.innerHTML = ""; 
-        } else {
-            error.innerHTML = "Error - invalid address."; 
-        }
-    }); 
+    
 }
 
 function updateStudioCoordsOnPage(pos) {
