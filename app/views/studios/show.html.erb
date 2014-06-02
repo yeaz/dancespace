@@ -34,6 +34,7 @@
 	                  <%= make_contact_icon(@studio.twtr_url,
 			      "twitter-icon.png") %> <br>
 	 -->
+	 			<h4>Created by: <a href="<%= user_path(get_studio_owner(@studio)) %>"><%=get_studio_owner(@studio).first_name%> <%=get_studio_owner(@studio).last_name%></a></h4>
 				<b>E-MAIL:</b> <%= @studio.email %> <br/>
 	            <% phone_num = @studio.get_phone_number %>
 	                        <% if phone_num != "" %>
