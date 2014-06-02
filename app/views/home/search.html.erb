@@ -1,13 +1,84 @@
-<% for result in @results do %>
-  <div>
-    <% if result.class.name == "User" %>
-      <%= result.first_name + ' ' + result.last_name %> 
-    <% elsif result.class.name == "Studio" %>
-      <%= result.name %> 
-    <% elsif result.class.name == "Video" %>
-      <%= result.title %> 
-    <% elsif result.class.name == "Event" %>
-      <%= result.name %>         
-    <% end %>
-  </div>
-<% end %>
+<%= render "home/navbar" %>
+
+<div class="spec container">
+	<h1><b>Search Results</b></h1>
+	<% if @results.size==1 %>
+		1 result found.
+	<%else %>
+		<%= @results.size %> results found.
+	<%end%>
+	<% for result in @results do %>
+		<div>
+			<% if result.class.name == "User" %>
+				<div class="row">
+					<div class="listing-photo col-md-2">
+						<%= image_tag "blank_profile.jpg" %>
+					</div>
+					<div class="col-md-6">
+						<h3><b><a href=<%= user_path(result) %>><%= result.get_full_name %></a></h3></b>
+						<% if result.city!="" && result.city != nil %>
+							<h5><b><%= result.city %>, <%= result.state %></b></h5>
+						<%end%>
+						<div class="listing-blurb"><h5><%= result.blurb %> </h5></div>
+					</div>
+					<div class="col-md-4 social-media">
+						<%= make_contact_icon(result.yt_url, "youtube-icon.png") %>
+						<%= make_contact_icon(result.fb_url, "facebook-icon.png") %><br/>
+						<b>E-MAIL:</b> <%= result.email %> <br/>
+						<% if result.phone_2 != "" && result.phone_2 != nil%>
+							<b>PHONE: </b>(<%= result.phone_area_code %>) <%= result.phone_1 %> - <%= result.phone_2 %>
+						<% end %>
+					</div>
+				</div>
+				<hr>
+
+			<% elsif result.class.name == "Studio" %>
+				<div class="row">
+					<div class="listing-photo col-md-2">
+						<%= image_tag "studio1.jpg" %>
+					</div>
+					<div class="listing-info col-md-6">
+						<h3><b><a href= <%= studio_path(result) %> data-no-turbolink="true" > <%= result.name %> </a></h3></b>
+						<h5><b>Location</b>: <%= result.get_address %></h5>
+						<div class="listing-blurb"><h5><%= result.description %></h5></div>
+					</div>
+					<div class="col-md-4 social-media">
+						<%= make_contact_icon(result.yt_url, "youtube-icon.png") %>
+						<%= make_contact_icon(result.fb_url, "facebook-icon.png") %>
+						<br/>
+						<b>E-MAIL:</b> <%= result.email %> <br/>
+						<% if result.phone_2 != "" && result.phone_2 != nil%>
+							<b>PHONE: </b>(<%= result.phone_area_code %>) <%= result.phone_1 %> - <%= result.phone_2 %>
+						<% end %>
+					</div>
+				</div>
+				<hr>
+
+			<% elsif result.class.name == "Video" %>
+				<div class="row">
+					<div class="listing-photo col-md-3">
+						<a href=<%= video_path(result) %>> <img src="http://img.youtube.com/vi/<%=result.youtube_id%>/0.jpg" > </a>
+					</div>
+					<div class="col-md-6">
+						<h3><b><a href=<%= video_path(result) %>><%= result.title %></a></h3></b>
+						<h5><b>Shared by</b>:<br><%= link_to result.get_users_name, user_path(result.user_id) %></p></h5>
+						<div class="listing-blurb">
+							<h5><%= result.description %></h5>
+						</div>
+					</div>
+				</div>
+				<hr>
+
+			<% elsif result.class.name == "Event" %>
+				<div class="row">
+					<div class="col-md-9">
+						<h2><b><a href="<%= event_path(result) %>"  data-no-turbolink="true"><%= result.name %></a></b></h2>
+						<h4> @ <a href="<%= studio_path(result.studio_id)%>"><%= result.studio.name %></a>, <%= e.event_date_time %>
+						</h4>
+						<h5><%= result.description %></h5>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>

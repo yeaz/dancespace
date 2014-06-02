@@ -9,7 +9,8 @@
         <%= submit_tag "Search", :name => nil %>
       </div>
 	<% end %>
-    
+
+    <%= @videos.size%>
 	<% for v in @videos do %>
 		<div class="row">
 		<div class="listing-photo col-md-3">

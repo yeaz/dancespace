@@ -37,7 +37,7 @@
                   <%= make_contact_icon(@user.yt_url,
 		      "youtube-icon.png") %>
                   <%= make_contact_icon(@user.fb_url,
-		      "facebook-icon.png") %>
+		      "facebook-icon.png") %> <br/>
                   <%= make_contact_icon(@user.ig_url,
 		      "insta-icon.png") %>
                   <%= make_contact_icon(@user.twtr_url,
@@ -50,7 +50,7 @@
 	</div>
 	<br>
 
-	<h1>Video Portfolio <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a></h1>
+	<h2>Video Portfolio <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a></h2>
 	<% if @user.videos.size == 0 %>
 		<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
 	<%end%>
@@ -69,7 +69,7 @@
 
 	<br/>
 
-	<h1>Experience <a href="<%= add_experience_path %>" class="btn btn-lg btn-warning">Add Experience</a></h1>
+	<h2>Experience <a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
 	<% if @user.experiences.size == 0 %>
 		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
 	<% end %>
@@ -86,14 +86,14 @@
   	<br/>
 
   	<% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
-  		<h1>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h1>
+  		<h2>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h2>
 		<h4 class="reminder">Create a page for it! Once you create a studio, it's page will be linked here on your profile.</h4>
   	<% else %>
-	  	<h1>Studios Owned
+	  	<h2>Studios Owned
 	  		<% if current_user.id == @user.id %>
 					<%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
 			<% end %>
-		</h1>
+		</h2>
 
 		<ul>
 		  	<% for s in @user.get_studios_that_user_owns %>
