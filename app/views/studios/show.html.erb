@@ -3,7 +3,7 @@
 <% end %>
 
 <%= render "home/navbar" %>
-<div class="profile-container container eleven">
+<div class="profile-container container">
 	<div class="row">
 			<div class="col-md-3 propic" style='margin-bottom:30px; text-align:center'>
 				<%= image_tag "studio1.jpg" %>
@@ -23,7 +23,7 @@
 					</p>
 			</div>
 
-			<div class="col-md-3" >
+			<div class="col-md-3 spec">
 				<h2 style='padding-top:0px;margin-top:0px;'>Contact</h2>
 	<!--                   <%= make_contact_icon(@studio.yt_url,
 			      "youtube-icon.png") %>
@@ -44,7 +44,7 @@
 </div>
 
 	<div class='container spec' id='socialfeeds'>
-		<div class='row spec' id='ytfeed'>
+		<div class='row' id='ytfeed'>
 			<div class='col-md-12'>
 				<h2>YouTube Channel</h2>
 				<p>
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 
-		<div class='row spec'>
+		<div class='row'>
 			<div class='col-md-4' id='fbfeed'>
 				<h2>Facebook Page</h2>
 				<p>
@@ -74,23 +74,29 @@
 			</div>
 		</div>
 
+	</div>
 
-	<div class='row spec'>
-		<div class='col-md-6'>
-			<h2>Upcoming Events  
-				<% if current_user_owns_studio(@studio.id) %>
-		      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
-		    <% end %>
-	   		</h2>
-			<!-- Events Listing -->
-			<% @events.each do |e| %>
-			<div>
-			  <h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
-			  <div><%= e.event_date_time %></div></li>
+
+	<div class='container spec'>
+		<div class='row'>
+			<div class='col-md-6'>
+					<h2>Upcoming Events  
+						<% if current_user_owns_studio(@studio.id) %>
+				      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
+				    <% end %>
+						</h2>
+					<!-- Events Listing -->
+					<% @events.each do |e| %>
+					<div>
+					  <h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
+					  <div><%= e.event_date_time %></div></li>
+					</div>
+					<% end %>
 			</div>
-			<% end %>
 		</div>
-		<div class='col-md-6'>
+
+	<div class='row'>
+		<div class='col-md-12'>
 			<h2>Studio Location</h2>
 				<div id="show-studio-map-canvas"></div>
 			        <!-- see makeStreetView function in --
