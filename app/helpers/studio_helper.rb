@@ -11,6 +11,14 @@ module StudioHelper
     return false
   end
 
+  def get_studio_owner(studio_id)
+    membership = Membership.where("studio_id = ? and is_admin = ?", studio_id, true)
+    if membership.nil?
+      return nil
+    end
+    return User.find(membership.first.member_id)
+  end
+
   def us_states
     [
      ['Select a state', nil],
