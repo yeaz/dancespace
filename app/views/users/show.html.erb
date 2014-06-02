@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="main-info col-md-4">
-			<h1><b><%= @user.username %></b>
+			<h1><b><%= @user.get_full_name %></b>
 				<% if current_user.id == @user.id %>
 					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
 				<% end %>
@@ -33,17 +33,27 @@
 			<%end%>
 		</div>
 		<div class="col-md-5 social-media">
-			<a href=<%=@user.yt_url%> target="_blank"> <%= image_tag "youtube-icon.png" %> </a>
-			<a href=<%=@user.fb_url%> target="_blank"> <%= image_tag "facebook-icon.png" %> </a><br/>
-			<a href=<%=@user.ig_url%> target="_blank"> <%= image_tag "insta-icon.png" %> </a>
-			<a href=<%=@user.twtr_url%> target="_blank"> <%= image_tag "twitter-icon.png" %> </a><br/>	
+                  <!-- in helpers/users_helper.rb -->
+                  <%= make_contact_icon(@user.yt_url,
+		      "youtube-icon.png") %>
+                  <%= make_contact_icon(@user.fb_url,
+		      "facebook-icon.png") %> <br>
+                  <%= make_contact_icon(@user.ig_url,
+		      "insta-icon.png") %>
+                  <%= make_contact_icon(@user.twtr_url,
+		      "twitter-icon.png") %>
+
+<br/>	
 			<b>E-MAIL:</b> <%= @user.email %> <br/>
-			<b>PHONE: </b>(<%= @user.phone_area_code %>) <%= @user.phone_1 %> - <%= @user.phone_2 %>
+                        <% phone_num = @user.get_phone_number %>
+                        <% if phone_num != "" %>
+			<b>PHONE: </b><%= phone_num %>
+                        <% end %>
 		</div>
 	</div>
 	<br>
 
-	<h1>Video Portfolio</h1><a href="<%= new_video_path %>" class="btn btn-lg btn-warning">Share a Video</a>
+	<h1>Video Portfolio <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a></h1>
 	<% if @user.videos.size == 0 %>
 		<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
 	<%end%>
@@ -62,7 +72,7 @@
 
 	<br/>
 
-	<h1>Experience</h1>
+	<h1>Experience <a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h1>
 	<% if @user.experiences.size == 0 %>
 		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
 	<% end %>
@@ -71,7 +81,7 @@
 		<% @user.experiences.each do |exp| %>
 	    	<li><%= exp.content %>
 	    	<% exp.experiencelinks.each do |link| %>
-	      		<a href="<%= get_url(link) %>"><%= get_title(link) %></a>
+	      		<%=  get_collab_field(link) %>
 	    	<% end %>
 	    	</li>
 	  	<% end %>
@@ -79,9 +89,8 @@
   	<br/>
 
   	<% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
-  		<h1>Own a studio? Why not create a page for it?</h1>
-		<h4>Once you create a studio, it's page will be linked here on your profile.</h4>
-		<%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %>
+  		<h1>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h1>
+		<h4 class="reminder">Create a page for it! Once you create a studio, it's page will be linked here on your profile.</h4>
   	<% else %>
 	  	<h1>Studios Owned
 	  		<% if current_user.id == @user.id %>
@@ -92,7 +101,9 @@
 		<ul>
 		  	<% for s in @user.get_studios_that_user_owns %>
 			  	<li>
-			  		<h3><%= link_to(s.name, studio_path(s)) %></h3>
+			  		<h3><%= link_to(s.name,
+			  		studio_path(s),
+			  		"data-no-turbolink" => "true") %></h3>
 			  	</li>
 		  	<%end%>
 	  	</ul>

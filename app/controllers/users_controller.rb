@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
+
+  include UsersHelper
   
   def index
     @users = User.search params[:search]
@@ -11,12 +13,18 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.create(user_params)
+    u_params = fix_contact_urls(user_params)
+
+    @user = User.create(u_params)
     @user.save
     redirect_to 'home#index'
   end
 
   def edit_profile
+    @user = current_user
+  end
+
+  def add_experience
     @user = current_user
     @user.experiences.build
     @experience = Experience.new
@@ -25,7 +33,8 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
+    u_params = fix_contact_urls(user_params)
+    @user.update(u_params)
     if @user.errors.any?
       flash[:user_errors] = {}
       @user.errors.each do |attribute, error |
@@ -49,7 +58,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation,
+    params.require(:user).permit(:email, :password, :password_confirmation,
                                  :title, :blurb, :city, :state, :style_list, :fb_url, :yt_url,
                                  :ig_url, :website_url, :twtr_url, :phone_area_code, :phone_1, :phone_2, 
                                  :experiences_attributes => [:id, :content,

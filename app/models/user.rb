@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
-  validates :username, :email, :password, :password_confirmation, :first_name, :last_name, :presence => true, on: :create
-  validates :username, :email, :uniqueness => true, on: :create
+  validates :email, :password, :password_confirmation, :first_name, :last_name, :presence => true, on: :create
+  validates :email, :uniqueness => true, on: :create
   validates :password, :confirmation => true, on: :create
   validates_length_of :password, :within => Devise.password_length, on: :create
 
@@ -83,6 +83,14 @@ class User < ActiveRecord::Base
       return Studio.find(ids)
     end
     return []
+  end
+
+  def get_phone_number
+    if phone_area_code != "" and phone_1 != "" and phone_2 != ""
+      return "(" + phone_area_code + ") " + phone_1 + "-" + phone_2
+    else
+      return ""
+    end
   end
   
 end

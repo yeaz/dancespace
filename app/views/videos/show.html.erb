@@ -13,7 +13,7 @@
 	<div id="data">
 		<p><b>Description</b><br><%= @video.description %></p>
 		<p><b>Shared by</b><br><%= link_to @video.get_users_name, user_path(@video.user_id) %></p>
-		<p><b>Share date</b><br><%= @video.created_at %></p>
+		<p><b>Share date</b><br><%= get_pst_time(@video.created_at) %></p>
 	</div>
 	</div>
 </div>

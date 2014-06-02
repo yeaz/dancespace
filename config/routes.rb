@@ -23,7 +23,7 @@ DanceSpace::Application.routes.draw do
   get 'random_user', to: 'users#get_random_user'
   
   resources :videos
-  get 'get_it', to: 'videos#get_it'
+  get 'random_video', to: 'videos#get_random_video'
   
   resources :experiences
   resources :studios do
@@ -32,17 +32,20 @@ DanceSpace::Application.routes.draw do
 
   get 'get_events_in_bounds', to: 'events#search'
   get 'get_studios_in_bounds', to: 'studios#search'
+  get 'add_experience', to: 'users#add_experience'
   
   resources :events do
     get 'set_location', to: 'events#set_location'
     get 'get_address', to: 'events#get_address'
     get 'get_coordinates', to: 'events#get_coordinates'
+    get 'set_coordinates', to: 'events#set_coordinates'
   end
   
   resources :studios, only: [:show] do
     get 'set_location', to: 'studios#set_location'
     get 'get_address', to: 'studios#get_address'
     get 'get_coordinates', to: 'studios#get_coordinates'
+    get 'set_coordinates', to: 'studios#set_coordinates'
   end
 
   resources :events, only: [:index, :show, :edit, :update, :destroy]
