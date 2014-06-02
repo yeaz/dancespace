@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140530044705) do
     t.text     "state",           null: false
     t.float    "lat"
     t.float    "lng"
-    t.integer  "is_location_set",   default: -1 
+    t.boolean  "is_location_set"
     t.string   "zip_code"
   end
 
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20140530044705) do
     t.string   "phone_2",         default: ""
     t.float    "lat"
     t.float    "lng"
-    t.integer  "is_location_set",   default: -1 
+    t.boolean  "is_location_set"
     t.string   "zip_code"
     t.text     "address_line1",                null: false
     t.text     "address_line2"
