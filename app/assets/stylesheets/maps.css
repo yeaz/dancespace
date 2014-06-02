@@ -5,7 +5,7 @@
     margin-right: auto; 
 }
 
-#event_lat, #event_lng, #studio_lat, #studio_lng {
+#get_studio_id, #get_event_id, #event_is_location_set, #studio_is_location_set {
     display: none; 
 }
 
@@ -14,4 +14,15 @@
     width: 75%;
     margin-left: auto;
     margin-right: auto; 
+}
+
+#show-studio-streetview-canvas {
+    width: 500px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+#infoWindow {
+    //style for the infowindow
 }

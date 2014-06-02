@@ -6,17 +6,22 @@ class HomeController < ApplicationController
   def search
     @results = ThinkingSphinx.search params[:query], :classes => [User, Studio, Video, Event]
   end
-<<<<<<< HEAD
-    
-=======
 
   def eventsfeed
-  	render :partial => "home/eventsfeed"
+  #	render :partial => "home/eventsfeed"
+    render :partial => "home/events_near_you"
+  end
+
+  def load_eventsfeed_title
+    render :partial => "home/eventsfeed_title"
+  end
+
+  def load_studiosfeed_title
+    render :partial => "home/studiosfeed_title"
   end
 
   def studiosnearby
   	render :partial => "home/studiosnearby"
   end
   
->>>>>>> 639d56fd71b69a64af94323702cd7a15bde53844
 end

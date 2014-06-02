@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527032231) do
+ActiveRecord::Schema.define(version: 20140530044705) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -21,19 +21,19 @@ ActiveRecord::Schema.define(version: 20140527032231) do
   end
 
   create_table "events", force: true do |t|
-    t.string   "name",                            null: false
-    t.text     "description",                     null: false
+    t.string   "name",            null: false
+    t.text     "description",     null: false
     t.integer  "studio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "event_date_time",                 null: false
-    t.text     "address_line1",                   null: false
+    t.datetime "event_date_time", null: false
+    t.text     "address_line1",   null: false
     t.text     "address_line2"
-    t.text     "city",                            null: false
-    t.text     "state",                           null: false
+    t.text     "city",            null: false
+    t.text     "state",           null: false
     t.float    "lat"
     t.float    "lng"
-    t.boolean  "is_location_set", default: false
+    t.boolean  "is_location_set"
     t.string   "zip_code"
   end
 
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 20140527032231) do
   end
 
   create_table "studios", force: true do |t|
-    t.string   "name",                            null: false
-    t.text     "description",                     null: false
+    t.string   "name",                         null: false
+    t.text     "description",                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "fb_url"
@@ -83,12 +83,12 @@ ActiveRecord::Schema.define(version: 20140527032231) do
     t.string   "phone_2",         default: ""
     t.float    "lat"
     t.float    "lng"
-    t.boolean  "is_location_set", default: false
+    t.boolean  "is_location_set"
     t.string   "zip_code"
-    t.text     "address_line1",                   null: false
+    t.text     "address_line1",                null: false
     t.text     "address_line2"
-    t.text     "city",                            null: false
-    t.text     "state",                           null: false
+    t.text     "city",                         null: false
+    t.text     "state",                        null: false
   end
 
   create_table "taggings", force: true do |t|
@@ -125,15 +125,14 @@ ActiveRecord::Schema.define(version: 20140527032231) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "username"
     t.string   "blurb"
     t.string   "city"
     t.string   "state"
     t.string   "title"
-    t.string   "fb_url"
-    t.string   "twtr_url"
-    t.string   "yt_url"
-    t.string   "ig_url"
+    t.string   "fb_url",                 default: ""
+    t.string   "twtr_url",               default: ""
+    t.string   "yt_url",                 default: ""
+    t.string   "ig_url",                 default: ""
     t.string   "website_url"
     t.string   "phone_area_code",        default: ""
     t.string   "phone_1",                default: ""

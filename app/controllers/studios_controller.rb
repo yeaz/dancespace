@@ -3,6 +3,8 @@ class StudiosController < ApplicationController
   # *** FILTERS *** #
   skip_before_action :authenticate_user!, only: [:index]
   before_action :get_studio, only: [:edit, :update, :show, :destroy]
+
+  include UsersHelper
   
   def index
     @studios = Studio.search params[:search]
@@ -13,21 +15,17 @@ class StudiosController < ApplicationController
   end
   
   def create
-    @studio = Studio.new(studio_params)
+    @studio = Studio.new(fix_contact_urls(studio_params))
     if @studio.save
       create_membership
-      redirect_to "/studios/" + @studio.id.to_s + "/set_location"
+      redirect_to studio_path(@studio)
     else
       render 'new'
     end
   end
     
   def update
-    s_params = studio_params
-    if s_params.has_key?(:lat) and s_params.has_key?(:lng)
-      s_params[:is_location_set] = true
-    end
-    if @studio.update_attributes(s_params)
+    if @studio.update_attributes(fix_contact_urls(studio_params))
       redirect_to studio_path(@studio)
     else
       render 'edit'
@@ -49,12 +47,23 @@ class StudiosController < ApplicationController
     @studio = Studio.find(params[:studio_id])
   end
 
+  def set_coordinates
+    @studio = Studio.find(params[:studio_id])
+    @studio.update(is_location_set: params[:set])
+    if params.has_key?(:lat)
+      @studio.update({lat: params[:lat].to_f, lng: params[:lng].to_f})
+    end
+    render :json => {"success" => "true"}
+  end
+
   def get_address
     @studio = Studio.find(params[:studio_id])
-    if @studio.is_location_set == false
+    if @studio.is_location_set == -1
       render :json => {"address" => @studio.get_address}
-    else
+    elsif @studio.is_location_set == 1
       render :json => {"lat" => @studio.lat, "lng" => @studio.lng}
+    elsif @studio.is_location_set == 0
+      render :json => {"error" => "true"}
     end
   end
 
@@ -75,7 +84,11 @@ class StudiosController < ApplicationController
         studios_at_location.push(studio)
       end
     end
-    render :partial => "studios_in_bounds", :locals => {:studios => studios_at_location}
+    if params[:json] == "true"
+      render :json => studios_at_location
+    else
+      render :partial => "studios_in_bounds", :locals => {:studios => studios_at_location}
+    end
   end
 
   # *** HELPER METHODS
@@ -102,7 +115,7 @@ class StudiosController < ApplicationController
                                      :yt_url, :ig_url, :website_url, :email, 
                                      :phone_area_code, :phone_1, :phone_2,
                                      :address_line1, :address_line2, :city, :state, :zip_code,
-                                     :lat, :lng)
+                                     :lat, :lng, :is_location_set)
     end
   
 end

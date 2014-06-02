@@ -1,14 +1,10 @@
-JAKES SIDEBAR
 <h2 id="eventheader"><strong>Events Feed</strong></h2>
     <p class="lead">Check out upcoming events.</p>
-	 	<p><a type="button" class="btn btn-warning btn-lg" id="evbutton" onclick="loadEventsFeed()">See Events</a></p>
+	 	<p><a data-no-turbolink="true" type="button" class="btn btn-warning btn-lg" id="evbutton" onclick="loadEventsFeed()">See Events</a></p>
 <h2 id="finderheader">Studio Finder</h2>
     <p class="lead">Find a studio in your area.</p>
-	 	<p><a type="button" class="btn btn-warning btn-lg" id="stbutton" onclick="loadStudiosNearby()">Find a Studio</a></p>
+	 	<p><a data-no-turbolink="true" type="button" class="btn btn-warning btn-lg" id="stbutton" onclick="loadStudiosNearby()">Find a Studio</a></p>
 <h2 id="randomheader">Randomizer</h2>
     <p class="lead">Discover random dancers and videos.</p>
-	 	<p><a type="button" class="btn btn-warning btn-lg" id="rabutton" onclick="loadRandomizer()">Randomize</a></p>
-<!-- <h2>GetIt Button</h2>
-    <p class="lead">Discover cool choreography.</p>
- 	<p><a type="button" class="btn btn-lg btn-warning" href="<%= get_it_path %>">Roll the Dice</a></p>
- -->
+	 	<p><a data-no-turbolink="true" type="button" class="btn btn-warning btn-lg" id="rabutton" onclick="loadRandomizer('dancer')">Random Dancer</a></p>
+	 	<p><a data-no-turbolink="true" type="button" class="btn btn-warning btn-lg" id="rabutton" onclick="loadRandomizer('video')">Random Video</a></p>

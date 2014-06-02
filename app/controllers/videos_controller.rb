@@ -39,12 +39,14 @@ class VideosController < ApplicationController
     redirect_to root_path
   end
   
-  def get_it
+  def get_random_video
     @video = Video.offset(rand(Video.count)).first
     if @video.blank?
       redirect_to new_video_path
     else
-      redirect_to video_path(@video)
+      respond_to do |format|
+         format.json { render json: @video} # take the fields we need only 
+      end    
     end
   end
   
