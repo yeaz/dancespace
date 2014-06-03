@@ -88,7 +88,11 @@
 			<div class='col-md-4' id='igfeed'>
 				<h2>Instagram</h2>
 				<p>
-				Cillum Tonx Thundercats voluptate, Schlitz Echo Park letterpress McSweeney's tattooed pickled. Whatever salvia direct trade pariatur enim. Put a bird on it tattooed fixie squid banh mi aesthetic. Umami roof party deserunt tousled seitan cillum. Incididunt street art distillery, mumblecore Austin whatever pickled master cleanse quinoa cardigan quis Echo Park literally viral art party. Leggings tempor anim placeat in. Ea Banksy art party bicycle rights flannel artisan.
+                                  <% if !@ig_photos.nil? %>
+                                  <% for photo_url in @ig_photos %>
+                                  <img src="<%= photo_url %>"/>
+                                  <% end %>
+                                  <% end %>
 				</p>
 			</div>
 		</div>

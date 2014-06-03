@@ -61,6 +61,7 @@ class StudiosController < ApplicationController
       @videos = response[:items]
     end
     @fb_posts = get_facebook_posts(@studio)
+    @ig_photos = get_instagram_photos(@studio)
   end
 
   def set_location
