@@ -1,10 +1,13 @@
 <%= render "home/navbar" %>
 <div class="container">
   <h1> All Videos for <a href='<%= studio_path(@studio) %>'><%= @studio.name%></a></h1>
+    <div id='ytviewer'></div>
+
   <% for video in @videos %>
-      <img class='yt-thumb' style='padding-bottom:10px;' src="http://img.youtube.com/vi/<%=video%>/0.jpg">&nbsp;
+      <img class='yt-thumb' style='padding-bottom:10px;' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">&nbsp;
   <% end %>
   <br>
+  <!-- Next/Prev -->
   <div style='text-align:center'>
   <% if @prevPageToken.present? %>
       <%= link_to 'Prev', studio_youtube_videos_path(@studio, params: { page: @prevPageToken }), class: "btn btn-lg btn-warning"%>

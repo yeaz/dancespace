@@ -1,5 +1,13 @@
 var randomUsedLast = false;
 
+function ytview(youtube_id) {
+	$("#ytviewer").html("<div class='center' id='video'>"
+						+ "<iframe width='640' height='360' src='//www.youtube.com/embed/" + youtube_id 
+						+ "?rel=0' frameborder='0' allowfullscreen></iframe>"
+						+ "</div>"
+						);
+}
+
 function resetMapper() {
 
     $("#listpane").html("<div id='page_title'></div>"
