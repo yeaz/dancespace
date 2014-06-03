@@ -43,6 +43,7 @@ class StudiosController < ApplicationController
   def show
     @events = Event.where("studio_id = ?",  params[:id])
     @fb_posts = get_facebook_posts(@studio)
+    @ig_photos = get_instagram_photos(@studio)
   end
 
   def set_location

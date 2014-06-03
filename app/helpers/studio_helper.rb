@@ -122,18 +122,48 @@ module StudioHelper
   # returns an array of post hashes, nil if there is no fb url for
   # this studio
   def get_facebook_posts(studio)
-    puts 'FACEBOOK'
     graph = Koala::Facebook::API.new(facebook_api_key)
     if studio.fb_url.nil? or studio.fb_url == ""
       return nil
     end
     facebook_page_id = get_facebook_page_id(studio.fb_url, graph)
-    puts facebook_page_id
     posts = graph.get_connections(facebook_page_id, "feed")
     posts = posts.select{ |post| filter_own_posts(post, facebook_page_id)}
     # posts = posts.select{ |post| make_result(post) }
-    puts posts.length
-    puts posts
     return posts
+  end
+
+  def get_ig_username(url)
+    if url[-1] == '/'
+      url = url[0, url.length - 1]
+    end
+    username =  url.split('/')[-1]
+    if username.nil? or username == ""
+      return nil
+    end
+    return username
+  end
+  
+  def get_instagram_photos(studio)
+      Instagram.configure do |config|
+        config.client_id = "06a126d0eaf645ae8fa415742b4674c9"
+	config.client_secret = "599a2ffff7414dc78a08f0d34d207e7a"
+      end
+    if studio.ig_url.nil? or studio.ig_url == ""
+      return nil
+    end
+    username = get_ig_username(studio.ig_url)
+    user_obj = Instagram.user_search(username)
+    if user_obj.nil? or user_obj.length == 0
+      return nil
+    end
+    ig_id = user_obj[0]["id"]
+     pictures = Instagram.user_recent_media(ig_id, {count: 10})
+     urls = get_photo_urls(pictures)
+    return urls
+  end
+
+  def get_photo_urls(pictures)
+    return pictures.map{ |pic| pic["images"]["standard_resolution"]["url"]}
   end
 end
