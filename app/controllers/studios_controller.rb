@@ -55,7 +55,11 @@ class StudiosController < ApplicationController
   def show
     @events = Event.where("studio_id = ?",  params[:id])
     response = get_youtube_api_response(@studio, 5)
-    @videos = response[:items]
+    if response.nil?
+      @videos = nil
+    else
+      @videos = response[:items]
+    end
     @fb_posts = get_facebook_posts(@studio)
   end
 

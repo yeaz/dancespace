@@ -52,10 +52,12 @@
 				<h2>YouTube Channel <%= image_tag "youtube-icon.png", height: "50px" %></h2>
                 <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
 				<p>
-                <% for video in @videos %>
-                 <img class='yt-thumb' src="http://img.youtube.com/vi/<%=video%>/0.jpg">
-                 &nbsp;
-                <% end %>
+                                  <% if !@videos.nil? %>
+                                  <% for video in @videos %>
+                                  <img class='yt-thumb' src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+                                  &nbsp;
+                                  <% end %>
+                                  <% end %>
 				</p>
 			</div>
 		</div>
