@@ -5,6 +5,7 @@ class StudiosController < ApplicationController
   before_action :get_studio, only: [:edit, :update, :show, :destroy, :get_all_yt_videos]
 
   include UsersHelper
+  include StudioHelper
   
   def index
     @studios = Studio.search params[:search]
@@ -53,6 +54,9 @@ class StudiosController < ApplicationController
 
   def show
     @events = Event.where("studio_id = ?",  params[:id])
+    response = get_youtube_api_response(@studio, 5)
+    @videos = response[:items]
+    @fb_posts = get_facebook_posts(@studio)
   end
 
   def set_location
@@ -123,6 +127,10 @@ class StudiosController < ApplicationController
     end
     
     def get_youtube_api_response(studio, maxResults = 5, pageToken = '') 
+      if studio.yt_username.blank?
+        return nil
+      end
+      
       prevPageToken = ''
       nextPageToken = ''
       items = []

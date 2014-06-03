@@ -21,11 +21,6 @@
 			  <%= @event.city %>, <%= @event.state %>
 			  <%= @event.zip_code %>
 		</p>
-		    <% if current_user_owns_studio(@event.studio_id) %>
-                <a href="/events/<%= params[:id] %>/set_location/"
-                data-no-turbolink="true" class="btn btn-warning">Edit
-                location</a>
-                <% end %>
 
                 <div id="show-event-map-canvas"></div>
 		</div>
