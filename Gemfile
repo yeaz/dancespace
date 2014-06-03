@@ -71,6 +71,13 @@ gem 'devise'
 # Use Sphinx search engine for text-based search
 gem 'thinking-sphinx'
 
+# Use to request API calls on the server side
+gem 'rest-client'
+
+# Use to parse JSON objects
+gem 'json'
+gem 'nokogiri'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

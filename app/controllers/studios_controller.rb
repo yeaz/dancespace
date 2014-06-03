@@ -2,7 +2,7 @@ class StudiosController < ApplicationController
 
   # *** FILTERS *** #
   skip_before_action :authenticate_user!, only: [:index]
-  before_action :get_studio, only: [:edit, :update, :show, :destroy]
+  before_action :get_studio, only: [:edit, :update, :show, :destroy, :get_all_yt_videos]
 
   include UsersHelper
   
@@ -33,6 +33,18 @@ class StudiosController < ApplicationController
   end
   
   def destroy
+  end
+
+  def get_all_yt_videos
+    if @studio.yt_username.blank?
+      redirect_to studio_path(@studio)
+    else
+      pageToken = params[:page]
+      response = get_youtube_api_response(@studio, 50, pageToken)
+      @prevPageToken = response[:prevPageToken]
+      @nextPageToken = response[:nextPageToken]
+      @videos = response[:items] 
+    end
   end
 
   def nearby
@@ -110,9 +122,58 @@ class StudiosController < ApplicationController
       end 
     end
     
+    def get_youtube_api_response(studio, maxResults = 5, pageToken = '') 
+      prevPageToken = ''
+      nextPageToken = ''
+      items = []
+      
+      # Google API Key
+      google_api_key = 'AIzaSyC4WCykK27pFFElrwy72AvUDWS812e0DKk'
+      # Youtube Channel API URL 
+      youtube_channel_api_url = 'https://www.googleapis.com/youtube/v3/channels'
+      # Youtube Playlist API URL
+      youtube_playlist_api_url = 'https://www.googleapis.com/youtube/v3/playlistItems'
+    
+      # Channel API params
+      channel_params = { :part => 'contentDetails',
+                 :forUsername => studio.yt_username,
+                 :key => google_api_key }
+                 
+      channel_response = RestClient.get youtube_channel_api_url,
+                                        :params => channel_params
+    
+      if channel_response.code == 200
+        json = JSON.parse(channel_response)
+        uploads_playlist_id = json['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+        if !uploads_playlist_id.blank?
+          # Playlist API params 
+          playlist_params = { :part => 'id',
+                              :playlistId => uploads_playlist_id,
+                              :maxResults => maxResults,
+                              :pageToken => pageToken,
+                              :key => google_api_key }
+                              
+          playlist_response = RestClient.get youtube_playlist_api_url,
+                                    :params => playlist_params
+          
+          if playlist_response.code == 200
+            json = JSON.parse(playlist_response)
+            prevPageToken = json['prevPageToken']
+            nextPageToken = json['nextPageToken']
+            for item in json['items']
+              items << item['id']
+            end
+          end
+        end
+      end
+      { :prevPageToken => prevPageToken, 
+       :nextPageToken => nextPageToken, 
+       :items => items }
+    end
+    
     def studio_params 
       params.require(:studio).permit(:name, :description, :fb_url, :twtr_url, 
-                                     :yt_url, :ig_url, :website_url, :email, 
+                                     :yt_username, :ig_url, :website_url, :email, 
                                      :phone_area_code, :phone_1, :phone_2,
                                      :address_line1, :address_line2, :city, :state, :zip_code,
                                      :lat, :lng, :is_location_set)

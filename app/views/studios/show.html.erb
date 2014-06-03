@@ -24,8 +24,6 @@
 			</div>
 		<div class="col-md-5 social-media">
 
-                  <%= make_contact_icon(@studio.yt_url,
-		      "youtube-icon.png") %>
                   <%= make_contact_icon(@studio.fb_url,
 		      "facebook-icon.png") %> <br>
                   <%= make_contact_icon(@studio.ig_url,
@@ -43,6 +41,9 @@
 			</div>
 	</div>
 
+    <div>
+      <%= link_to 'Get Youtube Videos', studio_youtube_videos_path(@studio) %> 
+    </div>
 	<h2>Upcoming Events  
 		<% if current_user_owns_studio(@studio.id) %>
       <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 

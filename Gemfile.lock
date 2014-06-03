@@ -159,6 +159,8 @@ GEM
     rdoc (4.1.1)
       json (~> 1.4)
     ref (1.0.5)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     riddle (1.5.11)
     rspec (3.0.0.beta2)
       rspec-core (= 3.0.0.beta2)
@@ -255,11 +257,14 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 1.2)
   jquery-rails
+  json
   launchy
   less-rails-bootstrap
   mysql2
+  nokogiri
   rails (= 4.0.3)
   rails_12factor
+  rest-client
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
