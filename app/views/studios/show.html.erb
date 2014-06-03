@@ -57,9 +57,10 @@
 	                <% for video in @videos %>
 	                 <img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
 	                 &nbsp;
+	                 <% end %>
 	            <% else %>
 	            <h3 class='reminder'>
-                No linked YouTube Profile. Try it out!
+                You haven't linked your YouTube channel yet. Try it out!
                 </h3>
 
 	                <% end %>
@@ -93,7 +94,16 @@
 			<div class='col-md-4' id='igfeed'>
 				<h2>Instagram</h2>
 				<p>
-				Cillum Tonx Thundercats voluptate, Schlitz Echo Park letterpress McSweeney's tattooed pickled. Whatever salvia direct trade pariatur enim. Put a bird on it tattooed fixie squid banh mi aesthetic. Umami roof party deserunt tousled seitan cillum. Incididunt street art distillery, mumblecore Austin whatever pickled master cleanse quinoa cardigan quis Echo Park literally viral art party. Leggings tempor anim placeat in. Ea Banksy art party bicycle rights flannel artisan.
+                                  <% if !@ig_photos.nil? %>
+                                  <% for photo_url in @ig_photos %>
+                                  <img src="<%= photo_url %>"/>
+                                  <% end %>
+                                  <% else %>
+                                  <h3 class='reminder'>
+			                    	You haven't linked your Instagram account yet. Try it out!
+			                      </h3>
+
+                                  <% end %>
 				</p>
 			</div>
 		</div>
