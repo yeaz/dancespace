@@ -155,7 +155,7 @@ class StudiosController < ApplicationController
         uploads_playlist_id = json['items'][0]['contentDetails']['relatedPlaylists']['uploads']
         if !uploads_playlist_id.blank?
           # Playlist API params 
-          playlist_params = { :part => 'id',
+          playlist_params = { :part => 'contentDetails',
                               :playlistId => uploads_playlist_id,
                               :maxResults => maxResults,
                               :pageToken => pageToken,
@@ -169,7 +169,7 @@ class StudiosController < ApplicationController
             prevPageToken = json['prevPageToken']
             nextPageToken = json['nextPageToken']
             for item in json['items']
-              items << item['id']
+              items << item['contentDetails']['videoId']
             end
           end
         end
