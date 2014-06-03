@@ -88,3 +88,6 @@ gem 'twitter-bootstrap-rails'
 
 # bootstrap forms
 gem 'bootstrap_form'
+
+#facebook api
+gem "koala", "~> 1.10.0rc"

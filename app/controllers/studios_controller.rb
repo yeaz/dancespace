@@ -5,6 +5,7 @@ class StudiosController < ApplicationController
   before_action :get_studio, only: [:edit, :update, :show, :destroy]
 
   include UsersHelper
+  include StudioHelper
   
   def index
     @studios = Studio.search params[:search]
@@ -41,6 +42,7 @@ class StudiosController < ApplicationController
 
   def show
     @events = Event.where("studio_id = ?",  params[:id])
+    @fb_posts = get_facebook_posts(@studio)
   end
 
   def set_location

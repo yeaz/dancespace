@@ -75,4 +75,62 @@ module StudioHelper
      ['WY', 'WY']
     ]
   end
+
+  def facebook_api_key
+    "503105699818951|jXz0mBSJ8c1OpYEBxQxRBh0gkoY"
+  end
+
+  def filter_own_posts(post, facebook_page_id)
+    if post["from"]["id"] == facebook_page_id.to_s
+      return post
+    else
+      return nil
+    end
+  end
+
+  # def split_post_id(post_id) # post_id e.g 0483888393_393948293489
+  #   re = /([0-9]+)_([0-9]+)/
+  #   match = re.match(post_id)
+  #   if match.nil?
+  #     return nil
+  #   end
+  #   return [match[1], match[2]]
+  # end
+
+  # def make_result(post)
+  #   id = post["id"]
+  #   first, second = split_post_id(id)
+  #   return [post, first, second]
+  # end
+  # https://www.facebook.com/pages/THE-PALACE-DANCE-STUDIO/84591582635
+
+  def get_facebook_page_id(url, graph)
+    if url[-1] == '/'
+      url = url[0, url.length - 1]
+    end
+    id = url.split('/')[-1]
+    page_obj = graph.get_object(id)
+    if page_obj.nil?
+      nil
+    end
+    page_obj["id"]
+  end
+
+  # returns an array of post hashes, nil if there is no fb url for
+  # this studio
+  def get_facebook_posts(studio)
+    puts 'FACEBOOK'
+    graph = Koala::Facebook::API.new(facebook_api_key)
+    if studio.fb_url.nil?
+      return nil
+    end
+    facebook_page_id = get_facebook_page_id(studio.fb_url, graph)
+    puts facebook_page_id
+    posts = graph.get_connections(facebook_page_id, "feed")
+    posts = posts.select{ |post| filter_own_posts(post, facebook_page_id)}
+    # posts = posts.select{ |post| make_result(post) }
+    puts posts.length
+    puts posts
+    return posts
+  end
 end
