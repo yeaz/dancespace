@@ -109,9 +109,12 @@ module StudioHelper
       url = url[0, url.length - 1]
     end
     id = url.split('/')[-1]
+    if id.nil? or id == ""
+      return nil
+    end
     page_obj = graph.get_object(id)
     if page_obj.nil?
-      nil
+      return nil
     end
     page_obj["id"]
   end
@@ -121,7 +124,7 @@ module StudioHelper
   def get_facebook_posts(studio)
     puts 'FACEBOOK'
     graph = Koala::Facebook::API.new(facebook_api_key)
-    if studio.fb_url.nil?
+    if studio.fb_url.nil? or studio.fb_url == ""
       return nil
     end
     facebook_page_id = get_facebook_page_id(studio.fb_url, graph)

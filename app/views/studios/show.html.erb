@@ -58,8 +58,10 @@
 			<div class='col-md-4' id='fbfeed'>
 				<h2>Facebook Page</h2>
 				<p>
+                                  <% if !@fb_posts.nil? %>
 			          <% for post in @fb_posts %>
                                   <div><%= post["message"] %>
+                                    <% end %>
                                     <% end %>
 
 				</p>
