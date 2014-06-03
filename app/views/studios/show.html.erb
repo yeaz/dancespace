@@ -68,6 +68,7 @@
 			<div class='col-md-4' id='fbfeed'>
 				<h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
 				<!-- <div id='allposts' style="overflow:scroll; height:500px;"> -->
+				<!-- overflow-y: scroll -->
                   <% if !@fb_posts.nil? %>
 			          <% for post in @fb_posts %>
 			          	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
