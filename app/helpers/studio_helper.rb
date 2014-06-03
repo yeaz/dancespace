@@ -134,6 +134,6 @@ module StudioHelper
     # posts = posts.select{ |post| make_result(post) }
     puts posts.length
     puts posts
-    return posts
+    return posts[0,4]
   end
 end

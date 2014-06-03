@@ -1,3 +1,13 @@
+<!-- TEMP JAVASCRIPT -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <% content_for :google_maps_js do %>
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
 <% end %>
@@ -56,15 +66,19 @@
 
 		<div class='row'>
 			<div class='col-md-4' id='fbfeed'>
-				<h2>Facebook Page</h2>
-				<p>
-                                  <% if !@fb_posts.nil? %>
+				<h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
+				<!-- <div id='allposts' style="overflow:scroll; height:500px;"> -->
+                  <% if !@fb_posts.nil? %>
 			          <% for post in @fb_posts %>
-                                  <div><%= post["message"] %>
-                                    <% end %>
-                                    <% end %>
+			          	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
 
-				</p>
+                      <% end %>
+                   <% else %>
+                    <h3 class='reminder'>
+                    	You haven't linked your Facebook profile yet. Try it out!
+                    </h3>
+                   <% end %>
+				<!-- </div> -->
 			</div>
 			<div class='col-md-4' id='twfeed'>
 				<h2>Tweets</h2>
