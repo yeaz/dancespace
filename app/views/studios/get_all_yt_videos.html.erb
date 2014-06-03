@@ -1,0 +1,13 @@
+<div>
+  <% for video in @videos %>
+    <div>
+      <%= video %>
+    </div>
+  <% end %>
+  <% if @prevPageToken.present? %>
+      <%= link_to 'Prev', studio_youtube_videos_path(@studio, params: { page: @prevPageToken }) %>
+    <% end %>
+    <% if @nextPageToken.present? %>
+      <%= link_to 'Next', studio_youtube_videos_path(@studio, params: { page: @nextPageToken }) %>
+    <% end %>
+</div>

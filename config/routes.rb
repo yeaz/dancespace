@@ -42,6 +42,7 @@ DanceSpace::Application.routes.draw do
   end
   
   resources :studios, only: [:show] do
+    get 'youtube_videos', to: 'studios#get_all_yt_videos'
     get 'set_location', to: 'studios#set_location'
     get 'get_address', to: 'studios#get_address'
     get 'get_coordinates', to: 'studios#get_coordinates'

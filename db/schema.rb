@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530044705) do
+ActiveRecord::Schema.define(version: 20140602041811) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -21,16 +21,16 @@ ActiveRecord::Schema.define(version: 20140530044705) do
   end
 
   create_table "events", force: true do |t|
-    t.string   "name",            null: false
-    t.text     "description",     null: false
+    t.string   "name",                         null: false
+    t.text     "description",                  null: false
     t.integer  "studio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "event_date_time", null: false
-    t.text     "address_line1",   null: false
+    t.datetime "event_date_time",              null: false
+    t.text     "address_line1",                null: false
     t.text     "address_line2"
-    t.text     "city",            null: false
-    t.text     "state",           null: false
+    t.text     "city",                         null: false
+    t.text     "state",                        null: false
     t.float    "lat"
     t.float    "lng"
     t.integer  "is_location_set", default: -1
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 20140530044705) do
     t.datetime "updated_at"
   end
 
+  create_table "identities", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
   create_table "memberships", force: true do |t|
     t.integer  "member_id"
     t.integer  "studio_id"
@@ -74,7 +84,6 @@ ActiveRecord::Schema.define(version: 20140530044705) do
     t.datetime "updated_at"
     t.string   "fb_url"
     t.string   "twtr_url"
-    t.string   "yt_url"
     t.string   "ig_url"
     t.string   "website_url"
     t.string   "email"
@@ -89,6 +98,7 @@ ActiveRecord::Schema.define(version: 20140530044705) do
     t.text     "address_line2"
     t.text     "city",                         null: false
     t.text     "state",                        null: false
+    t.string   "yt_username"
   end
 
   create_table "taggings", force: true do |t|
