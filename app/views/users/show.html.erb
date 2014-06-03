@@ -53,10 +53,17 @@
 	</div>
 	<br>
 
-	<h2>Video Portfolio <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a></h2>
-	<% if @user.videos.size == 0 %>
-		<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
-	<%end%>
+	<h2>Video Portfolio
+	<% if current_user.id == @user.id %>
+	 <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a>
+ 	<% end %>
+	</h2>
+	<% if current_user.id == @user.id %>
+		<% if @user.videos.size == 0 %>
+			<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
+		<%end%>
+	<% end %>
+
 	<% for v in @user.videos do%>
 		<div class="row">
 			<div class="col-md-3 vid-thumbnail">
@@ -72,9 +79,14 @@
 
 	<br/>
 
-	<h2>Experience <a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+	<h2>Experience 
+	<% if current_user.id == @user.id %>
+	<a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+	<% end %>
+	<% if current_user.id == @user.id %>
 	<% if @user.experiences.size == 0 %>
 		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
+	<% end %>
 	<% end %>
 
 	<ul>
