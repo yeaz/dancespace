@@ -49,11 +49,12 @@
 	<div class='container spec' id='socialfeeds'>
 		<div class='row' id='ytfeed'>
 			<div class='col-md-12'>
-				<h2>YouTube Channel</h2>
+				<h2>YouTube Channel <%= image_tag "youtube-icon.png", height: "50px" %></h2>
                 <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
 				<p>
                 <% for video in @videos %>
-                  <%= video %>
+                 <img class='yt-thumb' src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+                 &nbsp;
                 <% end %>
 				</p>
 			</div>
