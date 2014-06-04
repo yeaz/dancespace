@@ -106,6 +106,20 @@ class EventsController < ApplicationController
 
   def destroy
   end
+
+  def get_all_events
+    @events = Event.all
+    respond_to do |format|
+      format.json{ render json: @events}
+    end
+  end
+
+  def get_search_events
+    @results = Event.search params[:query]
+    respond_to do |format|
+      format.json{render json: @results}
+    end
+  end
   
   # *** HELPER METHODS *** #
   private

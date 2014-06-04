@@ -43,6 +43,10 @@ DanceSpace::Application.routes.draw do
     get 'set_coordinates', to: 'events#set_coordinates'
   end
   
+  resources :events
+  get 'all_events', to: 'events#get_all_events'
+  get 'autosearch_events', to: 'events#get_search_events'
+
   resources :studios, only: [:show] do
     get 'youtube_videos', to: 'studios#get_all_yt_videos'
     get 'set_location', to: 'studios#set_location'

@@ -8,6 +8,9 @@ function autosearch(input, resultsdivID, type){
 			case "dancer":
 				searchDancers(results_container, input);
 				break;
+			case "event":
+				searchEvents(results_container, input);
+				break;
 		}
 	}else if(input.length==0){
 		switch(type){
@@ -16,22 +19,13 @@ function autosearch(input, resultsdivID, type){
 				break;
 			case "dancer":
 				displayAllDancers(results_container);
+			case "event":
+				displayAllEvents(results_container);
+				break;
 		}
 	}
 }
 
-function searchDancers(container, input){
-	url = "autosearch_dancers?query=" + input;
-	jQuery.get(url, function(data){
-		var HTML = "";
-		if(data.length>0){
-			for(var i=0; i<data.length; i++){
-				HTML+=createDancerListing(data[i]);
-			}
-		}
-		container.innerHTML = HTML;
-	});
-}
 
 function searchStudios(container, input){
 	url = "autosearch_studios?query=" + input;
@@ -45,6 +39,28 @@ function searchStudios(container, input){
 				container.innerHTML = HTML;
 			}
 		}
+	});
+}
+
+function searchDancers(container, input){
+	url = "autosearch_dancers?query=" + input;
+	jQuery.get(url, function(data){
+		var HTML = "";
+		for(var i=0; i<data.length; i++){
+			HTML+=createDancerListing(data[i]);
+		}
+		container.innerHTML = HTML;
+	});
+}
+
+function searchEvents(container, input){
+	url = "autosearch_events?query=" + input;
+	jQuery.get(url, function(data){
+		var HTML = "";
+		for(var i=0; i<data.length; i++){
+			HTML +=createEventListing(data[i]);
+		}
+		container.innerHTML = HTML;
 	});
 }
 
@@ -64,10 +80,21 @@ function displayAllDancers(container){
 	jQuery.get(url, function(data){
 		var HTML = "";
 		for(var i=0; i<data.length; i++){
-			HTML+=createDancerListing(data[i]);
+			HTML+=createEventListing(data[i]);
 		}
 		container.innerHTML = HTML;
 	});
+}
+
+function displayAllEvents(container){
+	url = "all_events";
+	jQuery.get(url, function(data){
+		var HTML = "";
+		for(var i=0; i<data.length; i++){
+			HTML +=createEventListing(data[i]);
+		}
+		container.innerHTML = HTML;
+	})
 }
 
 function createStudioListing(entry){
@@ -97,6 +124,14 @@ function createDancerListing(entry){
 					"<b>E-MAIL:</b>" + entry.email + "<br/>" + 
 					"<b>PHONE: </b>(" + entry.phone_area_code + ") "+ entry.phone_1 + "-" + entry.phone_2 + 
 				"</div><hr></div>";
+	return string;
+}
+
+function createEventListing(entry){
+	var string = "<h2><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h2>" +
+	  "<div>Description:" + entry.description + "</div>" +
+	  "<div>Created by: <a href=\"/studios/" + entry.studio_id + "\">" + "STUDIO" + "</a></div>" +
+ 	  "<div>Date and time:" + entry.event_date_time  + "</div>";
 	return string;
 }
 
