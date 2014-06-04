@@ -208,7 +208,7 @@ class StudiosController < ApplicationController
       
       # Twitter Status API params
       status_params = {:screen_name => studio.twtr_username, 
-                :count => 20, 
+                :count => 5, 
                 :exclude_replies => true}
                 
       # Send Twitter Search API request
