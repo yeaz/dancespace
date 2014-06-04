@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
   # *** ASSOCIATIONS *** #
   belongs_to :studio
 
+  acts_as_taggable_on :tags
+
   # VALIDATIONS
   validates :name, :description, :address_line1, :city, :state, :zip_code, :presence => true
   validate :event_date_cannot_be_in_past

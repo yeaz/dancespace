@@ -4,6 +4,8 @@ class Studio < ActiveRecord::Base
   has_many :members, class_name: 'User', through: :studio_membership
   has_many :memberships, dependent: :destroy
 
+  acts_as_taggable_on :tags
+  
   # Relationship between Studio and Experiencelink
   # :collab means that the model can be a collaborator for an
   # experiencelink
