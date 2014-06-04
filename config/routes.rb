@@ -58,6 +58,10 @@ DanceSpace::Application.routes.draw do
 
   get 'studios_nearby', to: "studios#nearby"
 
+  resources :studios
+  get 'all_studios', to: "studios#get_all_studios"
+  get 'autosearch_studios', to: "studios#get_search_studios"
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

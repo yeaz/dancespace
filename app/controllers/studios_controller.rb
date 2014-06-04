@@ -112,6 +112,20 @@ class StudiosController < ApplicationController
     end
   end
 
+  def get_all_studios
+    @studios = Studio.all
+    respond_to do |format|
+      format.json{ render json: @studios}
+    end
+  end
+
+  def get_search_studios
+    @results = Studio.search params[:query]
+    respond_to do |format|
+      format.json{render json: @results}
+    end
+  end
+
   # *** HELPER METHODS
   private
 
@@ -191,7 +205,7 @@ class StudiosController < ApplicationController
                                      :address_line1, :address_line2, :city, :state, :zip_code,
                                      :lat, :lng, :is_location_set)
     end
-  
+
 end
 
 
