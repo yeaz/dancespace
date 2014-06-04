@@ -54,9 +54,18 @@ class StudiosController < ApplicationController
 
   def show
     @events = Event.where("studio_id = ?",  params[:id])
+    
+    # Youtube
     response = get_youtube_api_response(@studio, 5)
     @videos = response[:items]
+    
+    # Facebook
     @fb_posts = get_facebook_posts(@studio)
+    
+    # Twitter
+    @tweets = get_tweets(@studio)
+    p @tweets
+    
   end
 
   def set_location
@@ -179,8 +188,47 @@ class StudiosController < ApplicationController
        :items => items }
     end
     
+    def get_tweets(studio)
+      if studio.twtr_username.blank?
+        return nil
+      end
+      
+      tweets = []
+      
+      # Authorization header with Twitter API bearer token
+      twtr_auth_header='Bearer AAAAAAAAAAAAAAAAAAAAADRrWQAAAAAApUt6lWbEy4UE1wOZdDpGOruYyZ4%3DfoxWCyjFFURIDxrOjMuAVHKvkoMHrKnQH9dtMqKVBfAKAP4gyF'
+      # Twitter Status API URL 
+      twtr_status_api_url='https://api.twitter.com/1.1/statuses/user_timeline.json'
+      # Twitter Oembed API URL
+      twtr_oembed_api_url='https://api.twitter.com/1/statuses/oembed.json?'
+      
+      # Twitter Status API params
+      status_params = {:screen_name => studio.twtr_username, 
+                :count => 20, 
+                :exclude_replies => true}
+                
+      # Send Twitter Search API request
+      response = RestClient.get twtr_status_api_url, 
+                               :params => status_params, 
+                               :authorization => twtr_auth_header
+      
+      if response.code == 200
+        json = JSON.parse(response)
+        for tweet in json
+          request_url = twtr_oembed_api_url + 'id=' + tweet['id_str']
+          response = RestClient.get request_url
+                                                                        
+          if response.code == 200
+            json = JSON.parse(response)
+            tweets << json['html']
+          end
+        end
+      end
+      tweets
+    end
+    
     def studio_params 
-      params.require(:studio).permit(:name, :description, :fb_url, :twtr_url, 
+      params.require(:studio).permit(:name, :description, :fb_url, :twtr_username, 
                                      :yt_username, :ig_url, :website_url, :email, 
                                      :phone_area_code, :phone_1, :phone_2,
                                      :address_line1, :address_line2, :city, :state, :zip_code,

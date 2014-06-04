@@ -77,11 +77,6 @@ gem 'rest-client'
 # Use to parse JSON objects
 gem 'json'
 
-# Use to parse XML objects
-gem 'nokogiri'
-
-
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
