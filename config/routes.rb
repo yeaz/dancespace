@@ -21,6 +21,8 @@ DanceSpace::Application.routes.draw do
   resources :users
   get 'user_settings', to: 'users#edit_profile'
   get 'random_user', to: 'users#get_random_user'
+  get 'all_dancers', to: 'users#get_all_dancers'
+  get 'autosearch_dancers', to: 'users#get_search_dancers'
   
   resources :videos
   get 'random_video', to: 'videos#get_random_video'
@@ -41,6 +43,10 @@ DanceSpace::Application.routes.draw do
     get 'set_coordinates', to: 'events#set_coordinates'
   end
   
+  resources :events
+  get 'all_events', to: 'events#get_all_events'
+  get 'autosearch_events', to: 'events#get_search_events'
+
   resources :studios, only: [:show] do
     get 'youtube_videos', to: 'studios#get_all_yt_videos'
     get 'set_location', to: 'studios#set_location'
@@ -57,6 +63,10 @@ DanceSpace::Application.routes.draw do
   get 'studiosfeed_title', to: "home#load_studiosfeed_title"
 
   get 'studios_nearby', to: "studios#nearby"
+
+  resources :studios
+  get 'all_studios', to: "studios#get_all_studios"
+  get 'autosearch_studios', to: "studios#get_search_studios"
 
   
   # The priority is based upon order of creation: first created -> highest priority.

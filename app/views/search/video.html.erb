@@ -1,0 +1,8 @@
+<%= render "home/navbar" %>
+
+<div class="spec container">
+	<h1>Welcome!</h1>
+	<%= form_tag do %>
+  		<%=text_field_tag 'name', '', :autocomplete => search_autocomplete_video_name_path %>
+	<% end %>
+</div>

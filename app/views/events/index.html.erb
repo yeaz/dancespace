@@ -12,10 +12,24 @@
 	<% end %>
   <br>
 
-<% for e in @events do %>
-	  <h2><b><a href="<%= event_path(e) %>"  data-no-turbolink="true"><%= e.name %></a></b></h2>
-	  <div>Description: <%= e.description %></div>
-	  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
- 	  <div>Date and time: <%= e.event_date_time %></div>
-<% end %>
+  <script>
+    setUpAJAX("search", "eventresults")
+
+    function setUpAJAX(inputelem, resultsID){
+      var onkeyupelem = document.getElementById(inputelem);
+      onkeyupelem.onkeyup = function(){
+        var input = document.getElementById(inputelem).value;
+        autosearch(input, resultsID, "event");
+      }
+    }
+  </script>
+
+  <div id="eventresults">
+    <% for e in @events do %>
+    	  <h2><b><a href="<%= event_path(e) %>"  data-no-turbolink="true"><%= e.name %></a></b></h2>
+    	  <div>Description: <%= e.description %></div>
+    	  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
+     	  <div>Date and time: <%= e.event_date_time %></div>
+    <% end %>
+  </div>
 </div>

@@ -54,6 +54,20 @@ class UsersController < ApplicationController
       format.json { render json: @user} # take the fields we need only [email: @user.email, id: @user.id]
     end    
   end
+
+  def get_all_dancers
+    @users = User.all
+    respond_to do |format|
+      format.json{ render json: @users}
+    end
+  end
+
+  def get_search_dancers
+    @results = User.search params[:query]
+    respond_to do |format|
+      format.json{render json: @results}
+    end
+  end
   
   private
 
