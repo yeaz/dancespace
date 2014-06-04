@@ -56,6 +56,8 @@ class StudiosController < ApplicationController
     @events = Event.where("studio_id = ?",  params[:id])
     
     # Youtube
+    pageToken = params[:page]
+    response = get_youtube_api_response(@studio, 5, pageToken)
     if response.nil?
       @videos = nil
     else
@@ -208,7 +210,7 @@ class StudiosController < ApplicationController
       
       # Twitter Status API params
       status_params = {:screen_name => studio.twtr_username, 
-                :count => 20, 
+                :count => 5, 
                 :exclude_replies => true}
                 
       # Send Twitter Search API request

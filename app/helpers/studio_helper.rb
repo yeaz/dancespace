@@ -113,7 +113,7 @@ module StudioHelper
     facebook_page_id = get_facebook_page_id(studio.fb_url, graph)
     posts = graph.get_connections(facebook_page_id, "feed")
     posts = posts.select{ |post| filter_own_posts(post, facebook_page_id)}
-    return posts[0,4]
+    return posts[0,5]
   end
 
   def get_ig_username(url)
@@ -143,7 +143,7 @@ module StudioHelper
     ig_id = user_obj[0]["id"]
     pictures = Instagram.user_recent_media(ig_id, {count: 10}) # change the # of photos to get here
     urls = get_photo_urls(pictures)
-    return urls
+    return urls[0,5]
   end
 
   def get_photo_urls(pictures)
