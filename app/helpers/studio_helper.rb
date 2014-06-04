@@ -147,6 +147,6 @@ module StudioHelper
   end
 
   def get_photo_urls(pictures)
-    return pictures.map{ |pic| pic["images"]["standard_resolution"]["url"]}
+    return pictures.map{ |pic| pic["link"] }
   end
 end

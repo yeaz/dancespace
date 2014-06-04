@@ -96,7 +96,7 @@
 				<p>
                                   <% if !@ig_photos.nil? %>
                                   <% for photo_url in @ig_photos %>
-                                  <img src="<%= photo_url %>"/>
+                                  <div><%= photo_url %></div>
                                   <% end %>
                                   <% else %>
                                   <h3 class='reminder'>
