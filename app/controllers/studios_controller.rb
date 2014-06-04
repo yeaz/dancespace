@@ -56,16 +56,20 @@ class StudiosController < ApplicationController
     @events = Event.where("studio_id = ?",  params[:id])
     
     # Youtube
-    response = get_youtube_api_response(@studio, 5)
-    @videos = response[:items]
+    if response.nil?
+      @videos = nil
+    else
+      @videos = response[:items]
+    end
     
     # Facebook
     @fb_posts = get_facebook_posts(@studio)
     
     # Twitter
     @tweets = get_tweets(@studio)
-    p @tweets
     
+    # Instagram
+    @ig_photos = get_instagram_photos(@studio)
   end
 
   def set_location

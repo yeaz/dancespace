@@ -49,12 +49,21 @@
 	<div class='container spec' id='socialfeeds'>
 		<div class='row' id='ytfeed'>
 			<div class='col-md-12'>
-				<h2>YouTube Channel</h2>
+				<h2>YouTube Channel <%= image_tag "youtube-icon.png", height: "50px" %></h2>
                 <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
+				<div id='ytviewer'></div>
 				<p>
-                <% for video in @videos %>
-                  <%= video %>
-                <% end %>
+				<% if !@videos.nil? %>
+	                <% for video in @videos %>
+	                 <img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+	                 &nbsp;
+	                 <% end %>
+	            <% else %>
+	            <h3 class='reminder'>
+                You haven't linked your YouTube channel yet. Try it out!
+                </h3>
+
+	                <% end %>
 				</p>
 			</div>
 		</div>
@@ -63,6 +72,7 @@
 			<div class='col-md-4' id='fbfeed'>
 				<h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
 				<!-- <div id='allposts' style="overflow:scroll; height:500px;"> -->
+				<!-- overflow-y: scroll -->
                   <% if !@fb_posts.nil? %>
 			          <% for post in @fb_posts %>
 			          	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
@@ -84,7 +94,16 @@
 			<div class='col-md-4' id='igfeed'>
 				<h2>Instagram</h2>
 				<p>
-				Cillum Tonx Thundercats voluptate, Schlitz Echo Park letterpress McSweeney's tattooed pickled. Whatever salvia direct trade pariatur enim. Put a bird on it tattooed fixie squid banh mi aesthetic. Umami roof party deserunt tousled seitan cillum. Incididunt street art distillery, mumblecore Austin whatever pickled master cleanse quinoa cardigan quis Echo Park literally viral art party. Leggings tempor anim placeat in. Ea Banksy art party bicycle rights flannel artisan.
+                                  <% if !@ig_photos.nil? %>
+                                  <% for photo_url in @ig_photos %>
+                                  <img src="<%= photo_url %>"/>
+                                  <% end %>
+                                  <% else %>
+                                  <h3 class='reminder'>
+			                    	You haven't linked your Instagram account yet. Try it out!
+			                      </h3>
+
+                                  <% end %>
 				</p>
 			</div>
 		</div>
