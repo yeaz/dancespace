@@ -60,7 +60,7 @@
 	                 <% end %>
 	             <% else %>
 		            <h3 class='reminder'>
-	                You haven't linked your YouTube channel yet. Try it out!
+	                You haven't linked your YouTube channel yet. This can be fixed on the edit page!
 	                </h3>
 	            <% end %>
 				</p>
@@ -78,7 +78,7 @@
                       <% end %>
                    <% else %>
                     <h3 class='reminder'>
-                    	You haven't linked your Facebook profile yet. Try it out!
+                    	You haven't linked your Facebook profile yet. This can be fixed on the edit page!
                     </h3>
                    <% end %>
 				</div>
@@ -92,7 +92,7 @@
                     <% end %>
                 <% else %>
                 <h3 class='reminder'>
-	            	You haven't linked your Twitter yet. Try it out!
+	            	You haven't linked your Twitter yet. This can be fixed on the edit page!
 	             </h3>
 
                 <% end %>
@@ -104,12 +104,11 @@
 				  <div id='alligposts' style="overflow-y:scroll; height:500px;">
                   <% if !@ig_photos.nil? %>
                   <% for photo_url in @ig_photos %>
-                  <img src="<%= photo_url %>"/>
-                                    <!-- <iframe src="//instagram.com/p/oP_kfukkna/embed/" width="612" height="710" frameborder="0" scrolling="no" allowtransparency="true"></iframe> -->
+                  <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                   <% end %>
                   <% else %>
                   <h3 class='reminder'>
-                	You haven't linked your Instagram account yet. Try it out!
+                	You haven't linked your Instagram account yet. This can be fixed on the edit page!
                   </h3>
                    <% end %>
                </div>
