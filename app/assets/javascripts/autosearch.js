@@ -1,12 +1,13 @@
 function allautosearch(input, resultsID){
 	var container = document.getElementById(resultsID);
-	container.innerHTML="";
+	container.innerHTML="<p id=\"search-notif\">Press esc to cancel search.</p><br/>";
 	container.style.visibility = "visible";
+
 
 	if(input.length > 1){
 		var resultsfound = false;
 		//search dancers
-		url = "autosearch_dancers?query=" + input;
+		url = "/autosearch_dancers?query=" + input;
 		jQuery.get(url, function(data){
 			if(data.length>0){
 				resultsfound = true;
@@ -18,7 +19,7 @@ function allautosearch(input, resultsID){
 		});
 
 		//search studios
-		url = "autosearch_studios?query=" + input;
+		url = "/autosearch_studios?query=" + input;
 		jQuery.get(url, function(data){
 			if(data.length>0){
 				resultsfound = true;
@@ -30,7 +31,7 @@ function allautosearch(input, resultsID){
 		});
 		
 		//search events
-		url = "autosearch_events?query=" + input;
+		url = "/autosearch_events?query=" + input;
 		jQuery.get(url, function(data){
 			if(data.length>0){
 				resultsfound = true;
