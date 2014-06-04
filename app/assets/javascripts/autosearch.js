@@ -1,3 +1,57 @@
+function allautosearch(input, resultsID){
+	var container = document.getElementById(resultsID);
+	container.innerHTML="";
+	container.style.visibility = "visible";
+
+	if(input.length > 1){
+		var resultsfound = false;
+		//search dancers
+		url = "autosearch_dancers?query=" + input;
+		jQuery.get(url, function(data){
+			if(data.length>0){
+				resultsfound = true;
+				container.innerHTML += "<h3>Dancers</h3><p> &nbsp;<i>(" + data.length + " results)</i></p><br/>";
+				for(var i=0; i<data.length; i++){
+					container.innerHTML+=miniListing(data[i], "dancer");
+				}
+			}
+		});
+
+		//search studios
+		url = "autosearch_studios?query=" + input;
+		jQuery.get(url, function(data){
+			if(data.length>0){
+				resultsfound = true;
+				container.innerHTML += "<h3>Studios</h3><p> &nbsp;<i>(" + data.length + " results)</i></p><br/>";
+				for(var i=0; i<data.length; i++){
+					container.innerHTML+=miniListing(data[i], "studio");
+				}				
+			}
+		});
+		
+		//search events
+		url = "autosearch_events?query=" + input;
+		jQuery.get(url, function(data){
+			if(data.length>0){
+				resultsfound = true;
+				container.innerHTML += "<h3>Events</h3><p> &nbsp;<i>" + data.length + " results)</i></p>";
+				for(var i=0; i<data.length; i++){
+					container.innerHTML +=miniListing(data[i], "event");
+				}				
+			}
+		});
+	}
+
+	// esc	
+	$(document).keyup(function(e) {
+	  if (e.keyCode == 27) {
+		container.style.visibility = "hidden";
+		}   
+	});
+}
+
+
+
 function autosearch(input, resultsdivID, type){
 	var results_container = document.getElementById(resultsdivID);
 	if(input.length>1){
@@ -123,15 +177,32 @@ function createDancerListing(entry){
 					"<h4>" + entry.city + ", " + entry.state + "</h4>" +
 					"<b>E-MAIL:</b>" + entry.email + "<br/>" + 
 					"<b>PHONE: </b>(" + entry.phone_area_code + ") "+ entry.phone_1 + "-" + entry.phone_2 + 
-				"</div><hr></div>";
+				"</div></div><hr>";
 	return string;
 }
 
+
 function createEventListing(entry){
-	var string = "<h2><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h2>" +
+	var string = "<h3><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h3>" +
 	  "<div>Description:" + entry.description + "</div>" +
 	  "<div>Created by: <a href=\"/studios/" + entry.studio_id + "\">" + "STUDIO" + "</a></div>" +
  	  "<div>Date and time:" + entry.event_date_time  + "</div>";
+	return string;
+}
+
+function miniListing(entry, type){
+	var string = "";
+	switch(type){
+		case "dancer":
+			string+="<h5><a href=\"/users/" + entry.id + "\" data-no-turbolink=\"true\">" + entry.first_name + " " + entry.last_name + "</a></h5>";
+			break;
+		case "studio":
+			string+="<h5><a href= \"/studios/" + entry.id + " \" data-no-turbolink=\"true\" >" + entry.name + " </a></h5>";
+			break;
+		case "event":
+			string +="<h5><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h5>"
+			break;
+	} 
 	return string;
 }
 

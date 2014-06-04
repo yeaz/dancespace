@@ -1,0 +1,24 @@
+#allresults{
+	z-index: 110000;
+	position:absolute;
+	background-color: rgba(0,0,0,.8);
+	color:white;
+	margin-top: -20px;
+	padding-top: 0px;
+	margin-right:auto;
+	margin-left:20%;
+	padding-right: 2%;
+	padding-left: 2%;
+	width: 40%;
+	visibility:hidden;
+}
+
+#allresults h3{
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+#allresults h3, p{
+	display:inline;
+	vertical-align: bottom;
+}
