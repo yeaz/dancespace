@@ -21,6 +21,8 @@ DanceSpace::Application.routes.draw do
   resources :users
   get 'user_settings', to: 'users#edit_profile'
   get 'random_user', to: 'users#get_random_user'
+  get 'all_dancers', to: 'users#get_all_dancers'
+  get 'autosearch_dancers', to: 'users#get_search_dancers'
   
   resources :videos
   get 'random_video', to: 'videos#get_random_video'

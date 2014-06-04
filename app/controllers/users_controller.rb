@@ -55,15 +55,15 @@ class UsersController < ApplicationController
     end    
   end
 
-  def get_all_users
+  def get_all_dancers
     @users = User.all
     respond_to do |format|
       format.json{ render json: @users}
     end
   end
 
-  def get_search_users
-    @results = Studio.search params[:query]
+  def get_search_dancers
+    @results = User.search params[:query]
     respond_to do |format|
       format.json{render json: @results}
     end
