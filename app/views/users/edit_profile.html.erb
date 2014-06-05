@@ -1,5 +1,5 @@
 <%= render "home/navbar" %>
-<div class="spec container submitter custom-form">
+<div class="spec container submitter" style="max-width:500px;">
     <h1><b>Edit Profile</b></h1>
     <h3>General Information:</h3>
 
@@ -14,7 +14,7 @@
 
     <!-- errors themselves -->
     <%= bootstrap_form_for @user do |user_form| %>
-      <div><%= user_form.text_field :title, placeholder: 'One-line summary of what you do (i.e. Contemporary Choreographer / Dancer)' %>
+      <div><%= user_form.text_field :title, placeholder: 'One-line summary of what you do (e.g. Contemporary Choreographer)' %>
       </div>
       <div><%= user_form.text_area :blurb, label: "Personal Statement", placeholder: 'Tell us a little more about yourself - dance background, occupational desires, perspective on life.' %>
       </div>
@@ -24,7 +24,7 @@
         <%= user_form.select :state, options_for_select(us_states) %>
       </div>
 
-      <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. tap, jazz, hip hop)' %>
+      <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. jazz, hip hop)' %>
       </div>
     <br>
 
@@ -41,9 +41,9 @@
       <div><%= user_form.text_field :website_url, placeholder: 'Copy & paste your personal website\'s URL here', label: 'Personal Website' %>
       </div>
       <div>
-        <%= user_form.text_field :phone_area_code, label: "Phone: (", :size => 3, placeholder: '###', :maxlength => 3 %><b> )</b>
-        <%= user_form.text_field :phone_1, hide_label: true, :maxlength => 3 %><b>&nbsp;-</b>
-        <%= user_form.text_field :phone_2,  hide_label: true, :size => 3, :maxlength => 4 %>
+        <%= user_form.text_field :phone_area_code, label: "Phone:", :size => 3, :maxlength => 3, prepend: "(", append: ")" %>
+        <%= user_form.text_field :phone_1, hide_label: true, :size => 3, :maxlength => 3, append: "-"  %>
+        <%= user_form.text_field :phone_2, hide_label: true, :size => 5, :maxlength => 4  %>
       </div>
       <%= user_form.submit 'Update Contact Info', class: "btn btn-block btn-warning" %>
     <% end %>
