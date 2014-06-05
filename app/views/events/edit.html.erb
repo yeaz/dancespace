@@ -26,6 +26,9 @@
   <div>
     <%= f.datetime_select(:event_date_time) %>
   </div>
+  <div>
+    <%= f.file_field :photo_path, label: "Profile Picture"%>
+  </div>
   <div><%= f.text_field :tag_list, label: "Event tags", placeholder:
     'List different styles with a comma in between (i.e tap, jazz, hip
     hop)' %>

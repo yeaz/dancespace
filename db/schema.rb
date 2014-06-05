@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604035247) do
+ActiveRecord::Schema.define(version: 20140605172146) do
 
   create_table "assignments", force: true do |t|
     t.integer  "user_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140604035247) do
     t.float    "lng"
     t.integer  "is_location_set", default: -1
     t.string   "zip_code"
+    t.string   "photo_path",             default: ""
   end
 
   create_table "experiencelinks", force: true do |t|
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 20140604035247) do
     t.text     "state",                        null: false
     t.string   "yt_username"
     t.string   "twtr_username"
+    t.string   "photo_path",   default: ""
   end
 
   create_table "taggings", force: true do |t|
@@ -147,6 +149,7 @@ ActiveRecord::Schema.define(version: 20140604035247) do
     t.string   "phone_area_code",        default: ""
     t.string   "phone_1",                default: ""
     t.string   "phone_2",                default: ""
+    t.string   "photo_path",             default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
