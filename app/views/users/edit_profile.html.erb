@@ -20,9 +20,10 @@
       </div>
       <div><%= user_form.text_field :city, label: "Current City", placeholder: 'City' %>
       </div>
-      <div><%= user_form.text_field :state, label: "Current State", placeholder: 'State' %>
-      <!-- State should be a dropdown -->
+      <div>
+        <%= user_form.select :state, options_for_select(us_states) %>
       </div>
+
       <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. tap, jazz, hip hop)' %>
       </div>
     <br>
