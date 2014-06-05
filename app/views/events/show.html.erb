@@ -11,7 +11,8 @@
                     <%= link_to 'Edit', edit_event_path(@event), class:
                     "btn btn-warning" %>
                   <% end %>
-		</h1>		
+		</h1>
+                <%= get_event_profile_pic(@event.photo_path) %>
 		  <p><b>Description</b><br><%= @event.description %></p>
 	      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
 
@@ -28,3 +29,5 @@
 </div>
 
 <div id="get_event_id"><%= @event.id %></div>
+
+<%= @event.photo_path %>

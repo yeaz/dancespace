@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140605172146) do
     t.float    "lng"
     t.integer  "is_location_set", default: -1
     t.string   "zip_code"
+    t.string   "photo_path",             default: ""
   end
 
   create_table "experiencelinks", force: true do |t|

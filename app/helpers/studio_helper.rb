@@ -151,7 +151,7 @@ module StudioHelper
   end
 
   def get_studio_profile_pic(photo_path)
-    if @studio.photo_path.nil? or @studio.photo_path == ""
+    if photo_path.nil? or photo_path == ""
       return image_tag "studio1.jpg"
     else
       path = '<img src="/images/' + photo_path + '"/>'
