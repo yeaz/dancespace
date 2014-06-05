@@ -3,17 +3,8 @@
     <h1><b>Edit Profile</b></h1>
     <h3>General Information:</h3>
 
-    <!-- printing errors -->
-    <% if flash.key?(:user_errors) and flash[:user_errors].any? %>
-       ERRORS
-       <% flash[:user_errors].each do |k, v| %>
-         <div>Attribute: <%= k %></div>
-         <div>Error msg: <%= v %></div>
-       <% end %>
-    <% end %>
-
-    <!-- errors themselves -->
     <%= bootstrap_form_for @user do |user_form| %>
+      <div><%= user_form.file_field :photo_path %></div>
       <div><%= user_form.text_field :title, placeholder: 'One-line summary of what you do (i.e. Contemporary Choreographer / Dancer)' %>
       </div>
       <div><%= user_form.text_area :blurb, label: "Personal Statement", placeholder: 'Tell us a little more about yourself - dance background, occupational desires, perspective on life.' %>

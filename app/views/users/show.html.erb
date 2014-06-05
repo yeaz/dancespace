@@ -2,7 +2,7 @@
 <div class ="profile-container spec container">
 	<div class="profile-header row">
 		<div class="propic col-md-3">
-			<%= image_tag "blank_profile.jpg" %>
+                  <%= get_user_profile_pic(@user.photo_path) %>
 		</div>
 
 		<div class="main-info col-md-4">
