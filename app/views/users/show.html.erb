@@ -52,31 +52,6 @@
 		</div>
 	</div>
 	<br>
-
-	<h2>Video Portfolio
-	<% if current_user.id == @user.id %>
-	 <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a>
- 	<% end %>
-	</h2>
-	<% if current_user.id == @user.id %>
-		<% if @user.videos.size == 0 %>
-			<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
-		<%end%>
-	<% end %>
-
-	<% for v in @user.videos do%>
-		<div class="row">
-			<div class="col-md-3 vid-thumbnail">
-				<img src="http://img.youtube.com/vi/<%=v.youtube_id%>/0.jpg" >
-			</div>
-			<div class="col-md-8">
-				<h3><a href=<%= video_path(v) %>><%= v.title %></a><br/></h3>
-				<%= v.description %>
-			</div>
-		</div>
-		<hr>
-	<% end %>
-
 	<br/>
 
 	<h2>Experience 
