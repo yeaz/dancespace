@@ -15,8 +15,10 @@
 <%= render "home/navbar" %>
 <div class="profile-container container">
 	<div class="row">
-			<div class="col-md-3 propic" style='margin-bottom:30px; text-align:center'>
-				<%= image_tag "studio1.jpg" %>
+			<div class="col-md-3 propic"
+                             style='margin-bottom:30px;
+                             text-align:center'>
+                          <%= get_studio_profile_pic(@studio.photo_path) %>
 			</div>
 
 			<div class="col-md-6">

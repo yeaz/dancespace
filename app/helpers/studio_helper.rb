@@ -149,4 +149,13 @@ module StudioHelper
   def get_photo_urls(pictures)
     return pictures.map{ |pic| pic["link"] }
   end
+
+  def get_studio_profile_pic(photo_path)
+    if @studio.photo_path.nil? or @studio.photo_path == ""
+      return image_tag "studio1.jpg"
+    else
+      path = '<img src="/images/' + photo_path + '"/>'
+      return path.html_safe
+    end
+  end
 end
