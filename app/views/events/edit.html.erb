@@ -1,7 +1,8 @@
 <%= render "home/navbar" %>
 <div class="container spec submitter">
-<h1>Event Edit</h1>
-<%= bootstrap_form_for [@event] do |f| %>
+  <h1>Event Edit</h1>
+  <%= bootstrap_form_for [@event] do |f| %>
+    <%= f.alert_message "Please fix the errors below." %>
   <div>
     <%= f.text_field :name, placeholder: 'name' %>
   </div>
@@ -23,6 +24,11 @@
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
   </div>
+  <% if @event.errors.include?(:event_date_time) %>
+  <br><br>
+  <div class="alert
+              alert-danger"><%= @event.errors[:event_date_time][0] %></div> 
+  <% end %>
   <div>
     <%= f.date_field :event_date %>
   </div>
@@ -33,12 +39,12 @@
     <%= f.file_field :photo_path, label: "Profile Picture"%>
   </div>
   <div><%= f.text_field :tag_list, label: "Event tags", placeholder:
-    'List different styles with a comma in between (i.e tap, jazz, hip
-    hop)' %>
+           'List different styles with a comma in between (i.e tap, jazz, hip
+           hop)' %>
   </div>
   <div>
     <%= f.text_field :is_location_set, :value => -1, hide_label: true %>
     <%= f.submit 'Edit Event', class: "btn btn-lg btn-warning btn-block" %>
   </div>
-<% end %>
+  <% end %>
 </div>
