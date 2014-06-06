@@ -18,7 +18,15 @@
 
                 <p><b>Date</b><br><%= @event.event_date %>
                 <br><b>Time</b><br><%= @event.event_time %></p>
-	        <p><b>Location</b><br>
+	      <p><b>Tags</b><br>
+	  	  <div style="padding-left:0px;">
+	  	   <% for tag in @studio.tags %>
+			 #<%= tag %>&nbsp;  
+		   <% end %>
+		   </div>
+
+	      <p><b>Location</b><br>
+>>>>>>> fa7b43b9da119e5f09bae90310513bd2ed89f128
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>
 			  <%= @event.zip_code %>
