@@ -172,7 +172,7 @@ class EventsController < ApplicationController
     end
     
     def event_params 
-      params.require(:event).permit(:photo_path, :name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
+      params.require(:event).permit(:tag_list, :photo_path, :name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
     end
   
 end
