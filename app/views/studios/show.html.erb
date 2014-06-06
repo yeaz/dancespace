@@ -69,10 +69,10 @@
 			</div>
 		</div>
 
-		<div class='row' style='max-height:500px;'>
+		<div class='row'>
 			<div class='col-md-4' id='fbfeed'>
 				<h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
-				<div id='allfbposts' style="overflow-y:scroll;">
+				<div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
                   <% if !@fb_posts.nil? %>
 			          <% for post in @fb_posts %>
 			          	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
@@ -87,7 +87,7 @@
 			</div>
 			<div class='col-md-4' id='twfeed'>
 				<h2>Tweets <%= image_tag "twitter-icon.png", height: "50px" %></h2>
-				<div id='alltwposts' style="overflow-y:scroll;">
+				<div id='alltwposts' style="overflow-y:scroll;max-height:500px;">
                 <% if !@tweets.nil? %>
                 	<% for tweet in @tweets %>
                   		<%= tweet.html_safe %>
@@ -103,7 +103,7 @@
 			<div class='col-md-4' id='igfeed'>
 				<h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
 				<p>
-				  <div id='alligposts' style="overflow-y:scroll;">
+				  <div id='alligposts' style="overflow-y:scroll;max-height:500px;">
                   <% if !@ig_photos.nil? %>
                   <% for photo_url in @ig_photos %>
                   <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
