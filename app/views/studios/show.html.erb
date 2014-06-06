@@ -69,10 +69,10 @@
 			</div>
 		</div>
 
-		<div class='row'>
+		<div class='row' style='max-height:500px;'>
 			<div class='col-md-4' id='fbfeed'>
 				<h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
-				<div id='allfbposts' style="overflow-y:scroll; height:500px;">
+				<div id='allfbposts' style="overflow-y:scroll;">
                   <% if !@fb_posts.nil? %>
 			          <% for post in @fb_posts %>
 			          	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
@@ -87,7 +87,7 @@
 			</div>
 			<div class='col-md-4' id='twfeed'>
 				<h2>Tweets <%= image_tag "twitter-icon.png", height: "50px" %></h2>
-				<div id='alltwposts' style="overflow-y:scroll; height:500px;">
+				<div id='alltwposts' style="overflow-y:scroll;">
                 <% if !@tweets.nil? %>
                 	<% for tweet in @tweets %>
                   		<%= tweet.html_safe %>
@@ -103,7 +103,7 @@
 			<div class='col-md-4' id='igfeed'>
 				<h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
 				<p>
-				  <div id='alligposts' style="overflow-y:scroll; height:500px;">
+				  <div id='alligposts' style="overflow-y:scroll;">
                   <% if !@ig_photos.nil? %>
                   <% for photo_url in @ig_photos %>
                   <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
@@ -122,7 +122,7 @@
 
 	<div class='container spec'>
 		<div class='row'>
-			<div class='col-md-6'>
+			<div class='col-md-8'>
 					<h2>Upcoming Events  
 						<% if current_user_owns_studio(@studio.id) %>
 				      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
@@ -136,6 +136,14 @@
 					</div>
 					<% end %>
 			</div>
+			<div class='col-md-4'>
+				  	<h2>Tags</h2>
+				  	<div style="padding-left:0px;">
+				  	<% for tag in @studio.tags %>
+						#<%= tag %>&nbsp;  
+					<% end %>
+					</div>
+				</div>
 		</div>
 
 	<div class='row'>

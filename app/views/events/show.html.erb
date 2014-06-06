@@ -17,6 +17,13 @@
 	      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
 
                 <p><b>Date and time</b><br><%= get_pst_time(@event.event_date_time) %></p>
+	      <p><b>Tags</b><br>
+	  	  <div style="padding-left:0px;">
+	  	   <% for tag in @studio.tags %>
+			 #<%= tag %>&nbsp;  
+		   <% end %>
+		   </div>
+
 	      <p><b>Location</b><br>
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>

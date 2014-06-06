@@ -95,4 +95,11 @@
 		  	<%end%>
 	  	</ul>
   	<% end %>
+
+  	<h2>Styles</h2>
+  	<div style="padding-left:30px;">
+  	<% for tag in @user.styles %>
+		#<%= tag %>&nbsp;  
+	<% end %>
+	</div>
 </div>
