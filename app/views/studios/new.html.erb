@@ -1,7 +1,7 @@
 <%= render "home/navbar" %>
 <div class = "container spec submitter" style="max-width:500px;">
   <h1>New Studio</h1>
-  <%= bootstrap_form_for @studio do |f| %>
+  <%= bootstrap_form_for(@studio, layout: :inline) do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
   <div>
     <%= f.text_field :name, placeholder: 'Name', label: "Studio Name: " %>
@@ -41,7 +41,7 @@
   </div>
   <div>
     <%= f.file_field :photo_path, label: "Profile Picture"%>
-  </div>
+  </div><br>
   <div>
     <%= f.email_field :email, placeholder: 'Email', label: "Email: " %>
   </div>
@@ -49,9 +49,9 @@
       <% if @studio.errors.include?(:phone) %>
         <div class="alert alert-danger"><%= @studio.errors[:phone][0] %></div>
       <% end %>
-        <%= f.text_field :phone_area_code, label: "Phone:", :size => 3, :maxlength => 3, prepend: "(", append: ")" %>
-        <%= f.text_field :phone_1, hide_label: true, :size => 3, :maxlength => 3, append: "-"  %>
-        <%= f.text_field :phone_2, hide_label: true, :size => 5, :maxlength => 4  %>
+        <%= f.text_field :phone_area_code, label: "Phone:", :size => 3, :maxlength => 3 %>
+        <%= f.text_field :phone_1, hide_label: true, :size => 3, :maxlength => 3  %>
+        <%= f.text_field :phone_2, hide_label: true, :size => 5, :maxlength => 4 %>
   </div>
   <div><%= f.text_field :tag_list, label: "Studio tags", placeholder:
     'List different styles with a comma in between (i.e tap, jazz, hip
