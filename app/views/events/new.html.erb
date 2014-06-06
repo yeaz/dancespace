@@ -24,7 +24,10 @@
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
   </div>
   <div>
-    <%= f.datetime_select(:event_date_time) %>
+    <%= f.date_field :event_date %>
+  </div>
+  <div>
+    <%= f.time_field :event_time %>
   </div>
   <div>
     <%= f.file_field :photo_path, label: "Profile Picture"%>
