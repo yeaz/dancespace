@@ -26,4 +26,13 @@ module UsersHelper
     end
   end
 
+  def get_user_profile_pic(photo_path)
+    if @user.photo_path.nil? or @user.photo_path == ""
+      return image_tag "blank_profile.jpg"
+    else
+      path = '<img src="/images/' + photo_path + '"/>'
+      return path.html_safe
+    end
+  end
+
 end

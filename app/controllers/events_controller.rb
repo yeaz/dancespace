@@ -15,16 +15,19 @@ class EventsController < ApplicationController
     if !current_user_owns_studio(params[:studio_id])
       redirect_to studio_path(params[:studio_id])
     end
-
     @event = Event.new
   end
   
   def create
     e_params = event_params
+    photo_path = e_params[:photo_path]
+    e_params.delete(:photo_path)
     update_date_time(e_params)
     @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
+      upload_photo(e_params, @event.id.to_s, photo_path)
+      @event.update(e_params)
       redirect_to event_path(@event)
     else
       render 'new'
@@ -34,6 +37,7 @@ class EventsController < ApplicationController
   def update
     e_params = event_params
     update_date_time(e_params)
+    upload_photo(e_params, @event.id.to_s, e_params[:photo_path])
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
     else
@@ -153,9 +157,22 @@ class EventsController < ApplicationController
         @studio = Studio.find(params[:studio_id])
       end
     end
+
+    def upload_photo(e_params, id, photo_path)
+      if photo_path.nil?
+        return
+      end
+      uploaded_io = photo_path
+      extension = File.extname(uploaded_io.original_filename)
+      filename = Rails.root.join('public', 'images', 'uploads', 'events', id + extension)
+      File.open(filename, 'wb')  do |file|
+        file.write(uploaded_io.read)
+      end
+      e_params[:photo_path] = '/uploads/events/' + id + extension
+    end
     
     def event_params 
-      params.require(:event).permit(:name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
+      params.require(:event).permit(:tag_list, :photo_path, :name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
     end
   
 end

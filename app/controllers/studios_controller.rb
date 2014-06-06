@@ -16,8 +16,13 @@ class StudiosController < ApplicationController
   end
   
   def create
-    @studio = Studio.new(fix_contact_urls(studio_params))
+    s_params = fix_contact_urls(studio_params)
+    photo_path = s_params[:photo_path]
+    s_params.delete(:photo_path)
+    @studio = Studio.new(s_params)
     if @studio.save
+      upload_photo(s_params, @studio.id.to_s, photo_path)
+      @studio.update(s_params)
       create_membership
       redirect_to studio_path(@studio)
     else
@@ -26,7 +31,9 @@ class StudiosController < ApplicationController
   end
     
   def update
-    if @studio.update_attributes(fix_contact_urls(studio_params))
+    s_params = fix_contact_urls(studio_params)
+    upload_photo(s_params, @studio.id.to_s, s_params[:photo_path])
+    if @studio.update_attributes(s_params)
       redirect_to studio_path(@studio)
     else
       render 'edit'
@@ -246,9 +253,22 @@ class StudiosController < ApplicationController
       end
       tweets
     end
+
+    def upload_photo(s_params, id, photo_path)
+      if photo_path.nil?
+        return
+      end
+      uploaded_io = photo_path
+      extension = File.extname(uploaded_io.original_filename)
+      filename = Rails.root.join('public', 'images', 'uploads', 'studios', id + extension)
+      File.open(filename, 'wb')  do |file|
+        file.write(uploaded_io.read)
+      end
+      s_params[:photo_path] = '/uploads/studios/' + id + extension
+    end
     
     def studio_params 
-      params.require(:studio).permit(:name, :description, :fb_url, :twtr_username, 
+      params.require(:studio).permit(:tag_list, :photo_path, :name, :description, :fb_url, :twtr_username, 
                                      :yt_username, :ig_url, :website_url, :email, 
                                      :phone_area_code, :phone_1, :phone_2,
                                      :address_line1, :address_line2, :city, :state, :zip_code,

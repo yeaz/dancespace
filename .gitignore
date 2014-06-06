@@ -16,6 +16,6 @@
 /log/*.log
 /log/development.sphinx.pid
 /tmp
-
+/public/images/
 /config/database.yml
 /config/development.sphinx.conf
