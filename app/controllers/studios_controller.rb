@@ -268,7 +268,7 @@ class StudiosController < ApplicationController
     end
     
     def studio_params 
-      params.require(:studio).permit(:photo_path, :name, :description, :fb_url, :twtr_username, 
+      params.require(:studio).permit(:tag_list, :photo_path, :name, :description, :fb_url, :twtr_username, 
                                      :yt_username, :ig_url, :website_url, :email, 
                                      :phone_area_code, :phone_1, :phone_2,
                                      :address_line1, :address_line2, :city, :state, :zip_code,
