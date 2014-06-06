@@ -187,7 +187,8 @@ function createEventListing(entry){
 	var string = "<h3><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h3>" +
 	  "<div>Description:" + entry.description + "</div>" +
 	  "<div>Created by: <a href=\"/studios/" + entry.studio_id + "\">" + "STUDIO" + "</a></div>" +
- 	  "<div>Date and time:" + entry.event_date_time  + "</div>";
+ 	  "<div>Date:" + entry.event_date  + "</div>" +
+          "<div>Time:" + entry.event_time + "</div>";
 	return string;
 }
 

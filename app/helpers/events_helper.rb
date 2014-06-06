@@ -13,4 +13,8 @@ module EventsHelper
       return path.html_safe
     end
   end
+
+  def make_date_time(event_date, event_time)
+    return DateTime.new(event_date.year, event_date.month, event_date.day, event_time.hour, event_time.min, event_time.sec)
+  end
 end

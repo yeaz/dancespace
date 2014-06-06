@@ -16,8 +16,9 @@
 		  <p><b>Description</b><br><%= @event.description %></p>
 	      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
 
-                <p><b>Date and time</b><br><%= get_pst_time(@event.event_date_time) %></p>
-	      <p><b>Location</b><br>
+                <p><b>Date</b><br><%= @event.event_date %>
+                <br><b>Time</b><br><%= @event.event_time %></p>
+	        <p><b>Location</b><br>
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>
 			  <%= @event.zip_code %>
