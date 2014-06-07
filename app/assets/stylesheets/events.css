@@ -1,0 +1,30 @@
+.event-banner img{
+	height: 100%;
+}
+.col-md-12.event-banner{
+	background-color: blue;
+	position:absolute;
+	z-index: -10000;
+	height: 210px;
+	width: 100%;
+}
+
+.event-location{
+	text-align: right;
+}
+
+.event-info{
+	background-color: rgba(105,105,105,.5);
+	color: white;
+	padding: 0px 10px 0px 10px;
+}
+
+.event-show h3, h4, h1{
+	padding: 0px;
+	margin: 0px;
+}
+
+#show-event-map-canvas{
+	max-height: 200px;
+	float: right;
+}
