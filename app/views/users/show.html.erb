@@ -1,3 +1,12 @@
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <%= render "home/navbar" %>
 <div class ="profile-container spec container">
 	<div class="profile-header row">
@@ -102,4 +111,24 @@
 		#<%= tag %>&nbsp;  
 	<% end %>
 	</div>
+
+    <div class='col-md-4' id='fbfeed'>
+      <h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
+      <div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
+        <% if !@fb_posts.nil? %>
+	<% for post in @fb_posts %>
+	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
+
+        <% end %>
+        <% else %>
+        <h3 class='reminder'>
+          You haven't linked your Facebook profile yet. This can be fixed on the edit page!
+        </h3>
+        <% end %>
+      </div>
+    </div>
+
+
+
 </div>
+

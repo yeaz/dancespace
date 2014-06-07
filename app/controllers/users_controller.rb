@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   include UsersHelper
+  include StudioHelper
   
   def index
     @users = User.search params[:search]
@@ -47,6 +48,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # facebook
+    @fb_posts = get_facebook_posts(@user)
   end
 
   def get_random_user
