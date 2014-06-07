@@ -1,71 +1,162 @@
+<!-- TEMP JAVASCRIPT -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <% content_for :google_maps_js do %>
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCp9uQBt3IdKhOxbl1LgX1XFOCsKtdlRQ" %>
 <% end %>
 
 <%= render "home/navbar" %>
-<div class="profile-container spec container">
-	<div class="profile-header row">
-			<div class="col-md-3 propic">
-				<%= image_tag "studio1.jpg" %>
+<div class="profile-container container">
+	<div class="row">
+			<div class="col-md-3 propic"
+                             style='margin-bottom:30px;
+                             text-align:center'>
+                          <%= get_studio_profile_pic(@studio.photo_path) %>
 			</div>
-			<div class="col-md-4 main-info">
-			
-			<h1><b><%=@studio.name%></b>
-			<% if current_user_owns_studio(@studio.id) %>
-		      <%= link_to 'Edit', edit_studio_path(studio_id: @studio), class: "btn btn-warning" %> 
-		    <% end %>
-		</h1>
-		<p>
-		<%= @studio.address_line1 %><br/>
-		<%= @studio.address_line2 %><br/>
-        <%= @studio.city %>, <%= @studio.state%> <%= @studio.zip_code %><br>
-		<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a> <br/>
-		<h4><%=@studio.description%></h4>
+
+			<div class="col-md-6">
+				<h1><b><%=@studio.name%></b>
+				<% if current_user_owns_studio(@studio.id) %>
+			      <%= link_to 'Edit', edit_studio_path(studio_id: @studio), class: "btn btn-warning" %> 
+			    <% end %>
+				</h1>
+					<p class='lead'>
+					<%= @studio.address_line1 %> <%= @studio.address_line2 %><br/>
+			        <%= @studio.city %>, <%= @studio.state%> <%= @studio.zip_code %><br>
+					<div class='spec'><h4><%=@studio.description%></h4></div>
+					<a href = <%= @studio.website_url %> target="_blank"> <%= @studio.website_url %></a>
+					</p>
 			</div>
-		<div class="col-md-5 social-media">
 
-                  <%= make_contact_icon(@studio.yt_url,
-		      "youtube-icon.png") %>
-                  <%= make_contact_icon(@studio.fb_url,
-		      "facebook-icon.png") %> <br>
-                  <%= make_contact_icon(@studio.ig_url,
-		      "insta-icon.png") %>
-                  <%= make_contact_icon(@studio.twtr_url,
-		      "twitter-icon.png") %> <br>
-
-			<b>E-MAIL:</b> <%= @studio.email %> <br/>
-
-                        <% phone_num = @studio.get_phone_number %>
-                        <% if phone_num != "" %>
-			<b>PHONE: </b><%= phone_num %>
-                        <% end %>
-                        
+			<div class="col-md-3 spec">
+				<h2 style='padding-top:0px;margin-top:0px;'>Contact</h2>
+	
+	 			<h4>Created by: <a href="<%= user_path(get_studio_owner(@studio)) %>"><%=get_studio_owner(@studio).first_name%> <%=get_studio_owner(@studio).last_name%></a></h4>
+				<b>E-MAIL:</b> <%= @studio.email %> <br/>
+	            <% phone_num = @studio.get_phone_number %>
+	                        <% if phone_num != "" %>
+				<b>PHONE: </b><%= phone_num %>
+	                        <% end %>
 			</div>
+		</div>
+</div>
+
+	<div class='container spec' id='socialfeeds'>
+		<div class='row' id='ytfeed'>
+			<div class='col-md-12'>
+				<h2>YouTube Channel <%= image_tag "youtube-icon.png", height: "50px" %></h2>
+                <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
+				<div id='ytviewer'></div>
+				<p>
+				 <% if !@videos.nil? %>
+	                <% for video in @videos %>
+	                 <img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+	                 &nbsp;
+	                 <% end %>
+	             <% else %>
+		            <h3 class='reminder'>
+	                You haven't linked your YouTube channel yet. This can be fixed on the edit page!
+	                </h3>
+	            <% end %>
+				</p>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class='col-md-4' id='fbfeed'>
+				<h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
+				<div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
+                  <% if !@fb_posts.nil? %>
+			          <% for post in @fb_posts %>
+			          	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
+
+                      <% end %>
+                   <% else %>
+                    <h3 class='reminder'>
+                    	You haven't linked your Facebook profile yet. This can be fixed on the edit page!
+                    </h3>
+                   <% end %>
+				</div>
+			</div>
+			<div class='col-md-4' id='twfeed'>
+				<h2>Tweets <%= image_tag "twitter-icon.png", height: "50px" %></h2>
+				<div id='alltwposts' style="overflow-y:scroll;max-height:500px;">
+                <% if !@tweets.nil? %>
+                	<% for tweet in @tweets %>
+                  		<%= tweet.html_safe %>
+                    <% end %>
+                <% else %>
+                <h3 class='reminder'>
+	            	You haven't linked your Twitter yet. This can be fixed on the edit page!
+	             </h3>
+
+                <% end %>
+            	</div>
+			</div>
+			<div class='col-md-4' id='igfeed'>
+				<h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
+				<p>
+				  <div id='alligposts' style="overflow-y:scroll;max-height:500px;">
+                  <% if !@ig_photos.nil? %>
+                  <% for photo_url in @ig_photos %>
+                  <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                  <% end %>
+                  <% else %>
+                  <h3 class='reminder'>
+                	You haven't linked your Instagram account yet. This can be fixed on the edit page!
+                  </h3>
+                   <% end %>
+               </div>
+				</p>
+			</div>
+		</div>
+
 	</div>
 
-	<h2>Upcoming Events  
-		<% if current_user_owns_studio(@studio.id) %>
-      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
-    <% end %>
-   </h2>
-		<% @events.each do |e| %>
-		<div>
-		  <h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
-		  <div><%= e.event_date_time %></div></li>
+	<div class='container spec'>
+		<div class='row'>
+			<div class='col-md-8'>
+					<h2>Upcoming Events  
+						<% if current_user_owns_studio(@studio.id) %>
+				      <%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
+				    <% end %>
+						</h2>
+					<!-- Events Listing -->
+					<% @events.each do |e| %>
+					<div>
+					  <h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
+					  <div><%= e.event_date
+					  %></div><div><%= e.event_time %></div></li>
+					</div>
+					<% end %>
+			</div>
+			<div class='col-md-4'>
+				  	<h2>Tags</h2>
+				  	<div style="padding-left:0px;">
+				  	<% for tag in @studio.tags %>
+						#<%= tag %>&nbsp;  
+					<% end %>
+					</div>
+				</div>
 		</div>
-		<% end %>
 
-<h2>Studio Location
-<% if current_user_owns_studio(@studio.id) %>
-	<a href="/studios/<%= params[:id] %>/set_location/"
-    data-no-turbolink="true" class="btn btn-warning">Edit location</a>
-<% end %>
-</h2>
-	<div id="show-studio-map-canvas"></div>
-        <!-- see makeStreetView function in --
-          -- javascripts/show_studio_map.js -->
-        <div id="show-studio-streetview-canvas"></div>
-    
+	<div class='row'>
+		<div class='col-md-12'>
+			<h2>Studio Location</h2>
+				<div id="show-studio-map-canvas"></div>
+			        <!-- see makeStreetView function in --
+			          -- javascripts/show_studio_map.js -->
+			        <div id="show-studio-streetview-canvas"></div>
+			   </div>
+			</div>
+		</div>
 
 </div>
   

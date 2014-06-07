@@ -2,9 +2,10 @@ class StudiosController < ApplicationController
 
   # *** FILTERS *** #
   skip_before_action :authenticate_user!, only: [:index]
-  before_action :get_studio, only: [:edit, :update, :show, :destroy]
+  before_action :get_studio, only: [:edit, :update, :show, :destroy, :get_all_yt_videos]
 
   include UsersHelper
+  include StudioHelper
   
   def index
     @studios = Studio.search params[:search]
@@ -15,8 +16,13 @@ class StudiosController < ApplicationController
   end
   
   def create
-    @studio = Studio.new(fix_contact_urls(studio_params))
+    s_params = fix_contact_urls(studio_params)
+    photo_path = s_params[:photo_path]
+    s_params.delete(:photo_path)
+    @studio = Studio.new(s_params)
     if @studio.save
+      upload_photo(s_params, @studio.id.to_s, photo_path)
+      @studio.update(s_params)
       create_membership
       redirect_to studio_path(@studio)
     else
@@ -25,7 +31,9 @@ class StudiosController < ApplicationController
   end
     
   def update
-    if @studio.update_attributes(fix_contact_urls(studio_params))
+    s_params = fix_contact_urls(studio_params)
+    upload_photo(s_params, @studio.id.to_s, s_params[:photo_path])
+    if @studio.update_attributes(s_params)
       redirect_to studio_path(@studio)
     else
       render 'edit'
@@ -35,12 +43,42 @@ class StudiosController < ApplicationController
   def destroy
   end
 
+  def get_all_yt_videos
+    if @studio.yt_username.blank?
+      redirect_to studio_path(@studio)
+    else
+      pageToken = params[:page]
+      response = get_youtube_api_response(@studio, 50, pageToken)
+      @prevPageToken = response[:prevPageToken]
+      @nextPageToken = response[:nextPageToken]
+      @videos = response[:items] 
+    end
+  end
+
   def nearby
     @studios = Studio.all
   end
 
   def show
     @events = Event.where("studio_id = ?",  params[:id])
+    
+    # Youtube
+    pageToken = params[:page]
+    response = get_youtube_api_response(@studio, 5, pageToken)
+    if response.nil?
+      @videos = nil
+    else
+      @videos = response[:items]
+    end
+    
+    # Facebook
+    @fb_posts = get_facebook_posts(@studio)
+    
+    # Twitter
+    @tweets = get_tweets(@studio)
+    
+    # Instagram
+    @ig_photos = get_instagram_photos(@studio)
   end
 
   def set_location
@@ -91,6 +129,20 @@ class StudiosController < ApplicationController
     end
   end
 
+  def get_all_studios
+    @studios = Studio.all
+    respond_to do |format|
+      format.json{ render json: @studios}
+    end
+  end
+
+  def get_search_studios
+    @results = Studio.search params[:query]
+    respond_to do |format|
+      format.json{render json: @results}
+    end
+  end
+
   # *** HELPER METHODS
   private
 
@@ -110,14 +162,119 @@ class StudiosController < ApplicationController
       end 
     end
     
+    def get_youtube_api_response(studio, maxResults = 5, pageToken = '') 
+      if studio.yt_username.blank?
+        return nil
+      end
+      
+      prevPageToken = ''
+      nextPageToken = ''
+      items = []
+      
+      # Google API Key
+      google_api_key = 'AIzaSyC4WCykK27pFFElrwy72AvUDWS812e0DKk'
+      # Youtube Channel API URL 
+      youtube_channel_api_url = 'https://www.googleapis.com/youtube/v3/channels'
+      # Youtube Playlist API URL
+      youtube_playlist_api_url = 'https://www.googleapis.com/youtube/v3/playlistItems'
+    
+      # Channel API params
+      channel_params = { :part => 'contentDetails',
+                 :forUsername => studio.yt_username,
+                 :key => google_api_key }
+                 
+      channel_response = RestClient.get youtube_channel_api_url,
+                                        :params => channel_params
+    
+      if channel_response.code == 200
+        json = JSON.parse(channel_response)
+        uploads_playlist_id = json['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+        if !uploads_playlist_id.blank?
+          # Playlist API params 
+          playlist_params = { :part => 'contentDetails',
+                              :playlistId => uploads_playlist_id,
+                              :maxResults => maxResults,
+                              :pageToken => pageToken,
+                              :key => google_api_key }
+                              
+          playlist_response = RestClient.get youtube_playlist_api_url,
+                                    :params => playlist_params
+          
+          if playlist_response.code == 200
+            json = JSON.parse(playlist_response)
+            prevPageToken = json['prevPageToken']
+            nextPageToken = json['nextPageToken']
+            for item in json['items']
+              items << item['contentDetails']['videoId']
+            end
+          end
+        end
+      end
+      { :prevPageToken => prevPageToken, 
+       :nextPageToken => nextPageToken, 
+       :items => items }
+    end
+    
+    def get_tweets(studio)
+      if studio.twtr_username.blank?
+        return nil
+      end
+      
+      tweets = []
+      
+      # Authorization header with Twitter API bearer token
+      twtr_auth_header='Bearer AAAAAAAAAAAAAAAAAAAAADRrWQAAAAAApUt6lWbEy4UE1wOZdDpGOruYyZ4%3DfoxWCyjFFURIDxrOjMuAVHKvkoMHrKnQH9dtMqKVBfAKAP4gyF'
+      # Twitter Status API URL 
+      twtr_status_api_url='https://api.twitter.com/1.1/statuses/user_timeline.json'
+      # Twitter Oembed API URL
+      twtr_oembed_api_url='https://api.twitter.com/1/statuses/oembed.json?'
+      
+      # Twitter Status API params
+      status_params = {:screen_name => studio.twtr_username, 
+                :count => 5, 
+                :exclude_replies => true}
+                
+      # Send Twitter Search API request
+      response = RestClient.get twtr_status_api_url, 
+                               :params => status_params, 
+                               :authorization => twtr_auth_header
+      
+      if response.code == 200
+        json = JSON.parse(response)
+        for tweet in json
+          request_url = twtr_oembed_api_url + 'id=' + tweet['id_str']
+          response = RestClient.get request_url
+                                                                        
+          if response.code == 200
+            json = JSON.parse(response)
+            tweets << json['html']
+          end
+        end
+      end
+      tweets
+    end
+
+    def upload_photo(s_params, id, photo_path)
+      if photo_path.nil?
+        return
+      end
+      uploaded_io = photo_path
+      extension = File.extname(uploaded_io.original_filename)
+      filename = Rails.root.join('public', 'images', 'uploads', 'studios', id + extension)
+      File.open(filename, 'wb')  do |file|
+        file.write(uploaded_io.read)
+      end
+      s_params[:photo_path] = '/uploads/studios/' + id + extension
+    end
+    
     def studio_params 
-      params.require(:studio).permit(:name, :description, :fb_url, :twtr_url, 
-                                     :yt_url, :ig_url, :website_url, :email, 
+      params.require(:studio).permit(:tag_list, :photo_path, :name, :description, :fb_url, :twtr_username, 
+                                     :yt_username, :ig_url, :website_url, :email, 
                                      :phone_area_code, :phone_1, :phone_2,
                                      :address_line1, :address_line2, :city, :state, :zip_code,
                                      :lat, :lng, :is_location_set)
     end
-  
+
 end
 
 

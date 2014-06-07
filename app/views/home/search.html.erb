@@ -7,6 +7,7 @@
 	<%else %>
 		<%= @results.size %> results found.
 	<%end%>
+	<br><br>
 	<% for result in @results do %>
 		<div>
 			<% if result.class.name == "User" %>
@@ -43,7 +44,6 @@
 						<div class="listing-blurb"><h5><%= result.description %></h5></div>
 					</div>
 					<div class="col-md-4 social-media">
-						<%= make_contact_icon(result.yt_url, "youtube-icon.png") %>
 						<%= make_contact_icon(result.fb_url, "facebook-icon.png") %>
 						<br/>
 						<b>E-MAIL:</b> <%= result.email %> <br/>
@@ -73,7 +73,12 @@
 				<div class="row">
 					<div class="col-md-9">
 						<h2><b><a href="<%= event_path(result) %>"  data-no-turbolink="true"><%= result.name %></a></b></h2>
-						<h4> @ <a href="<%= studio_path(result.studio_id)%>"><%= result.studio.name %></a>, <%= e.event_date_time %>
+						<h4>
+						@ <a href="<%= studio_path(result.studio_id)%>"><%= result.studio.name
+						%></a>,
+						<%= result.event_date
+						%> &nbsp;
+						<%= result.event_time %>
 						</h4>
 						<h5><%= result.description %></h5>
 					</div>

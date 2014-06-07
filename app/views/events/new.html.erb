@@ -2,6 +2,7 @@
 <div class="container submitter">
 <h1>Event Create</h1>
 <%= bootstrap_form_for [@studio, @event] do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
   <div>
     <%= f.text_field :name, placeholder: 'name' %>
   </div>
@@ -23,8 +24,24 @@
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
   </div>
+  <% if @event.errors.include?(:event_date_time) %>
+  <br><br>
+    <div class="alert
+    alert-danger"><%= @event.errors[:event_date_time][0] %></div> 
+  <% end %>
   <div>
-    <%= f.datetime_select(:event_date_time) %>
+    <%= f.date_field :event_date %>
+  </div>
+  <div>
+    <%= f.time_field :event_time %>
+  </div>
+  <div>
+    <%= f.file_field :photo_path, label: "Profile Picture"%>
+  </div>
+  <div>
+    <%= f.text_field :tag_list, label: "Event tags", placeholder:
+    'List different styles with a comma in between (i.e tap, jazz, hip
+    hop)' %>
   </div>
   <div>
     <%= f.submit 'Create Event', class: "btn btn-lg btn-warning

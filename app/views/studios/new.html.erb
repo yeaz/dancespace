@@ -1,56 +1,67 @@
 <%= render "home/navbar" %>
-<div class = "container spec submitter custom-form">
+<div class = "container spec submitter">
   <h1>New Studio</h1>
-  <%= bootstrap_form_for @studio do |f| %>
+  <%= bootstrap_form_for(@studio, layout: :inline) do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
   <div>
-    <%= f.text_field :name, placeholder: 'Name', label: "Studio Name: " %>
+    <%= f.text_field :name, label: "Studio Name: ", size: 50 %>
   </div>
   <div>
-    <%= f.text_area :description, placeholder: 'Briefly introduce your studio', label: "About: " %>
+    <%= f.text_area :description, label: "About: ", rows: 3, cols: 59 %>
   </div>
   <div>
-    <%= f.text_field :address_line1, placeholder: 'address line 1' %>
+    <%= f.text_field :address_line1, placeholder: 'address line 1', size: 40 %>
   </div>
   <div>
-    <%= f.text_field :address_line2, placeholder: 'address line 2' %>
+    <%= f.text_field :address_line2, placeholder: 'address line 2', size: 40%>
   </div>
   <div>
-    <%= f.text_field :city, placeholder: 'city' %>
+    <%= f.text_field :city, placeholder: 'city', size: 50 %>
   </div>
   <div>
-    <%= f.select :state, options_for_select(us_states, nil) %>
+    <%= f.select :state, options_for_select(us_states) %>
   </div>
   <div>
-    <%= f.text_field :zip_code, placeholder: 'zip code' %>
+    <%= f.text_field :zip_code, placeholder: 'zip code', size: 40 %>
+  </div>  
+  <div>
+    <%= f.text_field :fb_url, label: "Facebook: ", size: 40 %>
   </div>
   <div>
-    <%= f.text_field :fb_url, placeholder: 'Facebook URL', label: "Facebook URL: " %>
+    <%= f.text_field :twtr_username, label: "Twitter Username: ", size: 40 %>
   </div>
   <div>
-    <%= f.text_field :twtr_url, placeholder: 'Twitter URL', label: "Twitter URL: " %>
+    <%= f.text_field :ig_url, label: "Instagram: ", size: 40%>
   </div>
   <div>
-    <%= f.text_field :yt_url, placeholder: 'Youtube URL', label: "YouTube URL: " %>
+    <%= f.text_field :yt_username, label: "YouTube Username: ", size: 40 %>
   </div>
   <div>
-    <%= f.text_field :ig_url, placeholder: 'Instagram URL', label: "Instagram URL: " %>
+    <%= f.text_field :website_url, label: "Studio Website: ", size: 40 %>
   </div>
   <div>
-    <%= f.text_field :website_url, placeholder: 'Website URL', label: "Website: "%>
+    <%= f.file_field :photo_path, label: "Profile Picture"%>
+  </div>
+  <br>
+  <div>
+    <%= f.email_field :email, label: "E-mail: ", size: 40 %>
   </div>
   <div>
-    <%= f.email_field :email, placeholder: 'Email', label: "Email: " %>
+    <% if @studio.errors.include?(:phone) %>
+    <br><br>
+    <div class="alert alert-danger"><%= @studio.errors[:phone][0] %></div>
+    <% end %>
+        <%= f.text_field :phone_area_code, label: "Phone:", :size => 3, :maxlength => 3 %>
+        <%= f.text_field :phone_1, hide_label: true, :size => 3, :maxlength => 3  %>
+        <%= f.text_field :phone_2, hide_label: true, :size => 5, :maxlength => 4 %>
   </div>
   <div>
-      <% if @studio.errors.include?(:phone) %>
-        <div class="alert alert-danger"><%= @studio.errors[:phone][0] %></div>
-      <% end %>
-    <%= f.text_field :phone_area_code, label: "Phone: (", :size => 3, :maxlength => 3 %><b> )</b>
-    <%= f.text_field :phone_1, hide_label: true, :size => 3,:maxlength => 3 %><b>&nbsp;-</b>
-    <%= f.text_field :phone_2, hide_label: true, :size => 5, :maxlength=> 4 %>
+    <%= f.text_field :is_location_set, :value => -1, hide_label: true
+    %>
+  <div><%= f.text_field :tag_list, label: "Studio tags", placeholder:
+    'List different styles with a comma in between (i.e jazz, hip hop)', size: 65 %>
   </div>
-  <div>
+</div>
     <%= f.submit 'Create Studio', class: "btn btn-block btn-warning" %>
   </div>
   <% end %>

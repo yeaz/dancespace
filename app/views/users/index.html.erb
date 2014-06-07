@@ -10,23 +10,36 @@
       </div>
 	<% end %>
 
-	<% for d in @users do %>
-		<div class="row">
-			<div class="listing-photo col-md-2">
-				<%= image_tag "blank_profile.jpg" %>
+	<script>
+		setUpAJAX("search", "userresults")
+
+		function setUpAJAX(inputelem, resultsID){
+			var onkeyupelem = document.getElementById(inputelem);
+			onkeyupelem.onkeyup = function(){
+				var input = document.getElementById(inputelem).value;
+				autosearch(input, resultsID, "dancer");
+			}
+		}
+	</script>
+
+	<div id="userresults">
+		<% for d in @users do %>
+			<div class="row">
+				<div class="listing-photo col-md-2">
+					<%= image_tag "blank_profile.jpg" %>
+				</div>
+				<div class="col-md-6">
+					<h3><b><a href=<%= user_path(d) %>><%= d.get_full_name %></a></b></h3>
+					
+					<div class="listing-blurb"><h5><%= d.blurb %> </h5></div>
+				</div>
+				<div class="col-md-4 social-media">
+					<h4><%= d.city %>, <%= d.state %></h4>
+					<b>E-MAIL:</b> <%= d.email %> <br/>
+					<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
+				</div>
+			<hr>
 			</div>
-			<div class="col-md-6">
-				<h3><b><a href=<%= user_path(d) %>><%= d.get_full_name %></a></h3></b>
-				<h5><b><%= d.city %>, <%= d.state %></b></h5>
-				<div class="listing-blurb"><h5><%= d.blurb %> </h5></div>
-			</div>
-			<div class="col-md-4 social-media">
-				<a href=<%=d.yt_url%> target="_blank"> <%= image_tag "youtube-icon.png" %> </a>
-				<a href=<%=d.fb_url%> target="_blank"> <%= image_tag "facebook-icon.png" %> </a><br/>
-				<b>E-MAIL:</b> <%= d.email %> <br/>
-				<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
-			</div>
-		<hr>
-		</div>
-	<% end %>
+		<% end %>
+	</div>
 </div>

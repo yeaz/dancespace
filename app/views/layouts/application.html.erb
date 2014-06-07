@@ -3,9 +3,12 @@
 <head>
   <title>DanceSpace</title>
   <%= yield :google_maps_js %>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= yield :peer_js %>
+  <%= yield :videochat_js %>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
 </head>
 <body>
 		<%= yield %>
@@ -13,7 +16,7 @@
 <div class="footer center" id="foot">
 	<p>
     We are DanceSpace!<br/>
-    | <%= link_to 'Home', root_path, class: "spec" %> | <%= link_to 'About', about_path, class: "spec" %> | <%= link_to 'All Studios', studios_path, class: "spec" %> | <%= link_to 'All Videos', videos_path, class: "spec" %> | <%= link_to 'All Events', events_path, class: "spec" %> | <%= link_to 'All Dancers', users_path, class: "spec" %> |<br>
+    | <%= link_to 'Home', root_path, class: "spec" %> | <%= link_to 'About', about_path, class: "spec" %> | <%= link_to 'All Studios', studios_path, class: "spec" %> | <%= link_to 'All Events', events_path, class: "spec" %> | <%= link_to 'All Dancers', users_path, class: "spec" %> |<br>
 	<small> created 2014 </small>
 </div>
 </body>

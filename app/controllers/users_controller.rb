@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     u_params = fix_contact_urls(user_params)
+    upload_photo(u_params, @user.id.to_s)
     @user.update(u_params)
     if @user.errors.any?
       flash[:user_errors] = {}
@@ -41,7 +42,7 @@ class UsersController < ApplicationController
         flash[:user_errors][attribute] = error
       end
     end
-    redirect_to '/user_settings'
+    redirect_to user_path(@user)
   end
 
   def show
@@ -54,11 +55,38 @@ class UsersController < ApplicationController
       format.json { render json: @user} # take the fields we need only [email: @user.email, id: @user.id]
     end    
   end
+
+  def get_all_dancers
+    @users = User.all
+    respond_to do |format|
+      format.json{ render json: @users}
+    end
+  end
+
+  def get_search_dancers
+    @results = User.search params[:query]
+    respond_to do |format|
+      format.json{render json: @results}
+    end
+  end
+
+  def upload_photo(u_params, id)
+    if !u_params.has_key?(:photo_path) or u_params[:photo_path].nil?
+      return
+    end
+    uploaded_io = u_params[:photo_path]
+    extension = File.extname(uploaded_io.original_filename)
+    filename = Rails.root.join('public', 'images', 'uploads', 'users', id + extension)
+    File.open(filename, 'wb')  do |file|
+      file.write(uploaded_io.read)
+    end
+    u_params[:photo_path] = '/uploads/users/' + id + extension
+  end
   
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation,
+    params.require(:user).permit(:photo_path, :email, :password, :password_confirmation,
                                  :title, :blurb, :city, :state, :style_list, :fb_url, :yt_url,
                                  :ig_url, :website_url, :twtr_url, :phone_area_code, :phone_1, :phone_2, 
                                  :experiences_attributes => [:id, :content,

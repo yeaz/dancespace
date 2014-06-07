@@ -2,7 +2,7 @@
 <div class ="profile-container spec container">
 	<div class="profile-header row">
 		<div class="propic col-md-3">
-			<%= image_tag "blank_profile.jpg" %>
+                  <%= get_user_profile_pic(@user.photo_path) %>
 		</div>
 
 		<div class="main-info col-md-4">
@@ -11,7 +11,7 @@
 					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
 				<% end %>
 			</h1>
-
+<br>
 			<p>
 			<% if @user.title!="" && @user.title !=nil%>
 				<%= @user.title %><br/>
@@ -52,29 +52,16 @@
 		</div>
 	</div>
 	<br>
-
-	<h2>Video Portfolio <a href="<%= new_video_path %>" class="btn btn-warning">Share a Video</a></h2>
-	<% if @user.videos.size == 0 %>
-		<h4 class="reminder">Hmm... It appears that you haven't add videos to your portfolio. What're you waiting for? Go share a video!</h4>
-	<%end%>
-	<% for v in @user.videos do%>
-		<div class="row">
-			<div class="col-md-3 vid-thumbnail">
-				<img src="http://img.youtube.com/vi/<%=v.youtube_id%>/0.jpg" >
-			</div>
-			<div class="col-md-8">
-				<h3><a href=<%= video_path(v) %>><%= v.title %></a><br/></h3>
-				<%= v.description %>
-			</div>
-		</div>
-		<hr>
-	<% end %>
-
 	<br/>
 
-	<h2>Experience <a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+	<h2>Experience 
+	<% if current_user.id == @user.id %>
+	<a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+	<% end %>
+	<% if current_user.id == @user.id %>
 	<% if @user.experiences.size == 0 %>
 		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
+	<% end %>
 	<% end %>
 
 	<ul>
@@ -108,4 +95,11 @@
 		  	<%end%>
 	  	</ul>
   	<% end %>
+
+  	<h2>Styles</h2>
+  	<div style="padding-left:30px;">
+  	<% for tag in @user.styles %>
+		#<%= tag %>&nbsp;  
+	<% end %>
+	</div>
 </div>

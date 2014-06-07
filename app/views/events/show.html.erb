@@ -5,31 +5,40 @@
 <%= render "home/navbar" %>
 <div class="container spec display">
 	<div class="row">
-		<div class="col-md-12">
-		<h1><%= @event.name %>
-                  <% if current_user_owns_studio(@event.studio_id) %>
-                    <%= link_to 'Edit', edit_event_path(@event), class:
-                    "btn btn-warning" %>
-                  <% end %>
-		</h1>		
-		  <p><b>Description</b><br><%= @event.description %></p>
-	      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
+		<div class='propic col-md-3'>
+        <%= get_event_profile_pic(@event.photo_path) %></div>
+		<div class="col-md-9">
+			<h1><%= @event.name %>
+	                  <% if current_user_owns_studio(@event.studio_id) %>
+	                    <%= link_to 'Edit', edit_event_path(@event), class:
+	                    "btn btn-warning" %>
+	                  <% end %>
+			</h1>
+			  <p><b>Description</b><br><%= @event.description %></p><br>
+		      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
+		  </div>
+		</div>
+	<div class='row'>
+                <p><b>Date and time</b><br><%= @event.event_date %>
+                [at] <%= @event.event_time.strftime("%H:%M") %></p><br>
+	      <p><b>Tags</b><br>
+	  	  <div style="padding-left:0px;">
+	  	   <% for tag in @event.tags %>
+			 #<%= tag %>&nbsp;  
+		   <% end %>
+		   </div>
 
-                <p><b>Date and time</b><br><%= get_pst_time(@event.event_date_time) %></p>
 	      <p><b>Location</b><br>
 			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
 			  <%= @event.city %>, <%= @event.state %>
 			  <%= @event.zip_code %>
 		</p>
-		    <% if current_user_owns_studio(@event.studio_id) %>
-                <a href="/events/<%= params[:id] %>/set_location/"
-                data-no-turbolink="true" class="btn btn-warning">Edit
-                location</a>
-                <% end %>
-
+</div>
                 <div id="show-event-map-canvas"></div>
 		</div>
 	</div>
 </div>
 
 <div id="get_event_id"><%= @event.id %></div>
+
+<%= @event.photo_path %>

@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   # experiencelink
   has_many :experiencelinks, as: :collab
   
+  has_many :videochats
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :omniauthable, :validatable
   devise :database_authenticatable, :registerable,

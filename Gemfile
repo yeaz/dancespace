@@ -54,7 +54,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -70,6 +70,12 @@ gem 'devise'
 
 # Use Sphinx search engine for text-based search
 gem 'thinking-sphinx'
+
+# Use to request API calls on the server side
+gem 'rest-client'
+
+# Use to parse JSON objects
+gem 'json'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
@@ -88,3 +94,7 @@ gem 'twitter-bootstrap-rails'
 
 # bootstrap forms
 gem 'bootstrap_form'
+
+#facebook api
+gem "koala", "~> 1.10.0rc"
+gem "instagram"
