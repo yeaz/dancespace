@@ -13,7 +13,7 @@
       <div><%= user_form.text_field :city, label: "Current City", placeholder: 'City', size: 60 %>
       </div>
       <div>
-        <%= user_form.select :state, options_for_select(us_states) %>
+        <%= user_form.select :state, options_for_select(us_states, @user.state) %>
       </div>
 
       <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. jazz, hip hop)', size: 70 %>

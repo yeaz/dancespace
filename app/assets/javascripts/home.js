@@ -90,15 +90,15 @@ function loadRandomizer(type) {
 		url = "random_user";
 		jQuery.get(url, function(data) {
 		$("#listpane").html("<h1>Random Dancer</h1>"
-			+ "<div class='col-md-5' style='padding-bottom:20px;'>"
-			+ "<img src='/assets/blank_profile.jpg'>"
+			+ "<div class='col-md-4 propic' style='padding-bottom:20px;'>"
+			+ "<img src='/images/" + data.photo_path + "'>"
 			+ "</div>"
-			+ "<div class='col-md-4' >"
+			+ "<div class='col-md-5' >"
 			+ "<h2><a href='/users/" + data.id + "'>"
 			+ data.first_name + " " + data.last_name 
 			+ "</a></h2>"
-			+	"<div class='listing-blurb'><h5>" 
-			+ data.email + "<br>" + get_user_blurb(data)
+			+	"<div class='listing-blurb'><h5><b>" 
+			+ data.email + "</b><br>" + get_user_blurb(data)
 			+ "</h5></div>"
 			+ "</div>");
 			// TODO: insert videos eventually
