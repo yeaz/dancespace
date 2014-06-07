@@ -4,10 +4,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
-group :development do
-  gem 'mysql2'
-end
-
 #See more at: http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html#sthash.FNQMfuOF.dpuf
 group :test do 
   # Generates names, email addresses, and other placeholders for factories.
@@ -20,8 +16,9 @@ group :test do
   gem 'launchy' 
 end 
 
-group :production do
-  gem 'pg'
+gem 'pg'
+
+group :production do  
   gem 'rails_12factor'
 end
 

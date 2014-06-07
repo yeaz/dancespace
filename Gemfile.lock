@@ -130,7 +130,6 @@ GEM
     minitest (4.7.5)
     multi_json (1.10.1)
     multipart-post (2.0.0)
-    mysql2 (0.3.16)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
@@ -265,7 +264,6 @@ DEPENDENCIES
   koala (~> 1.10.0rc)
   launchy
   less-rails-bootstrap
-  mysql2
   pg
   rails (= 4.0.3)
   rails_12factor
