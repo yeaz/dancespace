@@ -1,21 +1,22 @@
 <%= render "home/navbar" %>
-<div class="spec container submitter" style="max-width:500px;">
+<div class="spec container submitter" style="max-width:650px;">
     <h1><b>Edit Profile</b></h1>
     <h3>General Information:</h3>
 
     <%= bootstrap_form_for(@user, layout: :inline) do |user_form| %>
       <div><%= user_form.file_field :photo_path, label: "Profile Picture"%></div>
-      <div><%= user_form.text_field :title, placeholder: 'One-line summary of what you do (i.e. Contemporary Choreographer / Dancer)' %>
+      <br>
+      <div><%= user_form.text_field :title, placeholder: 'One-line summary of what you do (i.e. Contemporary Choreographer / Dancer)', size: 80 %>
       </div>
-      <div><%= user_form.text_area :blurb, label: "Personal Statement", placeholder: 'Tell us a little more about yourself - dance background, occupational desires, perspective on life.' %>
+      <div><%= user_form.text_area :blurb, label: "Personal Statement", placeholder: 'Tell us a little more about yourself - dance background, occupational desires, perspective on life.', rows: 3, cols: 60 %>
       </div>
-      <div><%= user_form.text_field :city, label: "Current City", placeholder: 'City' %>
+      <div><%= user_form.text_field :city, label: "Current City", placeholder: 'City', size: 60 %>
       </div>
       <div>
         <%= user_form.select :state, options_for_select(us_states) %>
       </div>
 
-      <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. jazz, hip hop)' %>
+      <div><%= user_form.text_field :style_list, label: "Your Dance Styles", placeholder: 'List different styles with a comma in between (i.e. jazz, hip hop)', size: 70 %>
       </div>
     <br>
 
@@ -23,13 +24,13 @@
     <h5> Gain more followers for your social media sites! Leave your info here.</h5>
       <div><%= user_form.text_field :fb_url, label: "Facebook Page", placeholder: 'Copy & paste your Facebook URL here', size: 40 %>
       </div>
-      <div><%= user_form.text_field :twtr_url, label: "Twitter", placeholder: 'twitter url', placeholder: "Copy & paste your Twitter URL here" %>
+      <div><%= user_form.text_field :twtr_url, label: "Twitter", placeholder: 'twitter url', placeholder: "Copy & paste your Twitter URL here", size: 40 %>
       </div>
-      <div><%= user_form.text_field :yt_url, label: "YouTube Account", placeholder: 'Copy & paste your YouTube URL here' %>
+      <div><%= user_form.text_field :yt_url, label: "YouTube Account", placeholder: 'Copy & paste your YouTube URL here', size: 40 %>
       </div>
-      <div><%= user_form.text_field :ig_url, label: 'Instagram', placeholder: "Copy & paste your Instagram URL here" %>
+      <div><%= user_form.text_field :ig_url, label: 'Instagram', placeholder: "Copy & paste your Instagram URL here", size: 40 %>
       </div>
-      <div><%= user_form.text_field :website_url, placeholder: 'Copy & paste your personal website\'s URL here', label: 'Personal Website' %>
+      <div><%= user_form.text_field :website_url, placeholder: 'Copy & paste your personal website\'s URL here', label: 'Personal Website', size: 50 %>
       </div>
       <div>
         <%= user_form.text_field :phone_area_code, label: "Phone:", :size => 3, :maxlength => 3 %>

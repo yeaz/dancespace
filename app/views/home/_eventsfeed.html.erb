@@ -5,8 +5,8 @@
 		  <h3><b><a href="<%= event_path(e) %>"><%= e.name %></a></b></h3>
 		  <div>Description: <%= e.description %></div>
 		  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
-		  <div>Date: <%= e.event_date %></div>
-                  <div>Time: <%= e.event_time %></div>
+		  <div><b>Date and time</b><br><%= @event.event_date %>
+                [at] <%= @event.event_time.strftime("%H:%M") %></div>
 		<% end %>
 	</ul>
 </div>
