@@ -8,7 +8,7 @@
 <!-- 		<div class="col-md-12 event-banner">
         	<%= get_event_profile_pic(@event.photo_path) %>
     	</div> -->
-		<div class="col-md-12 event-info" style="background-image: url(<%=@event.photo_path%>);">
+		<div class="col-md-12 event-info">
 			<h1>
 				<%= @event.name %>
 			</h1>
@@ -37,11 +37,13 @@
 			</h5>
 		</div>
 		<div class="col-md-7 event-location">
-			<p><b><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></b><br>
+			<br/>
+			<p><b><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></b><br></p>
+			<h4>
 				<%= @event.address_line1 %> <%= @event.address_line2 %><br>
 				<%= @event.city %>, <%= @event.state %>
 				<%= @event.zip_code %>
-			</p>
+			</h4>
 			<div id="show-event-map-canvas">
         	</div>
 		</div>
@@ -50,5 +52,3 @@
 
 
 <div id="get_event_id"><%= @event.id %></div>
-
-<%= @event.photo_path %>
