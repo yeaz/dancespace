@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 
   include StudioHelper
+  include EventsHelper
   
   # *** FILTERS *** #
   skip_before_action :authenticate_user!, only: [:index]
@@ -22,7 +23,7 @@ class EventsController < ApplicationController
     e_params = event_params
     photo_path = e_params[:photo_path]
     e_params.delete(:photo_path)
-    update_date_time(e_params)
+  #  update_date_time(e_params)
     @event = Event.new(e_params)
     @event.studio = @studio
     if @event.save
@@ -36,7 +37,7 @@ class EventsController < ApplicationController
   
   def update
     e_params = event_params
-    update_date_time(e_params)
+  #  update_date_time(e_params)
     upload_photo(e_params, @event.id.to_s, e_params[:photo_path])
     if @event.update_attributes(e_params)
       redirect_to event_path(@event)
@@ -101,7 +102,8 @@ class EventsController < ApplicationController
     future_events = []
     curr_time = DateTime.now
     for event in events_at_location
-      if curr_time <= event.event_date_time
+      event_date_time = make_date_time(event.event_date, event.event_time)
+      if curr_time <= event_date_time
         future_events.push(event)
       end
     end
@@ -172,7 +174,7 @@ class EventsController < ApplicationController
     end
     
     def event_params 
-      params.require(:event).permit(:tag_list, :photo_path, :name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
+      params.require(:event).permit(:event_date, :event_time, :tag_list, :photo_path, :name, :description, :address_line1, :address_line2, :city, :state, :zip_code, :event_date_time, :lat, :lng, :is_location_set)
     end
   
 end

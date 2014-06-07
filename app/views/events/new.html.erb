@@ -2,6 +2,7 @@
 <div class="container submitter">
 <h1>Event Create</h1>
 <%= bootstrap_form_for [@studio, @event] do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
   <div>
     <%= f.text_field :name, placeholder: 'name' %>
   </div>
@@ -23,6 +24,11 @@
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code' %>
   </div>
+  <% if @event.errors.include?(:event_date_time) %>
+  <br><br>
+    <div class="alert
+    alert-danger"><%= @event.errors[:event_date_time][0] %></div> 
+  <% end %>
   <div>
     <%= f.date_field :event_date %>
   </div>
