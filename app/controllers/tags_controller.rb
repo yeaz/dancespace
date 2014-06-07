@@ -8,6 +8,7 @@ class TagsController < ApplicationController
   end
 
   def show
+  	@tag = ActsAsTaggableOn::Tag.find(params[:id])
 
   end
 

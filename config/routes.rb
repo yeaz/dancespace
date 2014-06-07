@@ -70,8 +70,8 @@ DanceSpace::Application.routes.draw do
 
   get 'autosearch_tags', to: "tags#get_search_tags"
 
-  resources :tags
-  get 'show', to: "tags#show"
+
+ resources :tags, only: [:index, :show, :edit, :update, :destroy]
 
   
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,5 +1,58 @@
 <%= render "home/navbar" %>
 
 <div class="spec container">
-	TAGS. WHADDUP?!
+	<h1><b>Tagged as #<%=@tag.name%></b></h1>
+	<% if User.tagged_with(@tag.name).length > 0 %>
+		<h1>Users</h1>
+		<% for d in User.tagged_with("hip hop") %>
+			<div class="row">
+						<div class="listing-photo col-md-2">
+							<%= image_tag "blank_profile.jpg" %>
+						</div>
+						<div class="col-md-6">
+							<h3><b><a href=<%= user_path(d) %>><%= d.get_full_name %></a></b></h3>
+							
+							<div class="listing-blurb"><h5><%= d.blurb %> </h5></div>
+						</div>
+						<div class="col-md-4 social-media">
+							<h4><%= d.city %>, <%= d.state %></h4>
+							<b>E-MAIL:</b> <%= d.email %> <br/>
+							<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
+						</div>
+			</div>
+			<hr>
+		<%end%>
+	<%end%>
+
+	<% if Studio.tagged_with(@tag.name).length > 0 %>
+		<h1>Studios</h1>
+		<% for s in Studio.tagged_with("hip hop")%>
+			<div class="row">
+				<div class="listing-photo col-md-2">
+					<%= image_tag "studio1.jpg" %>
+				</div>
+				<div class="listing-info col-md-6">
+					<h3><b><a href= <%= studio_path(s) %> data-no-turbolink="true" > <%= s.name %> </a></h3></b>
+					
+					<div class="listing-blurb"><h5><%= s.description %></h5></div>
+				</div>
+				<div class="col-md-4 social-media">
+					<h4><%= s.get_address %></h4>
+					<b>E-MAIL:</b> <%= s.email %> <br/>
+					<b>PHONE: </b>(<%= s.phone_area_code %>) <%= s.phone_1 %> - <%= s.phone_2 %>
+				</div>
+			</div>
+			<hr>
+		<% end %>
+	<%end%>
+
+	<% if Event.tagged_with(@tag.name).length > 0 %>
+		<h1>Events</h1>
+		<% for e in Event.tagged_with("hip hop") %>
+    	  <h2><b><a href="<%= event_path(e) %>"  data-no-turbolink="true"><%= e.name %></a></b></h2>
+        <div><b><%= e.event_date %> at <%= e.event_time.strftime("%H:%M") %></b><br/>
+        	Hosted by <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a>
+    	  <div><%= e.description %></div>
+		<% end %>
+	<% end %>
 </div>

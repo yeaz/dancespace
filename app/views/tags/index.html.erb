@@ -1,9 +1,11 @@
 <%= render "home/navbar" %>
 
 <div class="spec container">
-	<h1><b>All Tags</b></h1>
-	<ul>
-		
-		<li></li>
-	</ul>
+<h1><b>All Tags</b></h1>
+	<ul><h3>
+		<%for t in ActsAsTaggableOn::Tag.all.sort_by! {|t| t.name} %>
+			<li><a href="/tags/<%=t.id%>"> <%=t.name%></a> </li>
+		<% end %>
+	</h3></ul>
+
 </div>

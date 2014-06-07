@@ -38,6 +38,7 @@ function allautosearch(input, resultsID){
 			}
 		});
 
+		//search tags
 		url = "/autosearch_tags?query=" + input;
 		jQuery.get(url, function(data){
 			if (data != null){
@@ -209,7 +210,7 @@ function miniListing(entry, type){
 			string +="<h5><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></h5>"
 			break;
 		case "tag":
-			string +="<h5><a href=\"/tags/show/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></h5>";
+			string +="<h5><a href=\"/tags/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></h5>";
 	} 
 	return string;
 }
