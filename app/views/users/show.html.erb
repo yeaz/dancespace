@@ -5,7 +5,7 @@
                   <%= get_user_profile_pic(@user.photo_path) %>
 		</div>
 
-		<div class="main-info col-md-4">
+		<div class="main-info col-md-5">
 			<h1><b><%= @user.get_full_name %></b>
 				<% if current_user.id == @user.id %>
 					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
@@ -31,8 +31,14 @@
 			<% elsif current_user.id == @user.id %>
 				<div class="reminder"> Edit profile to add a personal blurb about yourself.</div>
 			<%end%>
+				<% if @user.styles.length != 0 %>
+	  				<% for tag in @user.styles %>
+						<a href="/tags/<%=tag.id%>">#<%= tag %></a>&nbsp;  
+					<% end %>
+				<br/>
+			<%end %>
 		</div>
-		<div class="col-md-5 social-media">
+		<div class="col-md-4 social-media">
                   <!-- in helpers/users_helper.rb -->
                   <%= make_contact_icon(@user.yt_url,
 		      "youtube-icon.png") %>
@@ -41,9 +47,7 @@
                   <%= make_contact_icon(@user.ig_url,
 		      "insta-icon.png") %>
                   <%= make_contact_icon(@user.twtr_url,
-		      "twitter-icon.png") %>
-
-<br/>	
+		      "twitter-icon.png") %><br/>	
 			<b>E-MAIL:</b> <%= @user.email %> <br/>
                         <% phone_num = @user.get_phone_number %>
                         <% if phone_num != "" %>
@@ -51,17 +55,15 @@
                         <% end %>
 		</div>
 	</div>
-	<br>
-	<br/>
 
 	<h2>Experience 
 	<% if current_user.id == @user.id %>
-	<a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+		<a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
 	<% end %>
 	<% if current_user.id == @user.id %>
-	<% if @user.experiences.size == 0 %>
-		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
-	<% end %>
+		<% if @user.experiences.size == 0 %>
+			<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
+		<% end %>
 	<% end %>
 
 	<ul>
@@ -73,7 +75,6 @@
 	    	</li>
 	  	<% end %>
   	</ul>
-  	<br/>
 
   	<% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
   		<h2>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h2>
@@ -96,10 +97,6 @@
 	  	</ul>
   	<% end %>
 
-  	<h2>Styles</h2>
-  	<div style="padding-left:30px;">
-  	<% for tag in @user.styles %>
-		#<%= tag %>&nbsp;  
-	<% end %>
-	</div>
+
+
 </div>

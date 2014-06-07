@@ -71,6 +71,11 @@ DanceSpace::Application.routes.draw do
   resources :videochats
   post 'set_host_peer_id', to: "videochats#set_host_peer_id"
 
+  get 'autosearch_tags', to: "tags#get_search_tags"
+
+
+ resources :tags, only: [:index, :show, :edit, :update, :destroy]
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -5,12 +5,10 @@ function allautosearch(input, resultsID){
 
 
 	if(input.length > 1){
-		var resultsfound = false;
 		//search dancers
 		url = "/autosearch_dancers?query=" + input;
 		jQuery.get(url, function(data){
 			if(data.length>0){
-				resultsfound = true;
 				container.innerHTML += "<h3>Dancers</h3><p> &nbsp;<i>(" + data.length + " results)</i></p><br/>";
 				for(var i=0; i<data.length; i++){
 					container.innerHTML+=miniListing(data[i], "dancer");
@@ -22,7 +20,6 @@ function allautosearch(input, resultsID){
 		url = "/autosearch_studios?query=" + input;
 		jQuery.get(url, function(data){
 			if(data.length>0){
-				resultsfound = true;
 				container.innerHTML += "<h3>Studios</h3><p> &nbsp;<i>(" + data.length + " results)</i></p><br/>";
 				for(var i=0; i<data.length; i++){
 					container.innerHTML+=miniListing(data[i], "studio");
@@ -34,11 +31,19 @@ function allautosearch(input, resultsID){
 		url = "/autosearch_events?query=" + input;
 		jQuery.get(url, function(data){
 			if(data.length>0){
-				resultsfound = true;
 				container.innerHTML += "<h3>Events</h3><p> &nbsp;<i>" + data.length + " results)</i></p>";
 				for(var i=0; i<data.length; i++){
 					container.innerHTML +=miniListing(data[i], "event");
 				}				
+			}
+		});
+
+		//search tags
+		url = "/autosearch_tags?query=" + input;
+		jQuery.get(url, function(data){
+			if (data != null){
+				container.innerHTML += "<h3>Tags</h3>";
+				container.innerHTML += miniListing(data, "tag");
 			}
 		});
 	}
@@ -202,8 +207,10 @@ function miniListing(entry, type){
 			string+="<h5><a href= \"/studios/" + entry.id + " \" data-no-turbolink=\"true\" >" + entry.name + " </a></h5>";
 			break;
 		case "event":
-			string +="<h5><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h5>"
+			string +="<h5><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></h5>"
 			break;
+		case "tag":
+			string +="<h5><a href=\"/tags/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></h5>";
 	} 
 	return string;
 }

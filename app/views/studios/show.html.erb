@@ -38,7 +38,7 @@
 			<div class="col-md-3 spec">
 				<h2 style='padding-top:0px;margin-top:0px;'>Contact</h2>
 	
-	 			<h4>Created by: <a href="<%= user_path(get_studio_owner(@studio)) %>"><%=get_studio_owner(@studio).first_name%> <%=get_studio_owner(@studio).last_name%></a></h4>
+	 			<h4>Owner: <a href="<%= user_path(get_studio_owner(@studio)) %>"><%=get_studio_owner(@studio).first_name%> <%=get_studio_owner(@studio).last_name%></a></h4>
 				<b>E-MAIL:</b> <%= @studio.email %> <br/>
 	            <% phone_num = @studio.get_phone_number %>
 	                        <% if phone_num != "" %>
@@ -131,7 +131,7 @@
 					<!-- Events Listing -->
 					<% @events.each do |e| %>
 					<div>
-					  <h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
+					  <h3><b><a data-no-turbolink="true" href=<%= event_path(e) %>><%= e.name %></a></b></h3>
 					  <div><%= e.event_date
 					  %></div><div><%= e.event_time %></div></li>
 					</div>
@@ -141,7 +141,7 @@
 				  	<h2>Tags</h2>
 				  	<div style="padding-left:0px;">
 				  	<% for tag in @studio.tags %>
-						#<%= tag %>&nbsp;  
+						<a href="/tags/<%=tag.id%>">#<%= tag %></a>&nbsp;  
 					<% end %>
 					</div>
 				</div>

@@ -23,5 +23,6 @@ class HomeController < ApplicationController
   def studiosnearby
   	render :partial => "home/studiosnearby"
   end
+
   
 end
