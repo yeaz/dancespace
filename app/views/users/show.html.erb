@@ -42,17 +42,7 @@
       <%end%>
     </div>
     <div class="col-md-5 social-media">
-      <!-- in helpers/users_helper.rb -->
-      <%= make_contact_icon(@user.yt_url,
-	  "youtube-icon.png") %>
-      <%= make_contact_icon(@user.fb_url,
-	  "facebook-icon.png") %> <br/>
-      <%= make_contact_icon(@user.ig_url,
-	  "insta-icon.png") %>
-      <%= make_contact_icon(@user.twtr_url,
-	  "twitter-icon.png") %>
-
-      <br/>	
+      <br><br.
       <b>E-MAIL:</b> <%= @user.email %> <br/>
       <% phone_num = @user.get_phone_number %>
       <% if phone_num != "" %>

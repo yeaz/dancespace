@@ -131,7 +131,7 @@
       <!-- Events Listing -->
       <% @events.each do |e| %>
       <div>
-	<h3><b><a href=<%= event_path(e) %>><%= e.name %></a></b></h3>
+	<h3><b><a data-no-turbolink="true" href=<%= event_path(e) %>><%= e.name %></a></b></h3>
 	<div><%= e.event_date
 		 %></div><div><%= e.event_time %></div></li>
 </div>
