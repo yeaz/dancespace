@@ -109,8 +109,8 @@ Studio.create(name: 'Jake Studio',
 		    phone_area_code: "123", 
 		    phone_1: "555", 
 		    phone_2: "9876", 
-		    lat: 0, 
-		    lng: 0, 
+		    lat: 37.421313, 
+		    lng: -122.168424,
 		    is_location_set: 1, 
 		    zip_code: "94305", 
 		    address_line1: "22 Lasuen", 
@@ -120,6 +120,8 @@ Studio.create(name: 'Jake Studio',
 		    yt_username: "", 
 		    twtr_username: "", 
 		    photo_path: "")
+
+Membership.create(member_id: 1, studio_id: 1, is_admin: true, created_at: 0, updated_at: 0)
 
 # Experience Creation
 Experience.create(content: "wtwo", 
