@@ -18,7 +18,9 @@ DanceSpace::Application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
   
-  resources :users
+  resources :users do
+    get 'youtube_videos', to: 'users#get_all_yt_videos'
+  end
   get 'user_settings', to: 'users#edit_profile'
   get 'random_user', to: 'users#get_random_user'
   get 'all_dancers', to: 'users#get_all_dancers'

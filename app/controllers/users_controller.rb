@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
+  before_action :get_user, only: [:get_all_yt_videos]
 
   include UsersHelper
   include StudioHelper
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    u_params = fix_contact_urls(user_params)
+    u_params = user_params#fix_contact_urls(user_params)
 
     @user = User.create(u_params)
     @user.save
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    u_params = fix_contact_urls(user_params)
+    u_params = user_params #fix_contact_urls(user_params)
     upload_photo(u_params, @user.id.to_s)
     @user.update(u_params)
     if @user.errors.any?
@@ -50,8 +51,33 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # facebook
     @fb_posts = get_facebook_posts(@user)
+    # twitter
+    @tweets = get_tweets(@user, "twtr_url")
+    #instagram
+    @ig_photos = get_instagram_photos(@user)
+    # youtube
+    pageToken = params[:page]
+    response = get_youtube_api_response(@user, 5, pageToken, "yt_url")
+    if response.nil?
+      @videos = nil
+    else
+      @videos = response[:items]
+    end
+
   end
 
+  def get_all_yt_videos
+    if @user.yt_url.blank?
+      redirect_to user_path(@user)
+    else
+      pageToken = params[:page]
+      response = get_youtube_api_response(@user, 50, pageToken, "yt_url")
+      @prevPageToken = response[:prevPageToken]
+      @nextPageToken = response[:nextPageToken]
+      @videos = response[:items] 
+    end
+  end
+  
   def get_random_user
     @user = User.offset(rand(User.count)).first
     respond_to do |format|
@@ -88,6 +114,16 @@ class UsersController < ApplicationController
   
   private
 
+    def get_user
+      if params[:user_id].blank? && params[:id].blank?
+        raise ActionController::RoutingError.new('Not Found')
+      elsif params[:id].blank?
+        @user = User.find(params[:user_id])
+      else
+        @user = User.find(params[:id])
+      end 
+    end
+  
   def user_params
     params.require(:user).permit(:photo_path, :email, :password, :password_confirmation,
                                  :title, :blurb, :city, :state, :style_list, :fb_url, :yt_url,

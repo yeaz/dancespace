@@ -5,130 +5,187 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+  }(document, 'script', 'facebook-jssdk'));</script>
 
 <%= render "home/navbar" %>
 <div class ="profile-container spec container">
-	<div class="profile-header row">
-		<div class="propic col-md-3">
-                  <%= get_user_profile_pic(@user.photo_path) %>
-		</div>
+  <div class="profile-header row">
+    <div class="propic col-md-3">
+      <%= get_user_profile_pic(@user.photo_path) %>
+    </div>
 
-		<div class="main-info col-md-4">
-			<h1><b><%= @user.get_full_name %></b>
-				<% if current_user.id == @user.id %>
-					<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
-				<% end %>
-			</h1>
-<br>
-			<p>
-			<% if @user.title!="" && @user.title !=nil%>
-				<%= @user.title %><br/>
-			<% elsif current_user.id == @user.id %>
-				<div class="reminder">Edit profile to add a title.</div>
-			<% end %>
-
-			<% if @user.city !="" && @user.city != nil%>
-				<%= @user.city %>, <%= @user.state %><br/>
-			<% elsif current_user.id == @user.id %>
-				<div class="reminder">Edit profile to add your current location.</div>
-			<% end %>
-			</p>
-
-			<% if @user.blurb!="" && @user.blurb != nil %>
-				<h4><div class="blurb"><%=@user.blurb%></div></h4>
-			<% elsif current_user.id == @user.id %>
-				<div class="reminder"> Edit profile to add a personal blurb about yourself.</div>
-			<%end%>
-		</div>
-		<div class="col-md-5 social-media">
-                  <!-- in helpers/users_helper.rb -->
-                  <%= make_contact_icon(@user.yt_url,
-		      "youtube-icon.png") %>
-                  <%= make_contact_icon(@user.fb_url,
-		      "facebook-icon.png") %> <br/>
-                  <%= make_contact_icon(@user.ig_url,
-		      "insta-icon.png") %>
-                  <%= make_contact_icon(@user.twtr_url,
-		      "twitter-icon.png") %>
-
-<br/>	
-			<b>E-MAIL:</b> <%= @user.email %> <br/>
-                        <% phone_num = @user.get_phone_number %>
-                        <% if phone_num != "" %>
-			<b>PHONE: </b><%= phone_num %>
-                        <% end %>
-		</div>
-	</div>
-	<br>
-	<br/>
-
-	<h2>Experience 
+    <div class="main-info col-md-4">
+      <h1><b><%= @user.get_full_name %></b>
 	<% if current_user.id == @user.id %>
-	<a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+	<%= link_to 'Edit', user_settings_path, class: "btn btn-warning" %>
 	<% end %>
-	<% if current_user.id == @user.id %>
-	<% if @user.experiences.size == 0 %>
-		<h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
+      </h1>
+      <br>
+      <p>
+	<% if @user.title!="" && @user.title !=nil%>
+	<%= @user.title %><br/>
+	<% elsif current_user.id == @user.id %>
+	<div class="reminder">Edit profile to add a title.</div>
 	<% end %>
+
+	<% if @user.city !="" && @user.city != nil%>
+	<%= @user.city %>, <%= @user.state %><br/>
+	<% elsif current_user.id == @user.id %>
+	<div class="reminder">Edit profile to add your current location.</div>
 	<% end %>
+      </p>
 
-	<ul>
-		<% @user.experiences.each do |exp| %>
-	    	<li><%= exp.content %>
-	    	<% exp.experiencelinks.each do |link| %>
-	      		<%=  get_collab_field(link) %>
-	    	<% end %>
-	    	</li>
-	  	<% end %>
-  	</ul>
-  	<br/>
+      <% if @user.blurb!="" && @user.blurb != nil %>
+      <h4><div class="blurb"><%=@user.blurb%></div></h4>
+      <% elsif current_user.id == @user.id %>
+      <div class="reminder"> Edit profile to add a personal blurb about yourself.</div>
+      <%end%>
+    </div>
+    <div class="col-md-5 social-media">
+      <!-- in helpers/users_helper.rb -->
+      <%= make_contact_icon(@user.yt_url,
+	  "youtube-icon.png") %>
+      <%= make_contact_icon(@user.fb_url,
+	  "facebook-icon.png") %> <br/>
+      <%= make_contact_icon(@user.ig_url,
+	  "insta-icon.png") %>
+      <%= make_contact_icon(@user.twtr_url,
+	  "twitter-icon.png") %>
 
-  	<% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
-  		<h2>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h2>
-		<h4 class="reminder">Create a page for it! Once you create a studio, it's page will be linked here on your profile.</h4>
-  	<% else %>
-	  	<h2>Studios Owned
-	  		<% if current_user.id == @user.id %>
-					<%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
-			<% end %>
-		</h2>
+      <br/>	
+      <b>E-MAIL:</b> <%= @user.email %> <br/>
+      <% phone_num = @user.get_phone_number %>
+      <% if phone_num != "" %>
+      <b>PHONE: </b><%= phone_num %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <br/>
 
-		<ul>
-		  	<% for s in @user.get_studios_that_user_owns %>
-			  	<li>
-			  		<h3><%= link_to(s.name,
-			  		studio_path(s),
-			  		"data-no-turbolink" => "true") %></h3>
-			  	</li>
-		  	<%end%>
-	  	</ul>
-  	<% end %>
+  <h2>Experience 
+    <% if current_user.id == @user.id %>
+    <a href="<%= add_experience_path %>" class="btn btn-warning">Add Experience</a></h2>
+  <% end %>
+  <% if current_user.id == @user.id %>
+  <% if @user.experiences.size == 0 %>
+  <h4 class="reminder">Tell us more about your life. Add some experiences here!</h4>
+  <% end %>
+  <% end %>
 
-  	<h2>Styles</h2>
-  	<div style="padding-left:30px;">
-  	<% for tag in @user.styles %>
-		#<%= tag %>&nbsp;  
-	<% end %>
-	</div>
+  <ul>
+    <% @user.experiences.each do |exp| %>
+    <li><%= exp.content %>
+      <% exp.experiencelinks.each do |link| %>
+      <%=  get_collab_field(link) %>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+  <br/>
 
-    <div class='col-md-4' id='fbfeed'>
-      <h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
-      <div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
-        <% if !@fb_posts.nil? %>
-	<% for post in @fb_posts %>
-	<div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
+  <% if current_user.id == @user.id && @user.get_studios_that_user_owns.size==0 %>
+  <h2>Own a studio? <%= link_to 'Add Your Studio', new_studio_path, class: "btn btn-warning" %></h2>
+  <h4 class="reminder">Create a page for it! Once you create a studio, it's page will be linked here on your profile.</h4>
+  <% else %>
+  <h2>Studios Owned
+    <% if current_user.id == @user.id %>
+    <%= link_to 'Create Studio', new_studio_path, class: "btn btn-warning" %>
+    <% end %>
+  </h2>
 
-        <% end %>
-        <% else %>
-        <h3 class='reminder'>
-          You haven't linked your Facebook profile yet. This can be fixed on the edit page!
-        </h3>
-        <% end %>
+  <ul>
+    <% for s in @user.get_studios_that_user_owns %>
+    <li>
+      <h3><%= link_to(s.name,
+	      studio_path(s),
+	      "data-no-turbolink" => "true") %></h3>
+    </li>
+    <%end%>
+  </ul>
+  <% end %>
+
+  <h2>Styles</h2>
+  <div style="padding-left:30px;">
+    <% for tag in @user.styles %>
+    #<%= tag %>&nbsp;  
+    <% end %>
+  </div>
+
+  <div class='container spec' id='socialfeeds'>
+    <div class='row' id='ytfeed'>
+      <div class='col-md-12'>
+        <h2>YouTube Channel <%= image_tag "youtube-icon.png", height:
+        "50px" %></h2>
+              <%= link_to 'See All Youtube Videos', user_youtube_videos_path(@user) %>
+        <div id='ytviewer'></div>
+        <p>
+	  <% if !@videos.nil? %>
+	  <% for video in @videos %>
+	  <img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+	  &nbsp;
+	  <% end %>
+	  <% else %>
+	  <h3 class='reminder'>
+	    You haven't linked your YouTube channel yet. This can be fixed on the edit page!
+	  </h3>
+	  <% end %>
+        </p>
       </div>
     </div>
 
+    
+    <div class='row'>
+      <div class='col-md-4' id='fbfeed'>
+        <h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
+        <div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
+          <% if !@fb_posts.nil? %>
+	  <% for post in @fb_posts %>
+	  <div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
 
+          <% end %>
+          <% else %>
+          <h3 class='reminder'>
+            You haven't linked your Facebook profile yet. This can be fixed on the edit page!
+          </h3>
+          <% end %>
+        </div>
+      </div>
+      <div class='col-md-4' id='twfeed'>
+        <h2>Tweets <%= image_tag "twitter-icon.png", height: "50px" %></h2>
+        <div id='alltwposts' style="overflow-y:scroll;max-height:500px;">
+          <% if !@tweets.nil? %>
+          <% for tweet in @tweets %>
+          <%= tweet.html_safe %>
+          <% end %>
+          <% else %>
+          <h3 class='reminder'>
+	    You haven't linked your Twitter yet. This can be fixed on the edit page!
+	  </h3>
+
+          <% end %>
+        </div>
+      </div>
+      <div class='col-md-4' id='igfeed'>
+        <h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
+        <p>
+	  <div id='alligposts' style="overflow-y:scroll;max-height:500px;">
+            <% if !@ig_photos.nil? %>
+            <% for photo_url in @ig_photos %>
+            <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+            <% end %>
+            <% else %>
+            <h3 class='reminder'>
+              You haven't linked your Instagram account yet. This can be fixed on the edit page!
+            </h3>
+            <% end %>
+          </div>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </div>
 
