@@ -67,6 +67,9 @@ DanceSpace::Application.routes.draw do
   resources :studios
   get 'all_studios', to: "studios#get_all_studios"
   get 'autosearch_studios', to: "studios#get_search_studios"
+  
+  resources :videochats
+  post 'set_host_peer_id', to: "videochats#set_host_peer_id"
 
   
   # The priority is based upon order of creation: first created -> highest priority.

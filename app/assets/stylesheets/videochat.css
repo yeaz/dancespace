@@ -1,0 +1,13 @@
+#their-video {
+  background-color: #EEEEEE;
+  height: 75%;
+  max-height: 480px;
+  width: 100%;
+}
+
+#my-video {
+  background-color: #EEEEEE;
+  height: auto;
+  margin-top: 15px;
+  width: 280px;
+}
