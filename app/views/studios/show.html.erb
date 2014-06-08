@@ -140,6 +140,23 @@
       </p>
     </div>
   </div>
+
+
+<div class='container spec'>
+  <div class='row'>
+    <div class='col-md-8'>
+      <h2>Upcoming Events  
+	<% if current_user_owns_studio(@studio.id) %>
+	<%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
+	<% end %>
+      </h2>
+      <!-- Events Listing -->
+      <% @events.each do |e| %>
+        <h3><b><a href="<%= event_path(e) %>"  data-no-turbolink="true"><%= e.name %></a></b></h3>
+        <div><b><%= e.event_date %> at <%= e.event_time.strftime("%H:%M") %></b>, Hosted by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a>
+<% end %>
+</div>
+
 <div class='row'>
   <div class='col-md-12'>
   </div>
