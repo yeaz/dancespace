@@ -1,8 +1,12 @@
-<%= form_for @videochat do |f| %>
-  <div>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.submit 'Edit Videochat Room' %>
-  </div>
-<% end %>
+<%= render "home/navbar" %>
+<div class="spec container">
+	<h1>Rename Video Chatroom</h1>
+	<%= bootstrap_form_for @videochat do |f| %>
+	  <div>
+	    <%= f.text_field :title, hide_label:true %>
+	  </div>
+	  <div>
+	    <%= f.submit 'Submit' %>
+	  </div>
+	<% end %>
+</div>
