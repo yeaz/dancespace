@@ -106,14 +106,20 @@ module StudioHelper
   # returns an array of post hashes, nil if there is no fb url for
   # this studio
   def get_facebook_posts(studio)
-    graph = Koala::Facebook::API.new(facebook_api_key)
-    if studio.fb_url.nil? or studio.fb_url == ""
-      return nil
+    puts 'FACEBOOK'
+    begin
+      graph = Koala::Facebook::API.new(facebook_api_key)
+      if studio.fb_url.nil? or studio.fb_url == ""
+        return nil
+      end
+      facebook_page_id = get_facebook_page_id(studio.fb_url, graph)
+      puts facebook_page_id
+      posts = graph.get_connections(facebook_page_id, "feed")
+      posts = posts.select{ |post| filter_own_posts(post, facebook_page_id)}
+      return posts[0,5]
+    rescue
+      return -1
     end
-    facebook_page_id = get_facebook_page_id(studio.fb_url, graph)
-    posts = graph.get_connections(facebook_page_id, "feed")
-    posts = posts.select{ |post| filter_own_posts(post, facebook_page_id)}
-    return posts[0,5]
   end
 
   def get_ig_username(url)
@@ -135,15 +141,19 @@ module StudioHelper
     if studio.ig_url.nil? or studio.ig_url == ""
       return nil
     end
-    username = get_ig_username(studio.ig_url)
-    user_obj = Instagram.user_search(username)
-    if user_obj.nil? or user_obj.length == 0
-      return nil
+    begin
+      username = get_ig_username(studio.ig_url)
+      user_obj = Instagram.user_search(username)
+      if user_obj.nil? or user_obj.length == 0
+        return nil
+      end
+      ig_id = user_obj[0]["id"]
+      pictures = Instagram.user_recent_media(ig_id, {count: 10}) # change the # of photos to get here
+      urls = get_photo_urls(pictures)
+      return urls[0,5]
+    rescue
+      return -1
     end
-    ig_id = user_obj[0]["id"]
-    pictures = Instagram.user_recent_media(ig_id, {count: 10}) # change the # of photos to get here
-    urls = get_photo_urls(pictures)
-    return urls[0,5]
   end
 
   def get_photo_urls(pictures)
@@ -160,11 +170,12 @@ module StudioHelper
   end
 
   
-    def get_tweets(studio, field_name)
-      handle = studio.send(field_name)
-      if handle.blank?
-        return nil
-      end
+  def get_tweets(studio, field_name)
+    handle = studio.send(field_name)
+    if handle.blank?
+      return nil
+    end
+    begin
       tweets = []
       puts 'TWITTER'
       puts handle
@@ -177,20 +188,20 @@ module StudioHelper
       
       # Twitter Status API params
       status_params = {:screen_name => handle, 
-                :count => 5, 
-                :exclude_replies => true}
-                
+        :count => 5, 
+        :exclude_replies => true}
+      
       # Send Twitter Search API request
       response = RestClient.get twtr_status_api_url, 
-                               :params => status_params, 
-                               :authorization => twtr_auth_header
+      :params => status_params, 
+      :authorization => twtr_auth_header
       
       if response.code == 200
         json = JSON.parse(response)
         for tweet in json
           request_url = twtr_oembed_api_url + 'id=' + tweet['id_str']
           response = RestClient.get request_url
-                                                                        
+          
           if response.code == 200
             json = JSON.parse(response)
             tweets << json['html']
@@ -198,17 +209,21 @@ module StudioHelper
         end
       end
       tweets
+    rescue
+      return -1
     end
+  end
 
     
     def get_youtube_api_response(studio, maxResults = 5, pageToken = '', field_name)
       puts 'YOUTUBE'
       puts field_name
+      
       username = studio.send(field_name)
       if username.blank?
         return nil
       end
-      
+      begin
       prevPageToken = ''
       nextPageToken = ''
       items = []
@@ -255,5 +270,8 @@ module StudioHelper
       { :prevPageToken => prevPageToken, 
        :nextPageToken => nextPageToken, 
        :items => items }
+      rescue
+      return -1
+      end
     end
 end

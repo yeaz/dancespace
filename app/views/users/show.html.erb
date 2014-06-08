@@ -129,15 +129,19 @@
       <div class='col-md-4' id='fbfeed'>
         <h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
         <div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
-          <% if !@fb_posts.nil? %>
-	  <% for post in @fb_posts %>
-	  <div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
-
-          <% end %>
-          <% else %>
+          <% if @fb_posts.nil? %>
           <h3 class='reminder'>
             You haven't linked your Facebook profile yet. This can be fixed on the edit page!
           </h3>
+          <% elsif @fb_posts == -1 %>
+          <h3 class='reminder'>Unfortunately, there was a problem
+	    getting these Facebook posts. Sorry! Make sure it's a
+	    public page.</h3>
+          <% else %>
+	  <% for post in @fb_posts %>
+	  <div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
+          <% end %>
+
           <% end %>
         </div>
       </div>
