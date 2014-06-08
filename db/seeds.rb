@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -5,6 +6,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' },     { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel',     city: cities.first)
+
 
 roles = Role.create([{ name: 'Choreographer' }, 
                      { name: 'Studio_owner' }])
@@ -483,9 +485,100 @@ Event.create(name: "Wings and Dubstep",
               event_time: "20:00:00"
              )
 
+Event.create(name: "Hip Hop Dance Off At the Beach",
+             description: "Think you have what it takes to beat the competition? Come to our monthly hip hop dance-off to show us what you got. Prizes and glory await.",
+             studio_id: 3,
+             created_at: 0, 
+             updated_at: 0, 
+              address_line1: "The Strand",
+              address_line2: "", 
+              city: "Hermosa Beach",
+              state: "CA",
+              lat: 33.872716,
+             lng: -118.406151,
+              is_location_set: 1, 
+              zip_code: "90254",
+              event_date: "2014-06-22",
+              event_time: "20:00:00"
+             )
+
+
+Event.create(name: "Kinjaz Goes to the West Coast",
+             description: "Special one night only performance in San Francisco!",
+             studio_id: 2,
+             created_at: 0, 
+             updated_at: 0,
+             lat: 37.764028,
+              lng: -122.416464,
+              is_location_set: 1, 
+              address_line1: "3153 17th St",
+              address_line2: "", 
+              city: "San Francisco",
+              state: "CA",
+              zip_code: "94110",
+              is_location_set: 1, 
+              event_date: "2014-06-15",
+              event_time: "20:00:00"
+             )
+
+Event.create(name: "Marty Kudelka Master Class",
+             description: "Freshen up your hip hop moves with this star choreographer,  who's worked with stars like Justin Timberlake, Pink, and many more!",
+             studio_id: 2,
+             created_at: 0, 
+             updated_at: 0,
+             lat: 40.806,
+              lng: -73.9474,
+              is_location_set: 1, 
+              address_line1: "114 W 123rd St",
+              address_line2: "", 
+              city: "New York",
+              state: "NY",
+              zip_code: "10027",
+              is_location_set: 1, 
+              event_date: "2014-06-15",
+              event_time: "20:00:00"
+             )
+
+Event.create(name: "Tina Landon Lecture/Demonstration",
+             description: "Come hear Tina Landon, one of the ballet greats of her generation, discuss the direction that ballet is moving towards at Stanford University",
+             studio_id: 1,
+             created_at: 0, 
+             updated_at: 0, 
+              address_line1: "Memorial Auditorium",
+              address_line2: "", 
+              city: "Stanford",
+              state: "CA",
+              lat: 37.429181,
+              lng: -122.166479,
+              is_location_set: 1, 
+              zip_code: "94305",
+              event_date: "2014-07-01",
+              event_time: "20:00:00"
+             )
+
+Event.create(name: "Student Performance Showcase",
+             description: "We are thrilled to announce the return of the ever-popular BDC Student Performance Showcase, and delighted to have booked the legendary Peter Jay Sharp Theatre at Symphony Space for the event!\nHere is your chance to show what you have learned, to add a new dimension to your dance experience and to grow as a performer. The BDC Student Performance Showcase is open to ALL students of ALL levels — choose a choreographer that suits your level and style.",
+             studio_id: 1,
+             created_at: 0, 
+             updated_at: 0, 
+              address_line1: "155 W 65th St",
+              address_line2: "", 
+              city: "New York",
+              state: "NY",
+              lat: 40.773933,
+              lng: -73.982796,
+              is_location_set: 1, 
+              zip_code: "10023",
+              event_date: "2014-07-10",
+              event_time: "20:00:00"
+             )
+
+
+
+
 ########### USER TAGS ############
 
-tags = ["contemporary", "jazz", "ballet", "hip hop", "modern", "salsa", "swing", "tap"]
+tags = ["contemporary", "jazz", "ballet", "hip hop", "modern", "salsa", "swing", "tap", "dubstep"]
 
 for tag in tags
   ActsAsTaggableOn::Tag.create(
@@ -777,12 +870,76 @@ ActsAsTaggableOn::Tagging.create(
 
 #### STUDIO TAGS #########
 
-# for tag in tags[1,5]
-#   ActsAsTaggableOn::Tagging.create(
-#                                  tag_id: 8,
-#                                  taggable_id: 1,
-#                                  context: 'tags',
-#                                  taggable_type: 'Studio',
-#                                  created_at: 0)
-# end
+(1..5).each do |i|
+  ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 1,
+                                 context: 'tags',
+                                 taggable_type: 'Studio',
+                                 created_at: 0)
+end
 
+(4..8).each do |i|
+    ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 2,
+                                 context: 'tags',
+                                 taggable_type: 'Studio',
+                                 created_at: 0)
+end
+
+(3..7).each do |i|
+    ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 3,
+                                 context: 'tags',
+                                 taggable_type: 'Studio',
+                                 created_at: 0)
+end
+
+
+######### EVENT TAGS #########
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 1,
+                                 context: 'tags',
+                                 taggable_type: 'Event',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 9,
+                                 taggable_id: 2,
+                                 context: 'tags',
+                                 taggable_type: 'Event',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 5,
+                                 taggable_id: 3,
+                                 context: 'tags',
+                                 taggable_type: 'Event',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 4,
+                                 context: 'tags',
+                                 taggable_type: 'Event',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 3,
+                                 taggable_id: 5,
+                                 context: 'tags',
+                                 taggable_type: 'Event',
+                                 created_at: 0)
+
+(2..5).each do |i|
+  ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 6,
+                                 context: 'tags',
+                                 taggable_type: 'Event',
+                                 created_at: 0)
+end
