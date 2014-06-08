@@ -388,7 +388,7 @@ Experiencelink.create(
                       updated_at: 0,
                       collab_name: "")
 
-########## Studios #######################
+########## Studios and Memberships #######################
 
 Studio.create(name: 'Broadway Dance Center', 
               description: "Offers beginning to advanced classes of all ages in ballet, jazz, tap, modern, theater, hip hop, and more.",
