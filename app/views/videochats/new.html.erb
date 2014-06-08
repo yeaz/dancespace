@@ -1,8 +1,13 @@
-<%= form_for @videochat do |f| %>
-  <div>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.submit 'Create Videochat Room' %>
-  </div>
-<% end %>
+<%= render "home/navbar" %>
+<div class="spec container">
+	<h1>New Video Chat</h1>
+	<h5>Here you can create a new video chat to start a live video feed between you and other DanceSpace users. What are you waiting for? Go forth and collab!</h5><br/>
+	<%= bootstrap_form_for @videochat do |f| %>
+	  <div>
+	    <%= f.text_field :title, placeholder: "Chatroom Name", hide_label: true %>
+	  </div>
+	  <div>
+	    <%= f.submit 'Create New Video Chatroom!' %>
+	  </div>
+	<% end %>
+</div>

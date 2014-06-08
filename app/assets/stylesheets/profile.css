@@ -63,3 +63,13 @@
 	color: #BABABA;
 	font-style: italic;
 }
+
+#show-studio-map-canvas{
+	position: relative;
+	left: 0px;
+}
+
+#make-a-call{
+	position:inline-block;
+	text-align: right;
+}
