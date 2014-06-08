@@ -58,7 +58,7 @@
       <div id='ytviewer'></div>
       <p>
       	<% if !@videos.nil? %>
-          <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
+          <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %><br>
         	<% for video in @videos %>
       	     <img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
       	     &nbsp;
@@ -138,75 +138,17 @@
           <% end %>
         </div>
       </div>
-      <div class='col-md-4' id='igfeed'>
-        <h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
-        <p>
-	  <div id='alligposts' style="overflow-y:scroll;max-height:500px;">
-            <% if !@ig_photos.nil? %>
-            <% for photo_url in @ig_photos %>
-            <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-            <% end %>
-            <% else %>
-            <h3 class='reminder'>
-              You haven't linked your Instagram account yet. This can be fixed on the edit page!
-            </h3>
-            <% end %>
-          </div>
-        </p>
-      </div>
     </div>
-<<<<<<< HEAD
-
-  </div>
-
-<div class='container spec'>
-  <div class='row'>
-    <div class='col-md-8'>
-      <h2>Upcoming Events  
-	<% if current_user_owns_studio(@studio.id) %>
-	<%= link_to 'Create Event', new_studio_event_path(studio_id: @studio), class: "btn btn-warning" %> 
-	<% end %>
-      </h2>
-      <!-- Events Listing -->
-      <% @events.each do |e| %>
-      <div>
-	<h3><b><a data-no-turbolink="true" href=<%= event_path(e) %>><%= e.name %></a></b></h3>
-	<div><%= e.event_date
-		 %></div><div><%= e.event_time %></div></li>
-</div>
-<% end %>
-</div>
-<div class='col-md-4'>
-  <h2>Tags</h2>
-  <div style="padding-left:0px;">
-    <% for tag in @studio.tags %>
-    #<%= tag %>&nbsp;  
-    <% end %>
-  </div>
-</div>
-</div>
-
 <div class='row'>
   <div class='col-md-12'>
-=======
   </div>
   <div class='row container spec'>
->>>>>>> sarah_finalsprint
     <h2>Studio Location</h2>
     <div id="show-studio-map-canvas"></div><br/>
-    <!-- see makeStreetView function in --
-<<<<<<< HEAD
-    -- javascripts/show_studio_map.js -->
+        <h2>Street View</h2>
     <div id="show-studio-streetview-canvas"></div>
   </div>
 </div>
 </div>
-=======
-      -- javascripts/show_studio_map.js -->
-    <h2>Street View</h2>
-    <div id="show-studio-streetview-canvas"></div>
-  </div>
-</div>
->>>>>>> sarah_finalsprint
 
 <div id="get_studio_id"><%= @studio.id %></div>
