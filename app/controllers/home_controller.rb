@@ -4,7 +4,23 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :about]
   
   def search
-    @results = ThinkingSphinx.search params[:query], :classes => [User, Studio, Video, Event]
+    if params[:query].blank?
+      @results = []
+    else
+      @results = []
+      users = User.where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%").limit(5)
+      studios = Studio.where("name LIKE ? OR description LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").limit(5)
+      events = Event.where('name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%").limit(5)
+      for user in users
+        @results << user
+      end
+      for studio in studios
+        @results << studio
+      end
+      for event in events
+        @results << event 
+      end
+    end
   end
 
   def eventsfeed
@@ -23,5 +39,6 @@ class HomeController < ApplicationController
   def studiosnearby
   	render :partial => "home/studiosnearby"
   end
+
   
 end

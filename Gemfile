@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
+# Use MySQL as database
 group :development do
   gem 'mysql2'
 end
@@ -69,7 +70,7 @@ gem 'cancan'
 gem 'devise'
 
 # Use Sphinx search engine for text-based search
-gem 'thinking-sphinx'
+# gem 'thinking-sphinx'
 
 # Use to request API calls on the server side
 gem 'rest-client'
@@ -80,8 +81,9 @@ gem 'json'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
-#gem 'capistrano'
-#gem 'capistrano-ext'
+# Use capistrano for deployment
+gem 'capistrano'
+gem 'capistrano-ext'
 
 
 # Use debugger

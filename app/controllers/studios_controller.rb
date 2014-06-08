@@ -8,7 +8,7 @@ class StudiosController < ApplicationController
   include StudioHelper
   
   def index
-    @studios = Studio.search params[:search]
+    @studios = Studio.limit(20)
   end
   
   def new
@@ -48,7 +48,7 @@ class StudiosController < ApplicationController
       redirect_to studio_path(@studio)
     else
       pageToken = params[:page]
-      response = get_youtube_api_response(@studio, 50, pageToken)
+      response = get_youtube_api_response(@studio, 50, pageToken, "yt_username")
       @prevPageToken = response[:prevPageToken]
       @nextPageToken = response[:nextPageToken]
       @videos = response[:items] 
@@ -64,7 +64,7 @@ class StudiosController < ApplicationController
     
     # Youtube
     pageToken = params[:page]
-    response = get_youtube_api_response(@studio, 5, pageToken)
+    response = get_youtube_api_response(@studio, 5, pageToken, "yt_username")
     if response.nil?
       @videos = nil
     else
@@ -75,7 +75,7 @@ class StudiosController < ApplicationController
     @fb_posts = get_facebook_posts(@studio)
     
     # Twitter
-    @tweets = get_tweets(@studio)
+    @tweets = get_tweets(@studio, "twtr_username")
     
     # Instagram
     @ig_photos = get_instagram_photos(@studio)
@@ -137,7 +137,11 @@ class StudiosController < ApplicationController
   end
 
   def get_search_studios
-    @results = Studio.search params[:query]
+    if params[:query ].blank?
+      @results = Studio.limit(20)
+    else
+      @results = Studio.where("name LIKE ? OR description LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").limit(20)
+    end
     respond_to do |format|
       format.json{render json: @results}
     end
@@ -162,97 +166,7 @@ class StudiosController < ApplicationController
       end 
     end
     
-    def get_youtube_api_response(studio, maxResults = 5, pageToken = '') 
-      if studio.yt_username.blank?
-        return nil
-      end
-      
-      prevPageToken = ''
-      nextPageToken = ''
-      items = []
-      
-      # Google API Key
-      google_api_key = 'AIzaSyC4WCykK27pFFElrwy72AvUDWS812e0DKk'
-      # Youtube Channel API URL 
-      youtube_channel_api_url = 'https://www.googleapis.com/youtube/v3/channels'
-      # Youtube Playlist API URL
-      youtube_playlist_api_url = 'https://www.googleapis.com/youtube/v3/playlistItems'
     
-      # Channel API params
-      channel_params = { :part => 'contentDetails',
-                 :forUsername => studio.yt_username,
-                 :key => google_api_key }
-                 
-      channel_response = RestClient.get youtube_channel_api_url,
-                                        :params => channel_params
-    
-      if channel_response.code == 200
-        json = JSON.parse(channel_response)
-        uploads_playlist_id = json['items'][0]['contentDetails']['relatedPlaylists']['uploads']
-        if !uploads_playlist_id.blank?
-          # Playlist API params 
-          playlist_params = { :part => 'contentDetails',
-                              :playlistId => uploads_playlist_id,
-                              :maxResults => maxResults,
-                              :pageToken => pageToken,
-                              :key => google_api_key }
-                              
-          playlist_response = RestClient.get youtube_playlist_api_url,
-                                    :params => playlist_params
-          
-          if playlist_response.code == 200
-            json = JSON.parse(playlist_response)
-            prevPageToken = json['prevPageToken']
-            nextPageToken = json['nextPageToken']
-            for item in json['items']
-              items << item['contentDetails']['videoId']
-            end
-          end
-        end
-      end
-      { :prevPageToken => prevPageToken, 
-       :nextPageToken => nextPageToken, 
-       :items => items }
-    end
-    
-    def get_tweets(studio)
-      if studio.twtr_username.blank?
-        return nil
-      end
-      
-      tweets = []
-      
-      # Authorization header with Twitter API bearer token
-      twtr_auth_header='Bearer AAAAAAAAAAAAAAAAAAAAADRrWQAAAAAApUt6lWbEy4UE1wOZdDpGOruYyZ4%3DfoxWCyjFFURIDxrOjMuAVHKvkoMHrKnQH9dtMqKVBfAKAP4gyF'
-      # Twitter Status API URL 
-      twtr_status_api_url='https://api.twitter.com/1.1/statuses/user_timeline.json'
-      # Twitter Oembed API URL
-      twtr_oembed_api_url='https://api.twitter.com/1/statuses/oembed.json?'
-      
-      # Twitter Status API params
-      status_params = {:screen_name => studio.twtr_username, 
-                :count => 5, 
-                :exclude_replies => true}
-                
-      # Send Twitter Search API request
-      response = RestClient.get twtr_status_api_url, 
-                               :params => status_params, 
-                               :authorization => twtr_auth_header
-      
-      if response.code == 200
-        json = JSON.parse(response)
-        for tweet in json
-          request_url = twtr_oembed_api_url + 'id=' + tweet['id_str']
-          response = RestClient.get request_url
-                                                                        
-          if response.code == 200
-            json = JSON.parse(response)
-            tweets << json['html']
-          end
-        end
-      end
-      tweets
-    end
 
     def upload_photo(s_params, id, photo_path)
       if photo_path.nil?

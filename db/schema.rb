@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 20140607180440) do
     t.text     "address_line2"
     t.text     "city",                         null: false
     t.text     "state",                        null: false
-    t.string   "yt_username"
-    t.string   "twtr_username"
+    t.string   "yt_username",     default: ""
+    t.string   "twtr_username",   default: ""
     t.string   "photo_path",      default: ""
   end
 

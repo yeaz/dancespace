@@ -29,9 +29,8 @@
 	    <script>
 		    setUpAJAX("query");
 			function setUpAJAX(inputelem){
-				console.log("AJAX hath been set up.");
 				var onkeyupelem = document.getElementById(inputelem);
-				onkeyupelem.onkeyup = function(){
+				onkeyupelem.oninput = function(){
 					var input = document.getElementById(inputelem).value;
 					allautosearch(input, "allresults");
 				}
@@ -52,6 +51,7 @@
 </div>			
 </nav>
 <div id="allresults"></div>
+<div id="tmp">working!</div>
 	<!--  TODO adjust style as needed
 	style="background:#732C7C;background-color:#6f5499; 
 																			background-image:-webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);

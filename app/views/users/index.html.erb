@@ -12,7 +12,6 @@
 
 	<script>
 		setUpAJAX("search", "userresults")
-
 		function setUpAJAX(inputelem, resultsID){
 			var onkeyupelem = document.getElementById(inputelem);
 			onkeyupelem.onkeyup = function(){
@@ -26,7 +25,11 @@
 		<% for d in @users do %>
 			<div class="row">
 				<div class="listing-photo col-md-2">
-					<%= image_tag "blank_profile.jpg" %>
+					<% if d.photo_path != "" && d.photo_path != nil %>
+						<img src='/images/<%=d.photo_path%>'>
+					<% else %>
+						<%= image_tag "blank_profile.jpg" %>
+					<% end %>
 				</div>
 				<div class="col-md-6">
 					<h3><b><a href=<%= user_path(d) %>><%= d.get_full_name %></a></b></h3>
@@ -34,9 +37,13 @@
 					<div class="listing-blurb"><h5><%= d.blurb %> </h5></div>
 				</div>
 				<div class="col-md-4 social-media">
-					<h4><%= d.city %>, <%= d.state %></h4>
+					<% if d.city!="" && d.city!= nil %>
+						<h4><%= d.city %>, <%= d.state %></h4>
+					<% end %>
 					<b>E-MAIL:</b> <%= d.email %> <br/>
-					<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
+					<% if d.phone_area_code != "" && d.phone_area_code != nil %>
+						<b>PHONE: </b>(<%= d.phone_area_code %>) <%= d.phone_1 %> - <%= d.phone_2 %>
+					<%end%>
 				</div>
 			<hr>
 			</div>

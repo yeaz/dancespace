@@ -6,8 +6,25 @@
 }
 
 #my-video {
-  background-color: #EEEEEE;
+  background-color: #EEEEFF;
   height: auto;
   margin-top: 15px;
-  width: 280px;
+  width: 180px;
+  position:absolute;
+  bottom:6px;
+  right:0px;
+}
+
+.videochatwindows{
+	position:relative;
+}
+
+.vidchatindex h4{
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.vidchatindex h5{
+  padding-top: 0px;
+  margin-top:0px;
 }

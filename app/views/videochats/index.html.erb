@@ -1,3 +1,15 @@
-<% for videochat in @videochats %>
-  <%= link_to videochat.title, videochat_path(videochat) %>
-<% end %>
+<%= render "home/navbar" %>
+<div class="spec container vidchatindex">
+	<h1>Video Stream</h1>
+	<p>Watch others streams or create your own!</p><br><br>
+	<a href="/videochats/new" class='btn btn-lg btn-warning'>Create New Stream</a>
+	<h2>Existing Streams</h2>
+	<ul>
+		<% for videochat in @videochats %>
+		  <li>
+		  	<h4><b><%= link_to videochat.title, videochat_path(videochat) %></b></h4>
+		  	<h5>Started by <%=link_to videochat.user.get_full_name, user_path(videochat.user) %></h5>
+		  </li>
+		<% end %>
+	</ul>
+</div>
