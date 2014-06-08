@@ -8,7 +8,7 @@ class StudiosController < ApplicationController
   include StudioHelper
   
   def index
-    @studios = Studio.search params[:search]
+    @studios = Studio.limit(20)
   end
   
   def new
@@ -137,7 +137,11 @@ class StudiosController < ApplicationController
   end
 
   def get_search_studios
-    @results = Studio.search params[:query]
+    if params[:query ].blank?
+      @results = Studio.limit(20)
+    else
+      @results = Studio.where("name LIKE ? OR description LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").limit(20)
+    end
     respond_to do |format|
       format.json{render json: @results}
     end

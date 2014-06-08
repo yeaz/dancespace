@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   before_action :get_studio, only: [:new, :create]
   
   def index
-    @events = Event.search params[:search]
+    @events = Event.limit(20)
   end
 
   def new
@@ -121,7 +121,11 @@ class EventsController < ApplicationController
   end
 
   def get_search_events
-    @results = Event.search params[:query]
+    if params[:query].blank?
+      @results = Event.limit(20)
+    else
+      @results = Event.where('name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%").limit(20) 
+    end
     respond_to do |format|
       format.json{render json: @results}
     end

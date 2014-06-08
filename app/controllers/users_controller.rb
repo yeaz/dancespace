@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   include StudioHelper
   
   def index
-    @users = User.search params[:search]
+    @users = User.limit(20)
   end
 
   def new
@@ -93,7 +93,11 @@ class UsersController < ApplicationController
   end
 
   def get_search_dancers
-    @results = User.search params[:query]
+    if params[:query].blank?
+      @results = User.limit(20)
+    else
+      @results = User.where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%").limit(20) 
+    end
     respond_to do |format|
       format.json{render json: @results}
     end

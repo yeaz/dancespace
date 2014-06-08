@@ -5,7 +5,7 @@ class VideosController < ApplicationController
   before_action :get_video, only: [:edit, :update, :destroy, :show]
 
   def index
-    @videos = Video.search params[:search]
+    @videos = Video.where('title LIKE ?', params[:search]).count(20)
   end
 
   def new
