@@ -12,6 +12,9 @@ class Event < ActiveRecord::Base
   validate :event_date_cannot_be_in_past
 
   def event_date_cannot_be_in_past
+    if event_date.nil? or event_time.nil?
+      return
+    end
     pst = 'Pacific Time (US & Canada)'
     event_date_time = make_date_time(event_date, event_time)
     if event_date_time < DateTime.now.in_time_zone(pst)
