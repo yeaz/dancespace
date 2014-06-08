@@ -8,7 +8,7 @@
 <!-- 		<div class="col-md-12 event-banner">
         	<%= get_event_profile_pic(@event.photo_path) %>
     	</div> -->
-		<div class="col-md-12 event-info">
+		<div class="col-md-9 event-info">
 			<h1>
 				<%= @event.name %>
 			</h1>
@@ -23,27 +23,34 @@
 		        <% end %>
 	        </h4>
 		</div>
+		<div class="col-md-3 event-info">
+			<%= get_event_profile_pic(@event.photo_path) %>
+		</div>
 	</div>
 
 	<div class='row'>
-		<div class="col-md-5">
+		<div class="col-md-5 event-description">
+			
 			<h2><b>About the Event</b></h2>
-			<h4><%= @event.description %></h4><br/>
+			<h4><%= @event.description %></h4>
 
 			<h5><b>Tags:</b>
 		  	   		<% for tag in @event.tags %>
 				 		<a href="/tags/<%=tag.id%>">#<%= tag %></a>&nbsp;  
 			   		<% end %>
 			</h5>
-		</div>
-		<div class="col-md-7 event-location">
-			<br/>
-			<p><b><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></b><br></p>
-			<h4>
+			<h2><b>Location</b></h2>
+			<% if @event.address_line1 == @event.studio.address_line1 %>
+				<h4 style="padding-bottom:0px; margin-bottom:0px; margin-top:0px"><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></h4>
+			<% end %>
+			<h5 style="margin-top:0px;">
 				<%= @event.address_line1 %> <%= @event.address_line2 %><br>
 				<%= @event.city %>, <%= @event.state %>
 				<%= @event.zip_code %>
-			</h4>
+			</h5>
+		</div>
+		<div class="col-md-7 event-location">
+			<br/>
 			<div id="show-event-map-canvas">
         	</div>
 		</div>

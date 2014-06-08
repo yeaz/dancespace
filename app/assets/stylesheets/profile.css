@@ -63,3 +63,7 @@
 	color: #BABABA;
 	font-style: italic;
 }
+
+#show-studio-map-canvas{
+	position: relative;
+	left: 0px;
