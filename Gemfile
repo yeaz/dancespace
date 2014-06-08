@@ -5,7 +5,9 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 
 # Use MySQL as database
-gem 'mysql2'
+group :development do
+  gem 'mysql2'
+end
 
 #See more at: http://everydayrails.com/2012/03/12/testing-series-rspec-setup.html#sthash.FNQMfuOF.dpuf
 group :test do 
@@ -20,6 +22,7 @@ group :test do
 end 
 
 group :production do
+  gem 'pg'
   gem 'rails_12factor'
 end
 
@@ -67,7 +70,7 @@ gem 'cancan'
 gem 'devise'
 
 # Use Sphinx search engine for text-based search
-gem 'thinking-sphinx'
+# gem 'thinking-sphinx'
 
 # Use to request API calls on the server side
 gem 'rest-client'
