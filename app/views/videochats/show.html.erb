@@ -1,9 +1,6 @@
 <% content_for :peer_js do %>
     <%= javascript_include_tag "http://cdn.peerjs.com/0.3/peer.js" %>
 <% end %>
-<% content_for :videochat_js do %>
-  <%= javascript_include_tag "videochat.js" %>
-<% end %>
 <script>
   <% if current_user == @videochat.user %>
     peer.on('open', function(){
