@@ -27,6 +27,11 @@
 
   // Click handlers setup
   $(function(){
+    $('#make-call').click(function() {
+      call = peer.call('<%= @videochat.host_peer_id %>', window.localStream);
+      step2(call);
+    });
+    
     $('#end-call').click(function(){
       window.existingCall.close();
       window.location = '/videochats'
@@ -82,6 +87,11 @@
       <div id="step1-error">
         <h4 style="color:red;"><b>Failed to access the webcam and microphone. Make sure to click allow when asked for permission by the browser.</b></h4>
         <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>
+      </div>
+      <div>
+      <% if current_user != @videochat.user %>
+        <a type="button" class="btn" id='make-call'>Join Call</a>
+      <% end %>
       </div>
     </div>
 
