@@ -48,33 +48,32 @@
   </div>
 </div>
 
-<div class='container spec' id='socialfeeds'>
-  <div class='row' id='ytfeed'>
-    <div class='col-md-12'>
-      <h2>YouTube Channel <%= image_tag "youtube-icon.png", height: "50px" %></h2>
-      <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
-      <div id='ytviewer'></div>
-      <p>
-	<% if @videos.nil? %>
-        <h3 class='reminder'>
-	  You haven't linked your YouTube channel yet. This can be fixed on the edit page!
-	</h3>
-        <% elsif @videos == -1 %>
-        <h3 class='reminder'>Unfortunately we're having some trouble
-	  connecting to YouTube. Make sure you entered a valid, public
-	  YouTube username. </h3>
-        <% else %>
-	<% for video in @videos %>
-	<img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
-	&nbsp;
-	<% end %>
-	<% end %>
-      </p>
+  <div class='container spec' id='socialfeeds'>
+    <div class='row' id='ytfeed'>
+      <div class='col-md-12'>
+        <h2>YouTube Channel <%= image_tag "youtube-icon.png", height:
+        "50px" %></h2>
+              <%= link_to 'See All Youtube Videos', studio_youtube_videos_path(@studio) %>
+        <div id='ytviewer'></div>
+        <p>
+	  <% if !@videos.nil? %>
+	  <% for video in @videos %>
+	  <img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+	  &nbsp;
+	  <% end %>
+	  <% else %>
+	  <h3 class='reminder'>
+	    You haven't linked your YouTube channel yet. This can be fixed on the edit page!
+	  </h3>
+	  <% end %>
+        </p>
+      </div>
     </div>
-  </div>
 
-  <div class='row'>
-
+    
+    <div class='row'>
+      <div class='col-md-4' id='fbfeed'>
+        <h2>Facebook Page <%= image_tag "facebook-icon.png", height: "50px" %></h2>
         <div id='allfbposts' style="overflow-y:scroll;max-height:500px;">
           <% if @fb_posts.nil? %>
           <h3 class='reminder'>
@@ -88,46 +87,44 @@
 	  <% for post in @fb_posts %>
 	  <div class="fb-post" data-href="<%= post["link"]%>" data-width="300"></div>
           <% end %>
-          <% end %>
-        </div>
-      </div>
-    <div class='col-md-4' id='twfeed'>
-      <h2>Tweets <%= image_tag "twitter-icon.png", height: "50px" %></h2>
-      <div id='alltwposts' style="overflow-y:scroll;max-height:500px;">
-        <% if @tweets.nil? %>
-        <h3 class='reminder'>
-	  You haven't linked your Twitter yet. This can be fixed on the edit page!
-	</h3>
-        <% elsif @tweets == -1 %>
-        <h3 class='reminder'>Unfortunately we're having some trouble connecting to Twitter. Make sure that you entered a valid, public Twitter handle! </h3>
-        <% else %>
-        <% for tweet in @tweets %>
-        <%= tweet.html_safe %>
-        <% end %>
-        <% end %>
-      </div>
-    </div>
-    <div class='col-md-4' id='igfeed'>
-      <h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
-      <p>
-	<div id='alligposts' style="overflow-y:scroll;max-height:500px;">
-          <% if @ig_photos.nil? %>
-          <h3 class='reminder'>
-            You haven't linked your Instagram account yet. This can be fixed on the edit page!
-          </h3>
-          <% elsif @ig_photos == -1 %>
-          <h3 class='reminder'>Unfortunately we're having trouble connecting to Instagram. Make sure you entered a valid, public Instagram URL.</h3>
-          <% else %>
-          <% for photo_url in @ig_photos %>
-          <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-          <% end %>
-          <% end %>
-        </div>
-      </p>
-    </div>
-  </div>
 
-</div>
+          <% end %>
+        </div>
+      </div>
+      <div class='col-md-4' id='twfeed'>
+        <h2>Tweets <%= image_tag "twitter-icon.png", height: "50px" %></h2>
+        <div id='alltwposts' style="overflow-y:scroll;max-height:500px;">
+          <% if !@tweets.nil? %>
+          <% for tweet in @tweets %>
+          <%= tweet.html_safe %>
+          <% end %>
+          <% else %>
+          <h3 class='reminder'>
+	    You haven't linked your Twitter yet. This can be fixed on the edit page!
+	  </h3>
+
+          <% end %>
+        </div>
+      </div>
+      <div class='col-md-4' id='igfeed'>
+        <h2>Instagram <%= image_tag "insta-icon.png", height: "50px" %></h2>
+        <p>
+	  <div id='alligposts' style="overflow-y:scroll;max-height:500px;">
+            <% if !@ig_photos.nil? %>
+            <% for photo_url in @ig_photos %>
+            <iframe src="<%= photo_url %>embed/" width="340" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+            <% end %>
+            <% else %>
+            <h3 class='reminder'>
+              You haven't linked your Instagram account yet. This can be fixed on the edit page!
+            </h3>
+            <% end %>
+          </div>
+        </p>
+      </div>
+    </div>
+
+  </div>
 
 <div class='container spec'>
   <div class='row'>
@@ -161,7 +158,7 @@
     <h2>Studio Location</h2>
     <div id="show-studio-map-canvas"></div>
     <!-- see makeStreetView function in --
-      -- javascripts/show_studio_map.js -->
+    -- javascripts/show_studio_map.js -->
     <div id="show-studio-streetview-canvas"></div>
   </div>
 </div>
