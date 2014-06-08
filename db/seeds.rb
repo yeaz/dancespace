@@ -759,12 +759,29 @@ ActsAsTaggableOn::Tagging.create(
 
 #### STUDIO TAGS #########
 
-# for tag in tags[1,5]
-#   ActsAsTaggableOn::Tagging.create(
-#                                  tag_id: 8,
-#                                  taggable_id: 1,
-#                                  context: 'tags',
-#                                  taggable_type: 'Studio',
-#                                  created_at: 0)
-# end
+(1..5).each do |i|
+  ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 1,
+                                 context: 'tags',
+                                 taggable_type: 'Studio',
+                                 created_at: 0)
+end
 
+(4..8).each do |i|
+    ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 2,
+                                 context: 'tags',
+                                 taggable_type: 'Studio',
+                                 created_at: 0)
+end
+
+(3..7).each do |i|
+    ActsAsTaggableOn::Tagging.create(
+                                 tag_id: i,
+                                 taggable_id: 3,
+                                 context: 'tags',
+                                 taggable_type: 'Studio',
+                                 created_at: 0)
+end
