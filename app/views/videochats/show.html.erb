@@ -1,50 +1,34 @@
+<% content_for :peer_js do %>
+    <%= javascript_include_tag "http://cdn.peerjs.com/0.3/peer.js" %>
+<% end %>
+<% content_for :videochat_js do %>
+  <%= javascript_include_tag "videochat.js" %>
+<% end %>
+<script>
+  <% if current_user == @videochat.user %>
+    peer.on('open', function(){
+    $.post('/set_host_peer_id', 
+      {videochat_id: <%= @videochat.id %>, host_peer_id: peer.id, authenticity_token: AUTH_TOKEN}, 
+      function(data) {});
+    });
+  <% end %>
+</script>
 <%= render "home/navbar" %>
 <div class="spec container">
-  <% content_for :peer_js do %>
-    <%= javascript_include_tag "http://cdn.peerjs.com/0.3/peer.js" %>
-  <% end %>
-  <% content_for :videochat_js do %>
-    <%= javascript_include_tag "videochat.js" %>
-  <% end %>
-  <script>
-    <% if current_user == @videochat.user %>
-      peer.on('open', function(){
-        $.post('/set_host_peer_id', 
-             {videochat_id: <%= @videochat.id %>, host_peer_id: peer.id, authenticity_token: AUTH_TOKEN}, 
-             function(data) {});
-      });
-    <% end %>
-  </script>
-
   <div class="pure-g">
     <h1>Chatroom: <b><%=@videochat.title%></b></h1>
     <!-- Get local audio/video stream -->
     <div id="step1">
-      <h3 style="background-color:rgba(245,0,41,.5);">Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</h3>
       <div id="step1-error">
         <h4 style="color:red;"><b>Failed to access the webcam and microphone. Make sure to click allow when asked for permission by the browser.</b></h4>
         <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>
       </div>
     </div>
-    <!-- Make calls to others -->
-    <div class="row">
-      <div id="step2">
-        <div class="col-md-6">
-          <br/><h4>Your caller ID: <b><span id="my-id">...</span></b> <br><i>(Share this ID with others so they can call you.)</i></h4>
-        </div>
-        <div class="col-md-6" id="make-a-call">
-          <h3>Make a Call</h3>
-          <input type="text" placeholder="Call User ID" id="callto-id">
-          <a href="#" class="btn btn-warning" id="make-call">Call</a>
-        </div>
-      </div>
-    </div>
 
-  <!-- Call in progress -->
-  <div id="step3">
-    <h5>Currently in call with <b><span id="their-id">...</span></h5></h5>
-    <p><a href="#" class="btn btn-warning" id="end-call">End call</a></p>
-  </div>
+    <!-- Call in progress -->
+    <div id="step2">
+      <p><a href="#" class="btn btn-warning" id="end-call">End call</a></p>
+    </div>
 
         <!-- Video area -->
         <div class="videochatwindows" id="video-container"><br/>
