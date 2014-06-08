@@ -483,7 +483,7 @@ Event.create(name: "Wings and Dubstep",
               event_time: "20:00:00"
              )
 
-########### TAGS ############
+########### USER TAGS ############
 
 tags = ["contemporary", "jazz", "ballet", "hip hop", "modern", "salsa", "swing", "tap"]
 
@@ -569,7 +569,7 @@ ActsAsTaggableOn::Tagging.create(
                                  created_at: 0)
 
 ActsAsTaggableOn::Tagging.create(
-                                 tag_id: 3
+                                 tag_id: 3,
                                  taggable_id: 4,
                                  context: 'styles',
                                  taggable_type: 'User',
@@ -589,36 +589,200 @@ ActsAsTaggableOn::Tagging.create(
                                  taggable_type: 'User',
                                  created_at: 0)
 
-# ActsAsTaggableOn::Tagging.create(
-#                                  tag_id: 3,
-#                                  taggable_id: 7,
-#                                  context: 'styles',
-#                                  taggable_type: 'User',
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 3,
+                                 taggable_id: 7,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 8,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 1,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 2,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 3,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 4,
+                                 taggable_id: 4,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 5,
+                                 taggable_id: 5,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 5,
+                                 taggable_id: 6,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 5,
+                                 taggable_id: 7,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 5,
+                                 taggable_id: 8,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 5,
+                                 taggable_id: 1,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 6,
+                                 taggable_id: 2,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 6,
+                                 taggable_id: 3,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 6,
+                                 taggable_id: 3,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 6,
+                                 taggable_id: 4,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 6,
+                                 taggable_id: 5,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 7,
+                                 taggable_id: 6,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 7,
+                                 taggable_id: 7,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 7,
+                                 taggable_id: 8,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 7,
+                                 taggable_id: 1,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 7,
+                                 taggable_id: 2,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 8,
+                                 taggable_id: 6,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 8,
+                                 taggable_id: 7,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 8,
+                                 taggable_id: 8,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 8,
+                                 taggable_id: 1,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+ActsAsTaggableOn::Tagging.create(
+                                 tag_id: 8,
+                                 taggable_id: 2,
+                                 context: 'styles',
+                                 taggable_type: 'User',
+                                 created_at: 0)
+
+#### STUDIO TAGS #########
+
+# for tag in tags[1,5]
+#   ActsAsTaggableOn::Tagging.create(
+#                                  tag_id: 8,
+#                                  taggable_id: 1,
+#                                  context: 'tags',
+#                                  taggable_type: 'Studio',
 #                                  created_at: 0)
-
-# ActsAsTaggableOn::Tagging.create(
-#                                  tag_id: 3,
-#                                  taggable_id: 8,
-#                                  context: 'styles',
-#                                  taggable_type: 'User',
-#                                  created_at: 0)
-
-# ActsAsTaggableOn::Tagging.create(
-#                                  tag_id: 3,
-#                                  taggable_id: 8,
-#                                  context: 'styles',
-#                                  taggable_type: 'User',
-#                                  created_at: 0)
-
-# ActsAsTaggableOn::Tagging.create(
-#                                  tag_id: 3,
-#                                  taggable_id: 8,
-#                                  context: 'styles',
-#                                  taggable_type: 'User',
-#                                  created_at: 0)
-
-
-
-
-
+# end
 
