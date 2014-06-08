@@ -465,6 +465,24 @@ Studio.create(name: "Millennium Dance Complex",
 
 Membership.create(member_id: 4, studio_id: 3, is_admin: true, created_at: 0, updated_at: 0)
 
+########### EVENTS ###########
+Event.create(name: "Wings and Dubstep",
+             description: "Come eat delicious bbq wings in 7 flavors and show us your best moves to the latest dubstep tunes.",
+             studio_id: 3,
+             created_at: 0, 
+             updated_at: 0, 
+              address_line1: "5113 Lankershim Blvd",
+              address_line2: "", 
+              city: "San Fernando Valley",
+              state: "CA",
+              lat: 34.1636,
+              lng: -118.374,
+              is_location_set: 1, 
+              zip_code: "91601",
+              event_date: "2014-07-15",
+              event_time: "20:00:00"
+             )
+
 ########### TAGS ############
 
 tags = ["contemporary", "jazz", "ballet", "hip hop", "modern", "salsa", "swing", "tap"]
