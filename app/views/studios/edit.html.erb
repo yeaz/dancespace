@@ -1,6 +1,7 @@
 <%= render "home/navbar" %>
 <div class = "container spec submitter">
   <h1>Edit Studio Information</h1>
+  <h3>General Information</h3>
   <%= bootstrap_form_for(@studio, layout: :inline) do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
   <div>
@@ -19,11 +20,13 @@
     <%= f.text_field :city, placeholder: 'city', size: 50 %>
   </div>
   <div>
-    <%= f.select :state, options_for_select(us_states) %>
+    <%= f.select :state, options_for_select(us_states, @studio.state) %>
   </div>
   <div>
     <%= f.text_field :zip_code, placeholder: 'zip code', size: 40 %>
-  </div>  
+  </div>
+  <h3>Social Media & Contact Information</h3>
+  <h5><i>(In order to display your social media on our site, your profiles must be public.)</i></h5>  
   <div>
     <%= f.text_field :fb_url, label: "Facebook: ", size: 40 %>
   </div>

@@ -40,8 +40,16 @@
 		<% elsif current_user.id == @user.id %>
 			<div class="reminder"> Edit profile to add a personal blurb about yourself.</div>
 		<%end%>
+		<% if @user.styles.length>0 %>
+			<% for tag in @user.styles %>
+				<a href="/tags/<%=tag.id%>">#<%= tag.name %></a>&nbsp;  
+			<% end %>
+		<% else %>
+			<div class="reminder">Edit profile to add your dance styles.</div>
+		<% end %>
+
 	</div>
-	<div class="col-md-5 social-media" style="float:right;">
+	<div class="col-md-5 social-media" style="text-align:right;">
 		<br><br>
 		<% if @user.website_url!="" && @user.website_url!= nil %>
 			<a href="<%=@user.website_url%>"><%=@user.website_url%></a><br/>
@@ -97,26 +105,19 @@
 	</ul>
 	<% end %>
 
-	<h2>Styles</h2>
-	<div style="padding-left:30px;">
-		<% for tag in @user.styles %>
-		#<%= tag %>&nbsp;  
-		<% end %>
-	</div>
-
 	<div class='container spec' id='socialfeeds'>
 		<div class='row' id='ytfeed'>
 			<div class='col-md-12'>
 				<h2>YouTube Channel <%= image_tag "youtube-icon.png", height:
 				"50px" %></h2>
-							<%= link_to 'See All Youtube Videos', user_youtube_videos_path(@user) %>
 				<div id='ytviewer'></div>
 				<p>
 		<% if !@videos.nil? %>
-		<% for video in @videos %>
-		<img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
-		&nbsp;
-		<% end %>
+			<%= link_to 'See All Youtube Videos', user_youtube_videos_path(@user) %>
+			<% for video in @videos %>
+				<img class='yt-thumb' onclick="ytview('<%=video%>')" src="http://img.youtube.com/vi/<%=video%>/0.jpg">
+				&nbsp;
+			<% end %>
 		<% else %>
 		<h3 class='reminder'>
 			You haven't linked your YouTube channel yet. This can be fixed on the edit page!

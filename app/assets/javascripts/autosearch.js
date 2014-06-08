@@ -79,6 +79,7 @@ function autosearch(input, resultsdivID, type){
 				break;
 			case "dancer":
 				displayAllDancers(results_container);
+				break;
 			case "event":
 				displayAllEvents(results_container);
 				break;
@@ -140,7 +141,7 @@ function displayAllDancers(container){
 	jQuery.get(url, function(data){
 		var HTML = "";
 		for(var i=0; i<data.length; i++){
-			HTML+=createEventListing(data[i]);
+			HTML+=createDancerListing(data[i]);
 		}
 		container.innerHTML = HTML;
 	});
@@ -159,31 +160,48 @@ function displayAllEvents(container){
 
 function createStudioListing(entry){
 	var string = "<div class=\"row\">" + 
-				"<div class=\"listing-photo col-md-2\"><img src=\"/assets/studio1.jpg\"></div>" + 
-				"<div class=\"listing-info col-md-6\">" +
+				"<div class=\"listing-photo col-md-2\">";
+				if(entry.photo_path!="" && entry.photo_path!=null){
+					string+="<img src='/images/" + entry.photo_path + "'>";
+				}else{
+					string+="<img src=\"/assets/studio1.jpg\">";
+				}
+				string+= "</div><div class=\"listing-info col-md-6\">" +
 					"<h3><b><a href= \"/studios/" + entry.id + " \" data-no-turbolink=\"true\" >" + entry.name + " </a></h3></b>" +  
 					"<div class=\"listing-blurb\"><h5>" + entry.description + "</h5></div>" +
 				"</div>" + 
 				"<div class=\"col-md-4 social-media\">" + 
 					"<h4>" + entry.address_line1 +"<br/> " + entry.city+", "+entry.state + entry.zip_code + "</h4>" +
-					"<b>E-MAIL: </b>" + entry.email + " <br/>" + 
-					"<b>PHONE: </b>(" + entry.phone_area_code + ") " + entry.phone_1 + "-" + entry.phone_2 + 
-				"</div></div><hr>";
+					"<b>E-MAIL: </b>" + entry.email + " <br/>";
+				if(entry.phone_area_code!="" && entry.phone_area_code!=null){
+					string+="<b>PHONE: </b>(" + entry.phone_area_code + ") " + entry.phone_1 + "-" + entry.phone_2;
+				}
+				string+="</div></div><hr>";
 	return string;
 }
 
 function createDancerListing(entry){
 	var string = "<div class=\"row\">" +
-				"<div class=\"listing-photo col-md-2\"><img src=\"assets/blank_profile.jpg\"></div>" +  
-				"<div class=\"col-md-6\">" + 
+				"<div class=\"listing-photo col-md-2\">";
+				if(entry.photo_path!="" && entry.photo_path!=null){
+					string+="<img src='/images/" + entry.photo_path + "'>";
+				}else{
+					string+="<img src=\"assets/blank_profile.jpg\">";
+				}
+				string+= "</div><div class=\"col-md-6\">" + 
 					"<h3><b><a href=\"/users/" + entry.id + "\" data-no-turbolink=\"true\">" + entry.first_name + " " + entry.last_name + "</a></b></h3>" +
 					"<div class=\"listing-blurb\"><h5>" + entry.blurb + "</h5></div>" + 
 				"</div>" + 
-				"<div class=\"col-md-4 social-media\">" + 
-					"<h4>" + entry.city + ", " + entry.state + "</h4>" +
-					"<b>E-MAIL:</b>" + entry.email + "<br/>" + 
-					"<b>PHONE: </b>(" + entry.phone_area_code + ") "+ entry.phone_1 + "-" + entry.phone_2 + 
-				"</div></div><hr>";
+				"<div class=\"col-md-4 social-media\">";
+					if(entry.city!="" && entry.city!= null){
+						string += "<h4>" + entry.city + ", " + entry.state + "</h4>";
+					}
+					string += "<b>E-MAIL:</b>" + entry.email + "<br/>";
+					if(entry.phone_area_code!="" && entry.phone_area_code!=null){
+						string += "<b>PHONE: </b>(" + entry.phone_area_code + ") "+ entry.phone_1 + "-" + entry.phone_2;
+					} 
+					
+				string += "</div></div><hr>";
 	return string;
 }
 

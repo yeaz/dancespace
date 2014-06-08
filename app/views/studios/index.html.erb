@@ -27,7 +27,12 @@
 	    <% for s in @studios do %>
 			<div class="row">
 				<div class="listing-photo col-md-2">
-					<%= image_tag "studio1.jpg" %>
+					<% if s.photo_path!="" && s.photo_path != nil %>
+						<img src='/images/<%=s.photo_path%>'>
+					<%else%>
+						<%= image_tag "studio1.jpg" %>
+					<%end%>
+					
 				</div>
 				<div class="listing-info col-md-6">
 					<h3><b><a href= <%= studio_path(s) %> data-no-turbolink="true" > <%= s.name %> </a></h3></b>
