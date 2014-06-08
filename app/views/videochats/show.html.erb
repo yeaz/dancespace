@@ -40,10 +40,6 @@
 
     // Get things started
     step1();
-    <% if current_user != @videochat.user %>
-      var call = peer.call($(<%= @videochat.host_peer_id %>, window.localStream);
-      step2(call); 
-    <% end %>
   });
 
   function step1 () {
