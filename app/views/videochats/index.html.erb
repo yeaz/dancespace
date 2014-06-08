@@ -1,6 +1,9 @@
 <%= render "home/navbar" %>
 <div class="spec container vidchatindex">
-	<h1>Existing Video Chatrooms</h1>
+	<h1>Video Stream</h1>
+	<p>Watch others streams or create your own!</p><br><br>
+	<a href="/videochats/new" class='btn btn-lg btn-warning'>Create New Stream</a>
+	<h2>Existing Streams</h2>
 	<ul>
 		<% for videochat in @videochats %>
 		  <li>
