@@ -18,7 +18,9 @@ DanceSpace::Application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
   
-  resources :users
+  resources :users do
+    get 'youtube_videos', to: 'users#get_all_yt_videos'
+  end
   get 'user_settings', to: 'users#edit_profile'
   get 'random_user', to: 'users#get_random_user'
   get 'all_dancers', to: 'users#get_all_dancers'
@@ -70,6 +72,11 @@ DanceSpace::Application.routes.draw do
   
   resources :videochats
   post 'set_host_peer_id', to: "videochats#set_host_peer_id"
+
+  get 'autosearch_tags', to: "tags#get_search_tags"
+
+
+ resources :tags, only: [:index, :show, :edit, :update, :destroy]
 
   
   # The priority is based upon order of creation: first created -> highest priority.

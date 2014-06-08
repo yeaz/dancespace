@@ -3,7 +3,132 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#   cities = City.create([{ name: 'Chicago' },     { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Emanuel',     city: cities.first)
 
-roles = Role.create([{ name: 'Choreographer' }, { name: 'Studio_owner' }])
+roles = Role.create([{ name: 'Choreographer' }, 
+		    { name: 'Studio_owner' }])
+
+# Users Creation
+User.create(email: "ellenkim@mail.com", 
+		    password: "password", 
+		    password_confirmation: "password", 
+		    reset_password_token: nil, 
+		    reset_password_sent_at: nil, 
+		    remember_created_at: nil, 
+		    sign_in_count: 1, 
+		    current_sign_in_at: "2014-06-07 20:25:01", 
+		    last_sign_in_at: "2014-06-07 20:25:01", 
+		    current_sign_in_ip: "127.0.0.1", 
+		    last_sign_in_ip: "127.0.0.1", 
+		    created_at: "2014-06-07 20:25:01", 
+		    updated_at: "2014-06-07 20:25:01", 
+		    first_name: "Ellen", 
+		    last_name: "Kim", 
+		    blurb: nil, 
+		    city: nil, 
+		    state: nil, 
+		    title: nil, 
+		    fb_url: "", 
+		    twtr_url: "", 
+		    yt_url: "ellenkimCHEEE", 
+		    ig_url: "", 
+		    website_url: nil, 
+		    phone_area_code: "", 
+		    phone_1: "", 
+		    phone_2: "", 
+		    photo_path: "")
+
+User.create(email: "emmaportner@mail.com", 
+		    password: "password", 
+		    password_confirmation: "password", 
+		    reset_password_token: nil, 
+		    reset_password_sent_at: nil, 
+		    remember_created_at: nil, 
+		    sign_in_count: 1, 
+		    current_sign_in_at: "2014-06-07 20:25:01", 
+		    last_sign_in_at: "2014-06-07 20:25:01", 
+		    current_sign_in_ip: "127.0.0.1", 
+		    last_sign_in_ip: "127.0.0.1", 
+		    created_at: "2014-06-07 20:25:01", 
+		    updated_at: "2014-06-07 20:25:01", 
+		    first_name: "Emma", 
+		    last_name: "Portner", 
+		    blurb: nil, 
+		    city: nil, 
+		    state: nil, 
+		    title: nil, 
+		    fb_url: "", 
+		    twtr_url: "", 
+		    yt_url: "EmmaPortner", 
+		    ig_url: "", 
+		    website_url: nil, 
+		    phone_area_code: "", 
+		    phone_1: "", 
+		    phone_2: "", 
+		    photo_path: "")
+
+User.create(email: "ianeastwood@mail.com", 
+		    password: "password", 
+		    password_confirmation: "password", 
+		    reset_password_token: nil, 
+		    reset_password_sent_at: nil, 
+		    remember_created_at: nil, 
+		    sign_in_count: 1, 
+		    current_sign_in_at: "2014-06-07 20:25:01", 
+		    last_sign_in_at: "2014-06-07 20:25:01", 
+		    current_sign_in_ip: "127.0.0.1", 
+		    last_sign_in_ip: "127.0.0.1", 
+		    created_at: "2014-06-07 20:25:01", 
+		    updated_at: "2014-06-07 20:25:01", 
+		    first_name: "Ian", 
+		    last_name: "Eastwood", 
+		    blurb: nil, 
+		    city: nil, 
+		    state: nil, 
+		    title: nil, 
+		    fb_url: "", 
+		    twtr_url: "", 
+		    yt_url: "DJIcon", 
+		    ig_url: "", 
+		    website_url: nil, 
+		    phone_area_code: "", 
+		    phone_1: "", 
+		    phone_2: "", 
+		    photo_path: "")
+
+# Studios Creation
+Studio.create(name: 'Jake Studio', 
+		    description: "chill studio", 
+		    created_at: 0, 
+		    updated_at: 0, 
+		    fb_url: "", 
+		    ig_url: "", 
+		    website_url: "", 
+		    email: "test@gmail.com", 
+		    phone_area_code: "123", 
+		    phone_1: "555", 
+		    phone_2: "9876", 
+		    lat: 37.421313, 
+		    lng: -122.168424,
+		    is_location_set: 1, 
+		    zip_code: "94305", 
+		    address_line1: "22 Lasuen", 
+		    address_line2: "", 
+ 		   city: "Stanford", 
+		    state: "CA", 
+		    yt_username: "", 
+		    twtr_username: "", 
+		    photo_path: "")
+
+Membership.create(member_id: 1, studio_id: 1, is_admin: true, created_at: 0, updated_at: 0)
+
+# Experience Creation
+Experience.create(content: "wtwo", 
+		    user_id: 1, 
+		    created_at: 0, 
+		    updated_at: 0);
+Experience.create(content: "sfa", 
+		    user_id: 1, 
+		    created_at: 0, 
+		    updated_at: 0);

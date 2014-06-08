@@ -27,10 +27,8 @@
   <div id="eventresults">
     <% for e in @events do %>
     	  <h2><b><a href="<%= event_path(e) %>"  data-no-turbolink="true"><%= e.name %></a></b></h2>
-    	  <div>Description: <%= e.description %></div>
-    	  <div>Created by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a></div>
-     	  <div>Date and time: <%= e.event_date %>
-                [at] <%= e.event_time.strftime("%H:%M") %></div>
+        <div><b><%= e.event_date %> at <%= e.event_time.strftime("%H:%M") %></b>, Hosted by: <a href="<%= studio_path(e.studio_id)%>"><%= e.studio.name %></a>
+    	  <div>=<%= e.description %></div>
     <% end %>
   </div>
 </div>

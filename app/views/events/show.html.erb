@@ -3,42 +3,52 @@
 <% end %>
 
 <%= render "home/navbar" %>
-<div class="container spec display">
+<div class="container spec display event-show">
 	<div class="row">
-		<div class='propic col-md-3'>
-        <%= get_event_profile_pic(@event.photo_path) %></div>
-		<div class="col-md-9">
-			<h1><%= @event.name %>
-	                  <% if current_user_owns_studio(@event.studio_id) %>
-	                    <%= link_to 'Edit', edit_event_path(@event), class:
-	                    "btn btn-warning" %>
-	                  <% end %>
+<!-- 		<div class="col-md-12 event-banner">
+        	<%= get_event_profile_pic(@event.photo_path) %>
+    	</div> -->
+		<div class="col-md-12 event-info">
+			<h1>
+				<%= @event.name %>
 			</h1>
-			  <p><b>Description</b><br><%= @event.description %></p><br>
-		      <p><b>Created by</b><br><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></p>
-		  </div>
-		</div>
-	<div class='row'>
-                <p><b>Date and time</b><br><%= @event.event_date %>
-                [at] <%= @event.event_time.strftime("%H:%M") %></p><br>
-	      <p><b>Tags</b><br>
-	  	  <div style="padding-left:0px;">
-	  	   <% for tag in @event.tags %>
-			 #<%= tag %>&nbsp;  
-		   <% end %>
-		   </div>
+			<h3>
+				<b><%= @event.event_date %> at <%= @event.event_time.strftime("%H:%M") %></b>
+			</h3>
 
-	      <p><b>Location</b><br>
-			  <%= @event.address_line1 %> <%= @event.address_line2 %><br>
-			  <%= @event.city %>, <%= @event.state %>
-			  <%= @event.zip_code %>
-		</p>
-</div>
-                <div id="show-event-map-canvas"></div>
+			<h4>
+				Hosted by <b><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></b>
+				<% if current_user_owns_studio(@event.studio_id) %>
+		            <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-warning" %>
+		        <% end %>
+	        </h4>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class="col-md-5">
+			<h2><b>About the Event</b></h2>
+			<h4><%= @event.description %></h4><br/>
+
+			<h5><b>Tags:</b>
+		  	   		<% for tag in @event.tags %>
+				 		<a href="/tags/<%=tag.id%>">#<%= tag %></a>&nbsp;  
+			   		<% end %>
+			</h5>
+		</div>
+		<div class="col-md-7 event-location">
+			<br/>
+			<p><b><a href="<%= studio_path(@event.studio_id)%>"><%= @event.studio.name %></a></b><br></p>
+			<h4>
+				<%= @event.address_line1 %> <%= @event.address_line2 %><br>
+				<%= @event.city %>, <%= @event.state %>
+				<%= @event.zip_code %>
+			</h4>
+			<div id="show-event-map-canvas">
+        	</div>
 		</div>
 	</div>
 </div>
 
-<div id="get_event_id"><%= @event.id %></div>
 
-<%= @event.photo_path %>
+<div id="get_event_id"><%= @event.id %></div>

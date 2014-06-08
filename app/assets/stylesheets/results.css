@@ -40,3 +40,9 @@
 	margin-bottom: 0px;
 	margin-right: 2px;
 }
+
+#tmp{
+	visibility: hidden;
+	z-index: -1000;
+	position: absolute;
+}

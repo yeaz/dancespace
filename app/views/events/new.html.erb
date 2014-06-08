@@ -1,52 +1,58 @@
 <%= render "home/navbar" %>
 <div class="container submitter">
-<h1>Event Create</h1>
-<%= bootstrap_form_for [@studio, @event] do |f| %>
-  <%= f.alert_message "Please fix the errors below." %>
-  <div>
-    <%= f.text_field :name, placeholder: 'name' %>
+<h1>New Event</h1>
+<h5>(The form has been pre-filled with your studio's address.)</h5>
+<div class="row">
+  <div class="col-md-6">
+  <%= bootstrap_form_for [@studio, @event] do |f| %>
+    <%= f.alert_message "Please fix the errors below." %>
+    <div>
+      <%= f.text_field :name, placeholder: 'Event Name' %>
+    </div>
+    <div>
+      <%= f.text_area :description, placeholder: 'Description' %>
+    </div>
+    <% if @event.errors.include?(:event_date_time) %>
+    <br><br>
+      <div class="alert
+      alert-danger"><%= @event.errors[:event_date_time][0] %></div> 
+    <% end %>
+    <div>
+      <%= f.date_field :event_date %>
+    </div>
+    <div>
+      <%= f.time_field :event_time %>
+    </div>
+    <div>
+      <%= f.file_field :photo_path, label: "Profile Picture"%>
+    </div>
+    <div>
+      <%= f.text_field :tag_list, label: "Event tags", placeholder:
+      'List different styles with a comma in between (i.e tap, jazz, hip
+      hop)' %>
+    </div>
+  </div><div class="col-md-6">
+      <div>
+      <%= f.text_field :address_line1, placeholder: 'Address Line 1', value: @studio.address_line1 %>
+    </div>
+    <div>
+      <%= f.text_field :address_line2, placeholder: 'Address Line 2', value: @studio.address_line2 %>
+    </div>
+    <div>
+      <%= f.text_field :city, placeholder: 'City', value: @studio.city %>
+    </div>
+    <div>
+      <%= f.select :state, options_for_select(us_states, @studio.state) %>
+    </div>
+    <div>
+      <%= f.text_field :zip_code, placeholder: 'Zip Code', value: @studio.zip_code %>
+    </div>
+    <div>
+      <br/><br/><br/><br/><%= f.submit 'Create Event', class: "btn btn-lg btn-warning
+      btn-block" %>
+    </div>
   </div>
-  <div>
-    <%= f.text_field :description, placeholder: 'description' %>
-  </div>
-  <div>
-    <%= f.text_field :address_line1, placeholder: 'address line 1' %>
-  </div>
-  <div>
-    <%= f.text_field :address_line2, placeholder: 'address line 2' %>
-  </div>
-  <div>
-    <%= f.text_field :city, placeholder: 'city' %>
-  </div>
-  <div>
-    <%= f.select :state, options_for_select(us_states, nil) %>
-  </div>
-  <div>
-    <%= f.text_field :zip_code, placeholder: 'zip code' %>
-  </div>
-  <% if @event.errors.include?(:event_date_time) %>
-  <br><br>
-    <div class="alert
-    alert-danger"><%= @event.errors[:event_date_time][0] %></div> 
-  <% end %>
-  <div>
-    <%= f.date_field :event_date %>
-  </div>
-  <div>
-    <%= f.time_field :event_time %>
-  </div>
-  <div>
-    <%= f.file_field :photo_path, label: "Profile Picture"%>
-  </div>
-  <div>
-    <%= f.text_field :tag_list, label: "Event tags", placeholder:
-    'List different styles with a comma in between (i.e tap, jazz, hip
-    hop)' %>
-  </div>
-  <div>
-    <%= f.submit 'Create Event', class: "btn btn-lg btn-warning
-    btn-block" %>
-  </div>
+</div>
 
 <% end %>
 </div>

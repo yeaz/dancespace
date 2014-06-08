@@ -158,4 +158,102 @@ module StudioHelper
       return path.html_safe
     end
   end
+
+  
+    def get_tweets(studio, field_name)
+      handle = studio.send(field_name)
+      if handle.blank?
+        return nil
+      end
+      tweets = []
+      puts 'TWITTER'
+      puts handle
+      # Authorization header with Twitter API bearer token
+      twtr_auth_header='Bearer AAAAAAAAAAAAAAAAAAAAADRrWQAAAAAApUt6lWbEy4UE1wOZdDpGOruYyZ4%3DfoxWCyjFFURIDxrOjMuAVHKvkoMHrKnQH9dtMqKVBfAKAP4gyF'
+      # Twitter Status API URL 
+      twtr_status_api_url='https://api.twitter.com/1.1/statuses/user_timeline.json'
+      # Twitter Oembed API URL
+      twtr_oembed_api_url='https://api.twitter.com/1/statuses/oembed.json?'
+      
+      # Twitter Status API params
+      status_params = {:screen_name => handle, 
+                :count => 5, 
+                :exclude_replies => true}
+                
+      # Send Twitter Search API request
+      response = RestClient.get twtr_status_api_url, 
+                               :params => status_params, 
+                               :authorization => twtr_auth_header
+      
+      if response.code == 200
+        json = JSON.parse(response)
+        for tweet in json
+          request_url = twtr_oembed_api_url + 'id=' + tweet['id_str']
+          response = RestClient.get request_url
+                                                                        
+          if response.code == 200
+            json = JSON.parse(response)
+            tweets << json['html']
+          end
+        end
+      end
+      tweets
+    end
+
+    
+    def get_youtube_api_response(studio, maxResults = 5, pageToken = '', field_name)
+      puts 'YOUTUBE'
+      puts field_name
+      username = studio.send(field_name)
+      if username.blank?
+        return nil
+      end
+      
+      prevPageToken = ''
+      nextPageToken = ''
+      items = []
+      
+      # Google API Key
+      google_api_key = 'AIzaSyC4WCykK27pFFElrwy72AvUDWS812e0DKk'
+      # Youtube Channel API URL 
+      youtube_channel_api_url = 'https://www.googleapis.com/youtube/v3/channels'
+      # Youtube Playlist API URL
+      youtube_playlist_api_url = 'https://www.googleapis.com/youtube/v3/playlistItems'
+    
+      # Channel API params
+      channel_params = { :part => 'contentDetails',
+                 :forUsername => username,
+                 :key => google_api_key }
+                 
+      channel_response = RestClient.get youtube_channel_api_url,
+                                        :params => channel_params
+    
+      if channel_response.code == 200
+        json = JSON.parse(channel_response)
+        uploads_playlist_id = json['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+        if !uploads_playlist_id.blank?
+          # Playlist API params 
+          playlist_params = { :part => 'contentDetails',
+                              :playlistId => uploads_playlist_id,
+                              :maxResults => maxResults,
+                              :pageToken => pageToken,
+                              :key => google_api_key }
+                              
+          playlist_response = RestClient.get youtube_playlist_api_url,
+                                    :params => playlist_params
+          
+          if playlist_response.code == 200
+            json = JSON.parse(playlist_response)
+            prevPageToken = json['prevPageToken']
+            nextPageToken = json['nextPageToken']
+            for item in json['items']
+              items << item['contentDetails']['videoId']
+            end
+          end
+        end
+      end
+      { :prevPageToken => prevPageToken, 
+       :nextPageToken => nextPageToken, 
+       :items => items }
+    end
 end
