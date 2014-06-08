@@ -43,6 +43,8 @@ DanceSpace::Application.routes.draw do
     get 'get_address', to: 'events#get_address'
     get 'get_coordinates', to: 'events#get_coordinates'
     get 'set_coordinates', to: 'events#set_coordinates'
+    get 'make_event_listing', to: "events#make_event_listing"
+
   end
   
   resources :events

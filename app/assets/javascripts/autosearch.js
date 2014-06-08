@@ -117,11 +117,7 @@ function searchDancers(container, input){
 function searchEvents(container, input){
 	url = "autosearch_events?query=" + input;
 	jQuery.get(url, function(data){
-		var HTML = "";
-		for(var i=0; i<data.length; i++){
-			HTML +=createEventListing(data[i]);
-		}
-		container.innerHTML = HTML;
+		container.innerHTML = data; 
 	});
 }
 
@@ -156,6 +152,14 @@ function displayAllEvents(container){
 		}
 		container.innerHTML = HTML;
 	})
+}
+
+function createEventListing(entry){
+	var string = "<h2><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h2>" +
+	  "<div><b>" + entry.event_date + " at " + entry.event_time + "</b>, " +
+	  "Hosted by: <a href=\"/studios/" + entry.studio_id + "\">" + "STUDIO" + "</a>" + 
+    	"<div>" + entry.description + "</div>";	  
+	return string;
 }
 
 function createStudioListing(entry){
@@ -205,14 +209,6 @@ function createDancerListing(entry){
 	return string;
 }
 
-
-function createEventListing(entry){
-	var string = "<h2><b><a href=\"/events/" + entry.id + "\"  data-no-turbolink=\"true\">" + entry.name + "</a></b></h2>" +
-	  "<div><b>" + entry.event_date + " at " + entry.event_time + "</b>, " +
-	  "Hosted by: <a href=\"/studios/" + entry.studio_id + "\">" + "STUDIO" + "</a>" + 
-    	"<div>" + entry.description + "</div>";	  
-	return string;
-}
 
 function miniListing(entry, type){
 	var string = "";

@@ -120,15 +120,26 @@ class EventsController < ApplicationController
     end
   end
 
+  def make_event_listing
+    event = Event.find(params[:event_id])
+    render :partial => "create_event_listing", :locals => {:e => event}
+  end
+  
+
   def get_search_events
+    puts 'QUERY'
+    puts params[:query]
     if params[:query].blank?
       @results = Event.limit(20)
     else
       @results = Event.where('name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%").limit(20) 
     end
-    respond_to do |format|
-      format.json{render json: @results}
+    puts 'RESULTS'
+    puts @results.length
+    if @results.length == 0
+      @results = []
     end
+    render :partial => "create_event_listing", :locals => {:events => @results}
   end
   
   # *** HELPER METHODS *** #
