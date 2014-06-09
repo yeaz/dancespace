@@ -127,6 +127,7 @@ class EventsController < ApplicationController
     if params[:query].blank?
       @results = Event.limit(20)
     else
+      params[:query] = params[:query].downcase
       @results = Event.where('name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%").limit(20) 
     end
     respond_to do |format|
@@ -138,9 +139,9 @@ class EventsController < ApplicationController
     if params[:query].blank?
       @results = Event.limit(20)
     else
+      params[:query] = params[:query].downcase
       @results = Event.where('name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%").limit(20) 
     end
-    puts 'RESULTS'
     puts @results.length
     if @results.length == 0
       @results = []
