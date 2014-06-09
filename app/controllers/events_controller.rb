@@ -115,9 +115,7 @@ class EventsController < ApplicationController
 
   def get_all_events
     @events = Event.all
-    respond_to do |format|
-      format.json{ render json: @events}
-    end
+    render :partial => "create_event_listing", :locals => {:events => @events}
   end
 
   def make_event_listing

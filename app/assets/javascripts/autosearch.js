@@ -146,11 +146,7 @@ function displayAllDancers(container){
 function displayAllEvents(container){
 	url = "all_events";
 	jQuery.get(url, function(data){
-		var HTML = "";
-		for(var i=0; i<data.length; i++){
-			HTML +=createEventListing(data[i]);
-		}
-		container.innerHTML = HTML;
+		container.innerHTML = data; 
 	})
 }
 
