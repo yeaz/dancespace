@@ -50,6 +50,7 @@ DanceSpace::Application.routes.draw do
   resources :events
   get 'all_events', to: 'events#get_all_events'
   get 'autosearch_events', to: 'events#get_search_events'
+  get 'autosearch_events_only', to: 'events#get_search_events_only'
 
   resources :studios, only: [:show] do
     get 'youtube_videos', to: 'studios#get_all_yt_videos'

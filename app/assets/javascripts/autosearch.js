@@ -115,7 +115,7 @@ function searchDancers(container, input){
 }
 
 function searchEvents(container, input){
-	url = "autosearch_events?query=" + input;
+	url = "autosearch_events_only?query=" + input;
 	jQuery.get(url, function(data){
 		container.innerHTML = data; 
 	});
